@@ -6,8 +6,7 @@ Created on Mon May 27 21:51:03 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
-from openerp.addons.base_status.base_stage import base_stage
+from openerp.tools.translate import _
 import jp_deal_stage
 import pdb
 import datetime
@@ -20,7 +19,7 @@ PERIOD_TYPES = [
     ('year', 'Year')
 ]
 
-class jp_deal(osv.Model, base_stage):
+class jp_deal(osv.Model):
     _name="jp.deal"
     _inherit="mail.thread"
     _description = 'Deal'    

@@ -5,7 +5,7 @@ Created on Mon May 27 11:49:30 2013
 @author: mkieszek
 """
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 from datetime import timedelta
 import pdb
 import time

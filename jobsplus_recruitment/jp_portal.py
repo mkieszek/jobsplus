@@ -6,7 +6,7 @@ Created on Mon Jul  8 11:20:53 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 import pdb
 
 class jp_portal(osv.Model):

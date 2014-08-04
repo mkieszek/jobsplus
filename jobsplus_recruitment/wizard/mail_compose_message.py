@@ -6,7 +6,7 @@ Created on Wed Jun 19 13:10:54 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 import pdb
 
 class mail_compose_message(osv.TransientModel):

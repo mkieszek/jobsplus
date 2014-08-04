@@ -5,8 +5,8 @@ Created on Mon Jul  8 11:07:22 2013
 @author: pczorniej
 """
 from openerp.osv import fields, osv
-from tools.translate import _
-from openerp.addons.mail.mail_message import decode
+from openerp.tools.translate import _
+from addons.mail.mail_message import decode
 import pdb
 import datetime
 

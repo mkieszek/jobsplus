@@ -6,7 +6,7 @@ Created on Mon Jul  8 11:28:33 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 
 class jp_time_sheet(osv.Model):
     _name = "jp.time.sheet"

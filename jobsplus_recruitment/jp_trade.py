@@ -6,7 +6,7 @@ Created on Mon Jul  8 12:13:19 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 
 class jp_trade(osv.Model):
     _name = "jp.trade"

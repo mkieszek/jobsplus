@@ -5,7 +5,7 @@ Created on Thu May 23 11:44:45 2013
 @author: mkieszek
 """
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 import pdb
 import jp_contract_stage
 

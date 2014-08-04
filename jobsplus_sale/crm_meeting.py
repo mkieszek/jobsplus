@@ -6,7 +6,7 @@ Created on Mon Jun 10 19:59:12 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 import time
 import pdb
 import pytz

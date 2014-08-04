@@ -5,7 +5,7 @@ Created on Fri May 24 11:43:41 2013
 @author: mkieszek
 """
 from openerp.osv import osv,fields
-from tools.translate import _
+from openerp.tools.translate import _
 import pdb
 
 PERIOD_TYPES = [

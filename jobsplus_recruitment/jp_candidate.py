@@ -6,14 +6,14 @@ Created on Mon Jul  8 11:18:07 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 import pdb
 import datetime
 import time
 import psycopg2
 import urlparse
 from openerp.report import report_sxw
-from openerp.addons.mail.mail_message import decode
+from addons.mail.mail_message import decode
 
 AVAILABLE_DAYS = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6'),('7','7'),('8','8'),('9','9'),('10','10'),
                  ('11','11'),('12','12'),('13','13'),('14','14'),('15','15'),('16','16'),('17','17'),('18','18'),('19','19'),('20','20'),

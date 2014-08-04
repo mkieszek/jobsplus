@@ -7,7 +7,7 @@ Created on Wed Jun 19 13:10:54 2013
 
 from datetime import timedelta
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 from openerp import pooler, tools
 import pdb
 import datetime

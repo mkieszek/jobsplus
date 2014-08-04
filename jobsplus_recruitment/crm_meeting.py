@@ -6,7 +6,7 @@ Created on Tue Jul  9 12:55:43 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 import pdb
 
 class crm_meeting(osv.Model):

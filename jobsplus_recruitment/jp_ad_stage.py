@@ -6,7 +6,7 @@ Created on Mon Jul  8 11:08:49 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
+from openerp.tools.translate import _
 
 AVAILABLE_STATES = [
     ('draft', 'New'),

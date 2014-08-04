@@ -6,13 +6,12 @@ Created on Mon May 20 13:33:45 2013
 """
 
 from openerp.osv import fields, osv
-from tools.translate import _
-from openerp.addons.base_status.base_stage import base_stage
+from openerp.tools.translate import _
 import pdb
 import jp_offer_stage
 
 
-class jp_offer(base_stage, osv.Model):
+class jp_offer(osv.Model):
     _name = "jp.offer"
     _inherit = 'mail.thread'
     _description = 'Oferte'
