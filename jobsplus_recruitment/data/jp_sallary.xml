@@ -1,0 +1,41 @@
+<openerp>
+	<data noupdate='0'>
+
+		<record model='jp.sallary' id='sallary_1'>
+			<field name="name">Dowolne</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_2'>
+			<field name="name">Do 2000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_3'>
+			<field name="name">2000 - 4000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_4'>
+			<field name="name">4000 - 6000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_5'>
+			<field name="name">6000 - 8000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_6'>
+			<field name="name">8000 - 10000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_7'>
+			<field name="name">10000 - 12000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_8'>
+			<field name="name">12000 - 15000 zł</field>
+		</record>
+		
+		<record model='jp.sallary' id='sallary_9'>
+			<field name="name">Powyżej 15000 zł</field>
+		</record>
+		
+	</data>
+</openerp>

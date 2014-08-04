@@ -1,0 +1,33 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jp_ad_administration_user,jp.ad.administration.user,jobsplus_recruitment.model_jp_ad,base.group_jp_administration_user,1,0,0,0
+access_jp_application_administration_user,jp.application.administration.user,jobsplus_recruitment.model_jp_application,base.group_jp_administration_user,1,0,0,0
+access_jp_calculation_administration_user,jp.calculation.administration.user,jobsplus_recruitment.model_jp_calculation,base.group_jp_administration_user,1,0,0,0
+access_jp_project_administration_user,jp.project.administration.user,jobsplus_recruitment.model_jp_project,base.group_jp_administration_user,1,0,0,0
+access_jp_config_administration_user,jp.config.administration.user,jobsplus_sale.model_jp_config_settings,base.group_jp_administration_user,1,0,0,0
+access_jp_contract_administration_user,jp.contract.jp.administration.user,jobsplus_sale.model_jp_contract,base.group_jp_administration_user,1,0,0,0
+access_jp_offer_jp_administration_user,jp.offer.administration.user,jobsplus_sale.model_jp_offer,base.group_jp_administration_user,1,0,0,0
+access_jp_agreement_supplier_administration_manager,jp.agreement.supplier.administration.manager,model_jp_agreement_supplier,base.group_jp_administration_manager,1,1,1,1
+access_jp_agreement_supplier_administration_user,jp.agreement.supplier.administration.user,model_jp_agreement_supplier,base.group_jp_administration_user,1,1,1,0
+access_jp_candidate_jp_administration_user,jp.candidate.jp.administration.user,model_jp_candidate,base.group_jp_administration_user,1,1,0,0
+access_jp_candidate_jp_salesmanager,jp.candidate.jp.salesmanager,model_jp_candidate,base.group_jp_salesmanager,1,1,0,0
+access_jp_candidate_rate_administration_user,jp.candidate.rate.jp.administration.user,model_jp_candidate_rate,base.group_jp_administration_user,1,1,1,0
+access_jp_candidate_rate_jp_recruiter,jp.candidate.rate.jp.recruiter,model_jp_candidate_rate,base.group_jp_recruiter,1,0,0,0
+access_jp_candidate_rate_jp_salesman,jp.candidate.rate.jp.salesman,model_jp_candidate_rate,base.group_jp_salesman,1,0,0,0
+access_jp_candidate_rate_jp_salesmanager,jp.candidate.rate.jp.salesmanager,model_jp_candidate_rate,base.group_jp_salesmanager,1,1,1,0
+access_jp_candidate_tag_adm_user,jp.candidate.tag.adm.user,model_jp_candidate_tag,base.group_jp_administration_user,1,1,1,1
+access_jp_candidate_tag_recruiter,jp.candidate.tag.recruiter,model_jp_candidate_tag,base.group_jp_recruiter,1,0,0,0
+access_jp_candidate_tag_recrutmentmanager,jp.candidate.tag.recrutmentmanager,model_jp_candidate_tag,base.group_jp_recrutmentmanager,1,1,1,1
+access_jp_client_rate_administration_user,jp.client.rate.jp.administration.user,model_jp_client_rate,base.group_jp_administration_user,1,1,1,0
+access_jp_client_rate_jp_recruiter,jp.client.rate.jp.recruiter,model_jp_client_rate,base.group_jp_recruiter,1,0,0,0
+access_jp_client_rate_jp_salesman,jp.client.rate.jp.salesman,model_jp_client_rate,base.group_jp_salesman,1,0,0,0
+access_jp_client_rate_jp_salesmanager,jp.client.rate.jp.salesmanager,model_jp_client_rate,base.group_jp_salesmanager,1,1,1,0
+access_jp_deal_jp_administration_user,jp.deal.administration.user,model_jp_deal,base.group_jp_administration_user,1,0,0,0
+access_jp_employee_create,Employee Create,model_jp_employee,group_jp_employee_create,0,0,1,0
+access_jp_employee_read,Employee Read,model_jp_employee,group_jp_employee_read,1,0,0,0
+access_jp_employee_unlink,Employee Unlink,model_jp_employee,group_jp_employee_unlink,0,0,0,1
+access_jp_employee_write,Employee Write,model_jp_employee,group_jp_employee_write,0,1,0,0
+access_jp_subscription_administration_user,jp.subscription.administration.user,model_jp_subscription,base.group_jp_administration_user,1,0,0,0
+access_jp_invoice_create,Invoice Create,model_jp_invoice,group_jp_invoice_create,0,0,1,0
+access_jp_invoice_read,Invoice Read,model_jp_invoice,group_jp_invoice_read,1,0,0,0
+access_jp_invoice_unlink,Invoice Unlink,model_jp_invoice,group_jp_invoice_unlink,0,0,0,1
+access_jp_invoice_write,Invoice Write,model_jp_invoice,group_jp_invoice_write,0,1,0,0

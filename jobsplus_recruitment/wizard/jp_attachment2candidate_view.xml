@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_jp_attachment_tree" model="ir.ui.view">
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='datas_fname']" position="before">
+                    <field name="datas"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model='ir.ui.view' id='view_jp_attachment2candidate'>
+            <field name="name">jobsplus.recruitment.attachment2candidate.form</field>
+            <field name="model">jp.attachment2candidate</field>
+            <field name="arch" type="xml">
+    			<form string="Attachments" version="7.0">
+    				<header>
+    				</header>
+                       <sheet>
+                       <field name="candidate" />
+    					<h1><field name="candidate_name" /></h1>
+    					<field name="document_ids" >
+							<tree>
+								<field name="name" />
+                            	<field name="datas" filename="datas_fname"/>
+							</tree>
+						</field>
+	    			</sheet>
+	    			<footer>
+                         <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+    			</form>
+    		</field>
+        </record>
+		
+        <record id="action_jp_attachment2candidate" model="ir.actions.act_window">
+            <field name="name">Attachments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.attachment2candidate</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_jp_attachment2candidate"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		<!--<record model="ir.ui.view" id="trade_view_form">
+			<field name="name">jp.trade.view.form</field>
+			<field name="model">jp.trade</field>
+			<field name="arch" type="xml">
+				<form string="Trade" version="7.0">-->
+					<!--<header>
+						<field name="stage_id"  widget="statusbar" clickable="True" />
+					</header>-->
+					<!--<sheet>
+						<field name="name" class="oe_inline" readonly="1"/>
+						<label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" /></h1>
+					</sheet>
+				</form>
+			</field>
+		</record>-->
+	
+		<record model="ir.ui.view" id="jobsplus_recruitment_trade_tree">
+			<field name="name">jp.trade.tree</field>
+            <field name="model">jp.trade</field>
+            <field name="arch" type="xml">
+				<tree string="Trade" editable='bottom'>
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_recruitment_trade_search">
+			<field name="name">jp.trade.search</field>
+            <field name="model">jp.trade</field>
+            <field name="arch" type="xml">
+				<search string="Trade">
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+        
+		<record id="action_trade" model="ir.actions.act_window">
+            <field name="name">Trade</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.trade</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_recruitment_trade_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_recruitment_trade_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new Trade.
+              </p>
+            </field>
+        </record>
+		
+		<menuitem id="menu_jobsplus_recruitment_trade"
+        action="action_trade" parent="menu_jobsplus_recruitment_recruitment"
+        sequence="2009"/>
+	
+	</data>
+</openerp>

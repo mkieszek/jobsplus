@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="jp_crm_lead_view_form">
+			<field name="name">CRM - Prospect Form</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+			<field name="arch" type="xml">
+				<!--<button name="%(crm.action_crm_lead2opportunity_partner)d" string="Convert to Opportunity" type="action"
+                            states="draft,open,pending" help="Convert to Opportunity" class="oe_highlight" position="replace"/> -->
+				
+				<xpath expr="/form/header/button[@string='Convert to Opportunity']" position="replace">
+                    <button name="case_mark_won" string="Mark Won" type="object"
+                                states="draft,open,pending" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="/form/sheet/div[@name='buttons']" position="replace">
+					
+				</xpath>
+                <field name="partner_id" position="replace">
+					<field name="product_id" />
+                </field>
+                
+                <xpath expr="/form/sheet/group/group/div" position="after">
+					<field name="main_phone" />
+					<field name="website" widget="url"/>
+                </xpath>
+                
+                <xpath expr="/form/sheet/group/group/field[@name='partner_name']" position="replace">
+					<field name="partner_name" string="Company Name" on_change="on_change_partner_name(partner_name)" />
+				</xpath>
+                
+				<page string="Internal Notes" position="before">
+					<page string="Tasks">
+						<field name="task_ids" colspan="4" nolabel="1">
+							<tree string="Tasks" editable="bottom">
+								<button name="open_line" string="Open" type="object" icon="gtk-edit" />
+								<field name="name"/>
+								<field name="task_type" />
+								<field name="user_id"/>
+								<field name="create_date" />
+								<field string="Deadline" name="deadline_datetime"/>
+								<field name="state"/>
+								<field name="priority" />
+								<button name="cancel_task" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel" help="For cancelling the task"/>
+								<button name="open_task" states="draft,pending" string="In progress" type="object" icon="STOCK_MEDIA_PLAY" help="For changing to in progress" />
+								<button name="close_task" states="draft,pending,open" string="Done" type="object" icon="gtk-apply" help="For changing to done state"/>
+							</tree>
+						</field>
+					</page>
+                    <page string="Offers">
+						<field name="offer_ids" colspan="4" nolabel="1">
+							<tree string="Offers">
+								<field name="name"/>
+								<field name="title"/>
+								<field name="client_id"/>
+								<field name="product_id"/>
+								<field name="sent_date"/>
+								<field name="stage_id"/>
+							</tree>
+						</field>
+					</page>
+				</page>
+				<xpath expr="/form/sheet/notebook/page[@string='Extra Info']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+				<field name="categ_ids" position="after">
+					<field name="channel_id" />
+				</field>
+			</field>
+		</record>
+
+		<record id="jp_crm_lead_view_search" model="ir.ui.view">
+            <field name="name">jp.crm.lead.view.search</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+            <field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="product_id" />
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		<record model='ir.ui.view' id='view_jp_candidate2deal'>
+			<field name="name">jobsplus.recruitment.candidate2deal.form</field>
+            <field name="model">jp.candidate2deal</field>
+            <field name="arch" type="xml">
+				<form string="Add candidate" version="7.0">
+                    <sheet>
+						<field name="candidate_ids" />
+					</sheet>
+					<footer>
+                        <button name="create_applications" string="Create applications" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+        <record id="action_jp_candidate2deal" model="ir.actions.act_window">
+            <field name="name">Add candidate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.candidate2deal</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_jp_candidate2deal"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</openerp>

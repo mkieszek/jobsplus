@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record model='ir.ui.view' id='jobsplus_sale_contract_form'>
+			<field name="name">jobsplus.sale.contract.form</field>
+            <field name="model">jp.contract</field>
+            <field name="arch" type="xml">
+				<form string="Contract" version="7.0">
+                        <header>
+					<field name="stage_id"  widget="statusbar" clickable="True" />
+                        </header>
+                        <sheet>
+				 <field name="name" class="oe_inline" readonly="1"/>
+				 <group col="2" string="General info">
+					<group>
+						<field name="client_id" domain="[('customer','=', 1), ('is_company','=', 1)]"/>
+						<field name="product_id" />
+						<field name="ref_offer" />
+						<field name="sales_rep" />
+					</group>
+					<group>
+						<field name="contract_date" />
+						<field name="dismiss_period" />
+						<field name="dismiss_period_type" attrs="{'required':[('dismiss_period','>', '0')]}"/>
+						<field name="type" on_change="on_change_type(type)" default="indefinite"/>
+						<field name="termination_date" attrs="{'required':[('type','!=','indefinite')], 'invisible':[('type','=', 'indefinite')]}" />
+						<field name="payment_term" />
+						<field name="warranty" />
+						<field name="warranty_period" attrs="{'required':[('warranty','=', True)]}"/>
+						<field name="warranty_period_type" attrs="{'required':[('warranty_period','>','0'),'|',('warranty','=', True)]}" />
+					</group>
+							
+                        </group>
+                        <field name="notes" />
+                        <notebook>
+					<page string="Tasks">
+						<field name="task_ids" colspan="4" nolabel="1">
+							<tree string="Tasks" editable="bottom">
+								<button name="open_line" string="Open" type="object" icon="gtk-edit" />
+								<field name="name"/>
+								<field name="task_type" />
+								<field name="user_id"/>
+								<field name="create_date" />
+								<field string="Deadline" name="deadline_datetime"/>
+								<field name="state"/>
+								<field name="priority" />
+								<button name="cancel_task" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel" help="For cancelling the task"/>
+								<button name="open_task" states="draft,pending" string="In progress" type="object" icon="STOCK_MEDIA_PLAY" help="For changing to in progress" />
+								<button name="close_task" states="draft,pending,open" string="Done" type="object" icon="gtk-apply" help="For changing to done state"/>
+							</tree>
+						</field>
+					</page>
+					<page string="Deals" name="deals">
+						<field name="deal_ids" colspan="4" nolabel="1">
+							<tree string="Deals">
+								<field name="name" />
+								<field name="title" />
+								<field name="user_id" />
+								<field name="stage_id" />
+								<field name="planned_revenue" />
+								<field name="currency_id" />
+							</tree>
+						</field>
+					</page>
+				</notebook>
+			</sheet>
+			<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+		
+		<record model='ir.ui.view' id='jobsplus_sale_contract_tree'>
+                <field name="name">jp.contract.tree</field>
+                <field name="model">jp.contract</field>
+                <field name="arch" type="xml">
+                    <tree string="Contracts" version="7.0">
+                        <field name="client_id" />
+    				<field name="product_id" />
+    				<field name="contract_date" />
+    				<field name="type" />
+    				<field name="termination_date" />
+    				<field name="stage_id" />
+    				<field name="sales_rep" />
+                    </tree>
+                </field>
+            </record>
+        
+        <record model='ir.ui.view' id='jobsplus_sale_contract_search'>
+            <field name="name">jobsplus.sale.contract.search</field>
+            <field name="model">jp.contract</field>
+            <field name="arch" type="xml">
+                <search string="All contracts">
+        			<field name="client_id" />
+				<field name="product_id" />
+				<field name="contract_date" />
+				<field name="dismiss_period" />
+				<field name="type" />
+				<field name="stage_id" />
+				<field name="termination_date" />
+				<field name="dismiss_period" />
+				<field name="payment_term" />
+				<field name="warranty" />
+				<field name="sales_rep" />
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_contracts" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_sale_contract_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_sale_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a contract.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_jobsplus_sale_contracts"
+        action="action_contracts" parent="base.menu_sales"
+        sequence="1001"/>
+	</data>
+</openerp>

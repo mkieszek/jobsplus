@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+		<record model="ir.ui.view" id="jp_recruitment_view_task_partner_info_form">
+			<field name="name">jp.recruitment.view.task.partner.info.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="project.view_task_partner_info_form" />
+			<field name="priority" eval="100" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/notebook/page[@string='Contacts']" position="after">
+                            <!--<page string="Rates" attrs="{'invisible':[('is_company','=',False)]}">
+                                <field name="client_rate_ids" >
+                                    <tree>
+                                        <field name="deal_id" />
+                                        <field name="client_id" />
+                                        <field name="state" />
+                                        <field name="rate" />
+                                    </tree>
+                                </field>
+                            </page>-->
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

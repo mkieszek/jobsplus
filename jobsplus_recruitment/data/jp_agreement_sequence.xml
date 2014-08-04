@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="seq_type_jp_agreement" model="ir.sequence.type">
+            <field name="name">Agreement</field>
+            <field name="code">jp.agreement</field>
+        </record>
+
+        <record id="seq_jp_agreement_sq" model="ir.sequence">
+            <field name="name">Agreement</field>
+            <field name="code">jp.agreement</field>
+            <field name="prefix">AG</field>
+            <field name="padding">4</field>
+        </record>
+        
+    </data>
+</openerp>

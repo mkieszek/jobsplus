@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="jp_marketing_candidate_form">
+            <field name="name">jp.marketing.candidate.form</field>
+            <field name="model">jp.candidate</field>
+            <field name="inherit_id" ref="jobsplus_recruitment.jobsplus_recruitment_candidate_form"/>
+            <field name="arch" type="xml">
+            	<field name="candidate" position="after">
+            		<field name="tag_ids" widget="many2many_tags" placeholder="Tags..." />
+            	</field>
+                <notebook position="inside">
+                    <page string="Rates" groups="base.group_jp_salesmanager,base.group_jp_recrutmentmanager">
+                        <field name="candidate_rate_ids" >
+                            <tree>
+                                <field name="application_id" />
+                                <field name="state" />
+                                <field name="rate" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="jobsplus_recruitment_candidate_search_inherit">
+			<field name="name">jp.candidate.search</field>
+            <field name="model">jp.candidate</field>
+            <field name="inherit_id" ref="jobsplus_recruitment.jobsplus_recruitment_candidate_search"/>
+            <field name="arch" type="xml">
+           		<search string="All candidate" position="inside">
+           			<field name="tag_ids" />
+           		</search>
+			</field>
+		</record>
+    </data>
+</openerp>

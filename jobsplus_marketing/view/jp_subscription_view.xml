@@ -1,0 +1,64 @@
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="jp_subscription_tree">
+            	<field name="name">jp.subscription.tree</field>
+                 <field name="model">jp.subscription</field>
+                 <field name="arch" type="xml">
+				<tree string="Subscription" >
+                            <field name="name" />
+                            <field name="email" />
+                            <field name="employee" />
+                            <field name="employer" />
+                            <field name="verification" />
+                            <field name="verification_date" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jp_subscription_search">
+        		<field name="name">jp.subscription.search</field>
+                 <field name="model">jp.subscription</field>
+                 <field name="arch" type="xml">
+				<search string="All subscription">
+                            <field name="name" />
+                            <field name="email" />
+                            <filter name="employee" string="Employee" domain="[('employee','=',True)]" icon="terp-camera_test"/>
+                            <filter name="employer" string="Employer" domain="[('employer','=',True)]" icon="terp-camera_test"/>
+                            <filter name="verification" string="Verification" domain="[('verification','=',True)]" icon="terp-camera_test"/>
+				</search>
+			</field>
+		</record>
+        
+		<record id="action_jp_subscription" model="ir.actions.act_window">
+                <field name="name">Subscription</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">jp.subscription</field>
+                <field name="view_type">form</field>
+                <field name="view_id" ref="jp_subscription_tree"/>
+                <field name="view_mode">tree</field>
+                <field name="context">{}</field>
+                <field name="domain">[]</field>
+                <field name="search_view_id" ref="jp_subscription_search"/>
+                <field name="help" type="html">
+                      <p class="oe_view_nocontent_create">
+                        Click to create new subscription.
+                      </p>
+                </field>
+            </record>
+
+        <menuitem name="Subscription" id="menu_jp_subscription" action="action_jp_subscription" parent="menu_jp_administration_administration" sequence="2008" groups="base.group_jp_administration_user" />
+
+    <!-- Scheduler for Subscription-->
+        <record forcecreate="True" id="ir_cron_subscriptions_action" model="ir.cron">
+              <field name="name">Subscriptions</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">hours</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.wordpress'" name="model" />
+              <field eval="'run_upload_subscription'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+    </data>
+</openerp>

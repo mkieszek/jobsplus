@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="jobsplus_recruitment_report_recruitment_search" model="ir.ui.view">
+			<field name="name">jp.report.recruitment.search</field>
+			<field name="model">jp.report.recruitment</field>
+			<field name="arch" type="xml">
+        			<search string="Report recruitment">
+                             <field name="year" />
+                             <field name="quarter" />
+                             <field name="month" />
+                             <field name="week_number" />
+                             <field name="recruiter_id" />
+                            <group expand="1" string="Group By...">
+                            	<filter string="Year" domain="[]" name="years" context="{'group_by':'year'}"/>
+                            	<filter string="Month" domain="[]" name="months" context="{'group_by':'month'}"/>
+                                <filter string="Week" domain="[]" name='week_nbr' context="{'group_by':'week_number'}"/>
+                                <filter string="Quarter" domain="[]" context="{'group_by':'quarter'}"/>
+                                <filter string="Recruiter" domain="[]" name='recruiter' context="{'group_by':'recruiter_id'}"/>
+                            </group>
+            		</search>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_recruitment_report_recruitment_tree">
+			<field name="name">jp.report.recruitment.tree</field>
+			<field name="model">jp.report.recruitment</field>
+			<field name="arch" type="xml">
+				<tree string="Report" create="false">
+                      <field name="name" />
+                      <field name="year" />
+                      <field name="quarter" />
+                      <field name="month" />
+                      <field name="week_number" />
+                      <field name="recruiter_id" />
+                      <field name="open_deals" />
+                      <field name="open_handover_deals" />
+                      <field name="meeting_deals" />
+                      <field name="won_deals" />
+                      <field name="transfer_candidates" />
+                      <field name="lost_deals" />
+                      <field name="cease_deals" />
+                      <field name="closed_tasks" />
+				</tree>
+			</field>
+		</record>
+
+        <record id="action_report_recruitment" model="ir.actions.act_window">
+            <field name="name">Report recruitment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.report.recruitment</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_recruitment_report_recruitment_tree"/>
+            <field name="view_mode">tree, graph</field>
+            <field name="context">{"search_default_years":1, "search_default_months":1, "search_default_week_nbr":1, "search_default_recruiter":1}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_recruitment_report_recruitment_search"/>
+            <field name="help" type="html">
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="jobsplus_recruitment_report_recruitment_graph">
+           <field name="name">jp.report.recruitment.graph</field>
+           <field name="model">jp.report.recruitment</field>
+           <field name="type">graph</field>
+           <field name="arch" type="xml">
+                 <graph string="Report recruitment" type="bar">
+                    <field name="date" />
+                    <field name="won_deals" />
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_jp_report_recruitment_graph">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="jobsplus_recruitment_report_recruitment_graph"/>
+            <field name="act_window_id" ref="action_report_recruitment"/>
+       </record>
+
+        <record model="ir.actions.act_window.view" id="action_jp_recruitment_deal_view_tree">
+			<field name="sequence" eval="0"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="jobsplus_recruitment_report_recruitment_tree"/>
+			<field name="act_window_id" ref="action_report_recruitment"/>
+		</record>
+
+        
+
+        <menuitem id="menu_jobsplus_recruitment_reports"
+            parent="menu_jobsplus_recruitment"
+            name="Reports"
+            sequence="20020"/>
+    <menuitem id="menu_jobsplus_recruitment_report_recruitment"
+            action="action_report_recruitment" parent="menu_jobsplus_recruitment_reports"
+            name="Historical report"
+            sequence="10009"/>
+
+<!-- Scheduler for Calculete report recruitment-->
+        <record forcecreate="True" id="ir_cron_calculate_report_recruitment_action" model="ir.cron">
+              <field name="name">Calculete report recruitment</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.report.recruitment'" name="model" />
+              <field eval="'calculate_report_recruitment'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+	</data>
+</openerp>

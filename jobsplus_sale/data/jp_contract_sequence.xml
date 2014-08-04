@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Sequences for sale.order -->
+        <record id="seq_type_jp_contract" model="ir.sequence.type">
+            <field name="name">Contract</field>
+            <field name="code">jp.contract</field>
+        </record>
+
+        <record id="seq_jp_contract" model="ir.sequence">
+            <field name="name">Contract</field>
+            <field name="code">jp.contract</field>
+            <field name="prefix">C</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record model="jp.contract.stage" id="state_contract_active">
+			<field name="name">Aktywna</field>
+			<field eval="10" name="sequence"/>
+			<field name="state">open</field>
+		</record>
+		<record model="jp.contract.stage" id="state_contract_inactive">
+			<field name="name">Nieaktywna</field>
+			<field eval="20" name="sequence"/>
+			<field name="state">done</field>
+		</record>
+		<record model="jp.contract.stage" id="state_contract_Expiring">
+			<field name="name">Wygasająca</field>
+			<field eval="30" name="sequence"/>
+			<field name="state">cancel</field>
+		</record>
+    </data>
+</openerp>

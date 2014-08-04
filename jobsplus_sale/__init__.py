@@ -1,0 +1,19 @@
+#
+import wizard
+import crm_lead
+import crm_meeting
+import project_task
+import res_partner
+import jp_offer_stage
+import jp_offer
+import jp_contract_stage
+import jp_contract
+import jp_deal_stage
+import jp_deal
+import jp_report_sales
+import jp_report_sales2
+import jp_deal_stage_history
+import jp_offer_report
+import res_config
+import jp_task_report
+import jp_graph_sales

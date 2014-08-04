@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		<record model='ir.ui.view' id='view_jp_recruiter2deal'>
+			<field name="name">jobsplus.recruitment.recruiter2deal.form</field>
+            <field name="model">jp.recruiter2deal</field>
+            <field name="arch" type="xml">
+				<form string="Assign a Recruiter" version="7.0">
+					<header>
+					</header>
+                    <sheet>
+						<group col="2">
+							<group>
+								<field name="deal_id" />
+								<field name="recruiter_id" />
+								<field name="date_middle" />
+								<field name="handover_date" />
+							</group>
+							<group>
+							</group>
+						</group>
+					</sheet>
+					<footer>
+                        <button name="assign_recruiter" string="Save" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+        <record id="action_jp_recruiter2deal" model="ir.actions.act_window">
+            <field name="name">Assign Recruiter</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.recruiter2deal</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_jp_recruiter2deal"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</openerp>

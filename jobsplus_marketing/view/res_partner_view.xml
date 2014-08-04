@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+		<record model="ir.ui.view" id="jp_recruitment_view_partner_form">
+			<field name="name">jp.recruitment.res.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="priority" eval="99" />
+			<field name="arch" type="xml">
+				<xpath expr="//form/sheet/group/group/field[@name='website']" position="after">
+                     <field name="bank_number" attrs="{'invisible':[('supplier','=',False)]}" />
+				</xpath>
+			</field>
+		</record>
+            <record model="ir.ui.view" id="jp_recruitment_view_task_partner_info_form">
+			<field name="name">jp.recruitment.view.task.partner.info.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="project.view_task_partner_info_form" />
+			<field name="priority" eval="100" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/notebook/page[@string='Contacts']" position="after">
+                     <page string="Rates" attrs="{'invisible':['|',('is_company','=',False),('supplier','=',True)]}" groups="base.group_jp_salesmanager,base.group_jp_recrutmentmanager">
+                         <field name="client_rate_ids" >
+                             <tree>
+                                 <field name="deal_id" />
+                                 <field name="client_id" />
+                                 <field name="state" />
+                                 <field name="rate" />
+                             </tree>
+                         </field>
+                     </page>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="jp_marketing_view_task_partner_info_form">
+			<field name="name">jp.view.task.partner.info.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="project.view_task_partner_info_form" />
+			<field name="priority" eval="100" />
+			<field name="arch" type="xml">
+                 <xpath expr="/form/sheet/group/group/field[@name='website']" position="after">
+                     <field name="closed_deals" attrs="{'invisible':[('is_company','=',False)]}" groups="base.group_jp_salesmanager,base.group_jp_recrutmentmanager"/>
+                     <field name="amount_revenue" attrs="{'invisible':[('is_company','=',False)]}" groups="base.group_jp_salesmanager,base.group_jp_recrutmentmanager"/>
+                 </xpath>
+			</field>
+		</record>
+		
+		<record id="view_jp_client_sales" model="ir.ui.view">
+			<field name="name">jp.sales.form</field>
+			<field name="model">res.partner</field>
+	        <field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+	        	<xpath expr="/form/sheet/notebook/page[@string='Sales &amp; Purchases']" position="attributes" >
+					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
+				</xpath>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="jp_view_partner_from">
+			<field name="name">jp.view.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="jobsplus_sale.jp_view_task_partner_info_form" />
+			<field name="priority" eval="100" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook" position="inside">
+					<page string="Agreements" attrs="{'invisible': [('supplier','=',False)]}">
+						<field name="agreement_sup_ids">
+							<tree>
+								<field name="name" />
+								<field name="date_of_contract" />
+								<field name="contract_to" />
+								<field name="service" />
+								<field name="type_of_agreement" />
+							</tree>
+						</field>
+					</page>
+					<page string="Invoices" attrs="{'invisible': [('supplier','=',False)]}">
+						<field name="invoice_ids">
+							<tree>
+								<field name="name" />
+								<field name="date_of_invoice" />
+								<field name="date_of_payment" />
+								<field name="document_type" />
+								<field name="payment_type" />
+								<field name="amount_net" />
+								<field name="amount_vat" />
+								<field name="amount_gross" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			
+				<xpath expr="//page[@string='Deals']" position="attributes">
+					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Offers']" position="attributes">
+					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Tasks']" position="attributes">
+					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Contract']" position="attributes">
+					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_jp_suppliers">
+			<field name="name">Suppliers</field>
+			<field name="res_model">res.partner</field>
+			<field name="context">{"search_default_supplier": 1, "search_default_type_company": 1, "default_supplier": 1}</field>
+			<field name="search_view_id" ref="jobsplus_sale.jp_view_res_partner_filter"/>
+			<field name="domain">[]</field>
+			<field name="view_type">form</field>
+			<field name="view_id" eval="False"/>
+			<field name="view_mode">kanban,tree,form</field>
+		</record>
+		
+		<menuitem name="Suppliers" id="menu_jp_suppliers" action="action_jp_suppliers" parent="menu_jp_administration_administration" sequence="2010" />
+	</data>
+</openerp>

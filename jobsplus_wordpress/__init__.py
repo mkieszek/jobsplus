@@ -1,0 +1,1 @@
+import jp_wordpress

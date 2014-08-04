@@ -1,0 +1,39 @@
+<openerp>
+    <data>
+          <record model="ir.ui.view" id="jp_rate_wizard_view_form">
+			<field name="name">jp.rate.wizard.view.form</field>
+			<field name="model">jp.rate.wizard</field>
+			<field name="arch" type="xml">
+                    <form string="Rate" version="7.0">
+                        <sheet>
+                            <group col='2'>
+                                <group>
+                                    <field name="deal_id" invisible="True" />
+                                    <field name="client_id" invisible="True" />
+                                    <field name="send_to" />
+                                    <field name="contact_id" attrs="{'invisible':[('send_to','!=','1')]}" domain="[('parent_id','=',client_id)]"/>
+                                    <field name="application_ids" widget="many2many_tags" nolabel="1" placeholder="Applications..." colspan="2" domain="[('deal_id', '=', deal_id)]" attrs="{'invisible':[('send_to','!=','2')]}"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </sheet>
+                    <footer>
+                        <button name="rate_candidates" string="Send" type="object" class="oe_highlight" attrs="{'invisible':[('send_to','!=','2')]}" />
+                        <button name="rate_clients" string="Send" type="object" class="oe_highlight" attrs="{'invisible':[('send_to','!=','1')]}" /> or
+                        <button special="cancel" string="Close" class="oe_link"/>
+                    </footer>
+                    </form>
+			</field>
+		</record>
+		
+		<record id="action_rate_wizard" model="ir.actions.act_window">
+                <field name="name">Rate</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">jp.rate.wizard</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+            </record>
+    </data>
+</openerp>

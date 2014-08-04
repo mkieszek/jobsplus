@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="jobsplus_sales_report_sales2_search" model="ir.ui.view">
+			<field name="name">jp.report.sales2.search</field>
+			<field name="model">jp.report.sales2</field>
+			<field name="arch" type="xml">
+        			<search string="Report">
+                            <field name="name" />
+							<field name="client_id" />
+							<field name="user_id" />
+							<field name="year" />
+                            <group expand="1" string="Group By...">
+                                <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                                <filter string="Month" domain="[]" name="mounth_number" context="{'group_by':'month'}"/>
+                                <filter string="Year" domain="[]" name="year_number" context="{'group_by':'year'}"/>
+                                <filter string="Quarter" domain="[]" context="{'group_by':'quarter'}"/>
+                                <filter string="User" domain="[]" name='user' context="{'group_by':'user_id'}"/>
+                                <filter string="Client" domain="[]" name='client' context="{'group_by':'client_id'}"/>
+                            </group>
+
+            		</search>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_sales_report_sales2_tree">
+			<field name="name">jp.report.sales2.tree</field>
+			<field name="model">jp.report.sales2</field>
+			<field name="arch" type="xml">
+				<tree string="Report sale" create="false">
+                    <field name="name" />
+					<field name="client_id" />
+					<field name="user_id" />
+                            <field name="year" />
+                            <field name="quarter" />
+                            <field name="month" />
+					<field name="invoice_deals" />
+					<field name="value_invoice" />
+					<field name="leasing_deals" />
+					<field name="value_margin" />
+					<field name="value_leasing" />
+				</tree>
+			</field>
+		</record>
+-->
+        <record id="action_report_sales2" model="ir.actions.act_window">
+            <field name="name">Report sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.report.sales2</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_sales_report_sales2_tree"/>
+            <field name="view_mode">tree, graph</field>
+            <field name="context">{"search_default_mounth_number":1, "search_default_user":1}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_sales_report_sales2_search"/>
+            <field name="help" type="html">
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="jobsplus_report_sales_graph">
+           <field name="name">jp.report.sales.graph</field>
+           <field name="model">jp.report.sales2</field>
+           <field name="type">graph</field>
+           <field name="arch" type="xml">
+                 <graph string="Report sales" type="pie">
+                      <field name="date" group="True"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_jp_sale_deal_view_tree">
+			<field name="sequence" eval="0"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="jobsplus_sales_report_sales2_tree"/>
+			<field name="act_window_id" ref="action_report_sales2"/>
+		</record>
+
+    		<menuitem id="menu_jobsplus_sale_report_sales2"
+            	action="action_report_sales2" parent="menu_jobsplus_sale_reports"
+            	name="Report sale"
+            	sequence="100010"/>
+            	
+      	<!-- Scheduler for Calculete report recruitment-->
+        <record forcecreate="True" id="ir_cron_calculate_report_sales2_action" model="ir.cron">
+              <field name="name">Calculete report sales2</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.report.sales2'" name="model" />
+              <field eval="'calculate_report_sales'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+	</data>
+</openerp>

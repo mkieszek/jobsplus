@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="marketing_deal_view_form">
+			<field name="name">jp.marketing.deal.view.form</field>
+			<field name="model">jp.deal</field>
+			<field name="inherit_id" ref="jobsplus_sale.deal_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/header" position="after">
+					<button name="%(jobsplus_marketing.action_rate_wizard)d" string="Send mail to rate" type="action" class="oe_highlight" groups="base.group_jp_administration_user" />
+				</xpath>
+				<xpath expr="/form/sheet/notebook/page[@string='Tasks']" position="after">
+					<page string="Client rates" groups="base.group_jp_administration_user">
+                                <field name="client_rate_id" >
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="client_id" />
+                                        <field name="state" />
+                                        <field name="rate" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Candidates rates" groups="base.group_jp_administration_user">
+                                <field name="candidate_rate_id" >
+                                    <tree>
+                                        <field name="application_id" />
+                                        <field name="candidate_id" />
+                                        <field name="state" />
+                                        <field name="rate" />
+                                    </tree>
+                                </field>
+                            </page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

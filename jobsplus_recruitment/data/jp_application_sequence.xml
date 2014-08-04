@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="seq_type_jp_application" model="ir.sequence.type">
+            <field name="name">Application</field>
+            <field name="code">jp.application</field>
+        </record>
+
+        <record id="seq_jp_application_sq" model="ir.sequence">
+            <field name="name">Application</field>
+            <field name="code">jp.application</field>
+            <field name="prefix">AP</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='view_jp_calculation'>
+            <field name="name">jp.calculation.form</field>
+            <field name="model">jp.calculation</field>
+            <field name="arch" type="xml">
+    			<form string="Calculations" version="7.0">
+                    <sheet>
+    					<h2><field name="deal_id" readonly="1"/></h2>
+						<group col="2">
+							<group string="Add calculation">
+								<field name="calculation_from" />
+								<field name="calculation_to" />
+								<field name="value_margin" />
+								<field name="value_leasing" />
+								<field name="file_data" filename="file_name" />
+								<field name="file_name" invisible="1" />
+							</group>
+							<group></group>
+						</group>
+	    			</sheet>
+    			</form>
+    		</field>
+        </record>
+		
+        <record id="action_jp_calculation" model="ir.actions.act_window">
+            <field name="name">Calculations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.calculation</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_jp_calculation"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</openerp>

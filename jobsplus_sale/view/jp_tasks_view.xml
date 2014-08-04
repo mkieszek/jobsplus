@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_task_form">
+			<field name="name">Jobs Plus Task form</field>
+			<field name="model">project.task</field>
+			<field name="inherit_id" ref="project.view_task_form2"/>
+			<field name="arch" type="xml">
+				<header>
+				</header>
+				<xpath expr="/form/sheet/group/group/field[@name='project_id']" position="before">
+					<field name="client_id" />
+					<field name="lead_id" />
+					<field name="offer_id" />
+					<field name="contract_id" />
+					<field name="deal_id" />
+                            <field name="task_type" />
+				</xpath>
+                <xpath expr="/form/sheet/notebook/page/group/field[@name='partner_id']" position="attributes">
+					<attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='project_id']" position="attributes">
+					<attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='date_deadline']" position="replace">
+					<field name="deadline_datetime" attrs="{'readonly':[('state','in',['done', 'cancelled'])]}"/>
+                </xpath>
+			</field>
+		</record>
+		<record id="view_task_search" model="ir.ui.view">
+			<field name="name">jp.task.search</field>
+			<field name="model">project.task</field>
+			<field name="priority">50</field>
+			<field name="arch" type="xml">
+			   <search string="My Tasks">
+					<field name="name" string="Name"/>
+					<field name="user_id" />
+					<field name="author_id" />
+					<field name="task_type" />
+					<!--<separator />
+					<filter name="mytasks" string="My Tasks" domain="[('user_id','=',uid),('create_uid','=',uid)]"/>-->
+					<separator />
+                            <filter name="mytasks" string="I created" domain="[('create_uid','=',uid)]"/>
+                            <filter name="mytasks" string="Assigned to me" domain="[('user_id','=',uid)]"/>
+					<separator />
+					<filter name="open" string="In Progress" domain="[('state','in',('draft','open'))]" help="In Progress and draft tasks" />
+					<filter string="Pending" domain="[('state','=','pending')]" context="{'show_delegated':False}" help="Pending Tasks" />
+					<filter name="sale" string="Sales Team In Progress" domain="[('user_id','in',(5,6,7,8,9)),('state','in',('draft','open'))]" />
+					<separator/>
+					
+					<group expand="1" string="Group By...">
+                        <filter string="Deadline" domain="[]" context="{'group_by':'deadline_datetime'}"/>
+                        <filter string="Author" domain="[]" context="{'group_by':'author_id'}"/>
+                        <filter string="Case" domain="[]" context="{'group_by':'case_name'}"/>
+                        <filter string="Client" help="Partner" domain="[]" context="{'group_by':'client_id'}"/>
+                        <filter string="User" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter string="Type" domain="[]" context="{'group_by':'task_type'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_task_tree">
+			<field name="name">jp.task.tree</field>
+			<field name="model">project.task</field>
+			<field name="arch" type="xml">
+				<tree string="Tasks" colors="red: color == 'red';#77bc1f: color == 'green'; black: color == 'black'">
+   					<field name="name"/>
+					<field name="task_type" />
+					<field name="client_name" />
+					<field name="case_name" />
+					<field name="author_id" />
+					<field name="user_id"/>
+					<field string="Deadline" name="deadline_datetime"/>
+					<field name="state" invisible='1' />
+					<field name="priority" />
+                    <field name="color" invisible='1' />
+					<button name="cancel_task" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel" help="For cancelling the task"/>
+					<button name="open_task" states="draft,pending" string="In progress" type="object" icon="STOCK_MEDIA_PLAY" help="For changing to in progress" />
+					<button name="close_task" states="draft,pending,open" string="Done" type="object" icon="gtk-apply" help="For changing to done state"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="view_task_action">
+			<field name="name">Tasks</field>
+			<field name="res_model">project.task</field>
+			<field name="context">{'set_editable':False,'set_visible':True,'gtd':True,'user_invisible':True, "search_default_mytasks": 1,"search_default_open": 1, "lead_id": 1}</field>
+			<field name="search_view_id" ref="jobsplus_sale.view_task_search"/>
+			<field name="domain">[]</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="view_task_tree"/>
+			<field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
+		</record>
+    
+		<menuitem
+			id="menu_crm_todo"
+			parent="base.menu_sales"
+			action="view_task_action"
+			sequence="6"/>
+			
+		<menuitem 
+			id="menu_messaging_tasks"
+			parent="mail.mail_my_stuff"
+			action="view_task_action" />
+
+    <!-- Scheduler for Task term-->
+        <record forcecreate="True" id="ir_cron_task_term_alarm"
+            model="ir.cron">
+            <field name="name">Task term</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'project.task'" name="model" />
+            <field eval="'task_term'" name="function" />
+            <field eval="" name="args" />
+        </record>
+
+	</data>
+</openerp>

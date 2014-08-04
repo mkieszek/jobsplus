@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.module.category" id="module_category_jobsplus">
+            <field name="name">Jobs Plus</field>
+            <field name="sequence">0</field>
+        </record>
+        
+		<record id="base.group_jp_salesman" model="res.groups">
+			<field name="name">Handlowiec Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<field name="implied_ids" eval="[(4, ref('base.group_sale_salesman_all_leads')),(4, ref('project.group_project_manager'))]"/>
+			<field name="comment">Handlowiec Jobs Plus</field>
+		</record>
+		<record id="base.group_jp_salesmanager" model="res.groups">
+			<field name="name">Dyrektor Sprzedaży Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<field name="implied_ids" eval="[(4, ref('base.group_jp_salesman')),(4, ref('base.group_sale_manager'))]"/>
+			<field name="comment">Dyrektor Sprzedaży Jobs Plus</field>
+		</record>
+		<record id="base.group_jp_recruiter" model="res.groups">
+			<field name="name">Rekruter Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<field name="implied_ids" eval="[(4, ref('project.group_project_manager'))]"/>
+			<field name="comment">Rekruter Jobs Plus</field>
+		</record>
+		<record id="base.group_jp_recrutmentmanager" model="res.groups">
+			<field name="name">Kierownik Rekrutacji Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<field name="implied_ids" eval="[(4, ref('base.group_jp_recruiter'))]"/>
+			<field name="comment">Kierownik Rekrutacji Jobs Plus</field>
+		</record>
+		<record id="base.group_jp_administration_user" model="res.groups">
+			<field name="name">Użytkownik Administracji Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<field name="comment">Użytkownik Administracji Jobs Plus</field>
+		</record>
+		<record id="base.group_jp_administration_manager" model="res.groups">
+			<field name="name">Dyrektor Administracji Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<!-- <field name="implied_ids" eval="[(4, ref('base.group_jp_administration_user'))]"/> -->
+			<field name="comment">Dyrektor Administracja Jobs Plus</field>
+		</record>
+		<record id="base.group_jp_marketing" model="res.groups">
+			<field name="name">Marketing Jobs Plus</field>
+			<field name="category_id" ref="module_category_jobsplus"/>
+			<field name="comment">Marketing Jobs Plus</field>
+		</record>
+		<record model='ir.ui.menu' id='base.menu_base_partner'>
+			<field name="groups_id" eval="[(4,ref('base.group_jp_recruiter'))]"/>
+		</record>
+	</data>
+	
+	<data noupdate="0">
+        <record id="jp_meeting_edit_own" model="ir.rule">
+			<field name="name">Edit only own meetings</field>
+			<field ref="model_crm_meeting" name="model_id" />
+			<field eval="1" name="global" />
+			<field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+			<field name="perm_read" eval="False" />
+            <field name="perm_write" eval="True" />
+            <field name="perm_create" eval="True" />
+            <field name="perm_unlink" eval="True" />
+        </record>
+        <record id="jp_calendar_attendee_own" model="ir.rule">
+            <field name="name">Edit only own attendance</field>
+            <field name="model_id" ref="base_calendar.model_calendar_attendee"/>
+            <field name="domain_force">[('user_id','=', user.id)]</field>
+            <field eval="1" name="global" />
+            <field eval="0" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="0" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+	</data>
+</openerp>
+	

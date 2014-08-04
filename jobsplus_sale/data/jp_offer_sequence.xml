@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Sequences for sale.order -->
+        <record id="seq_type_jp_offer" model="ir.sequence.type">
+            <field name="name">Offer</field>
+            <field name="code">jp.offer</field>
+        </record>
+
+        <record id="seq_jp_offer" model="ir.sequence">
+            <field name="name">Offer</field>
+            <field name="code">jp.offer</field>
+            <field name="prefix">O</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record model="jp.offer.stage" id="state_offer_new">
+			<field name="name">Nowa</field>
+			<field eval="10" name="sequence"/>
+			<field name="state">draft</field>
+		</record>
+		<record model="jp.offer.stage" id="state_offer_negotiations">
+			<field name="name">Negocjacje</field>
+			<field eval="20" name="sequence"/>
+			<field name="state">open</field>
+		</record>
+		<record model="jp.offer.stage" id="state_offer_acquired">
+			<field name="name">Wygrana</field>
+			<field eval="30" name="sequence"/>
+			<field name="state">done</field>
+		</record>
+		<record model="jp.offer.stage" id="state_offer_lost">
+			<field name="name">Stracona</field>
+			<field eval="40" name="sequence"/>
+			<field name="state">cancel</field>
+		</record>
+    </data>
+</openerp>

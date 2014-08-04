@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="jobsplus_recruitment_candidate_form">
+			<field name="name">jobsplus.recruitment.candidate.form</field>
+			<field name="model">jp.candidate</field>
+                 <field name="arch" type="xml">
+				<form string="Candidate" version="7.0">
+					<header>
+						<!--<button name="report" type="object" string="Report" />-->
+                        <!--<button name="marge_candidates" type="object" string="Marge" />
+                        <button context="{'from_int': 3, 'to_int': 4}" name="marge_candidates" type="object" string="Marge candidates 3 - 4" />
+                        <button context="{'from_int': 5, 'to_int': 7}" name="marge_candidates" type="object" string="Marge candidates 5 - 7" />
+                        <button context="{'from_int': 8, 'to_int': 10000}" name="marge_candidates" type="object" string="Marge candidates 8 - 10 000" />
+           				<button name="%(jobsplus_recruitment.action_jp_attachment2candidate)d" type="action" string="Attachments" />-->
+					</header>
+					<sheet>
+						<field name="name" />
+						<label for="candidate" class="oe_edit_only"/>
+						<h1><field name="candidate"  /></h1>
+						
+						<group col="2">
+							<group>
+								<group string="Personal data">
+									<field name="city" />
+									<field name="state_id" />
+									<field name="country" />
+									<field name="personal_id" />
+									<field name="passport_id" />
+									<field name="day_of_birth" />
+									<field name="month_of_birth" />
+									<field name="year_of_birth" />
+									<field name="sex" />
+									<field name="nationality" />
+									<field name="education" />
+                                    <field name="source_receive" />
+                                    <field name="portal_id" />
+                                    <field name="ad_id" />
+								</group>
+							</group>
+							<group col="1">
+								<group string="Work data">
+									<field name="trade_ids" widget="many2many_tags" nolabel="1" placeholder="Trades..." colspan="2"/>
+									<field name="work_state" />
+									<field name="current_possition" />
+								</group>
+								<group string="Contact data">
+									<field name="phone" />
+									<field name="email" />
+									<field name="other_contact" />
+								</group>
+							</group>
+						</group>
+						<group col="2">
+							<group>
+							</group>
+							<group string="Finantial expectations">
+								<field name="amount" />
+								<field name="currency_id" />
+								<field name="financial_for" />
+                                              <field name="sallary_id" />
+							</group>
+						</group>
+						
+						<notebook>
+							<page string="Applications">
+								<field name="application_ids" nolabel="0" colspan="4">
+									<tree editable="bottom">
+										<button name="open_line_deal" string="Open" type="object" icon="gtk-edit" />
+										<field name="deal_id" />
+										<field name="status" />
+										<field name="note" />
+									</tree>
+								</field>
+							</page>
+							<page string="Experience">
+								<field name="experience" />
+							</page>
+							<page string="Reference">
+								<field name="reference" />
+							</page>
+							<page string="Notes">
+								<field name="notes" />
+							</page>
+                                        <page string="Agreements">
+                                            <field name="agreement_ids" >
+									<tree>
+            								<button name="open_line_agreement" string="Open" type="object" icon="gtk-edit" />
+                                                        <field name="name" />
+                                                        <field name="date_of_contract" />
+                                                        <field name="date_termination" />
+                                                    </tree>
+								</field>
+                                        </page>
+							<page string="Documents">
+								<field name="document_ids" >
+									<tree>
+										<field name="name" />
+										<field name="user_id" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+        			  <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+				</form>
+				
+			</field>
+		</record>
+	
+		<record model="ir.ui.view" id="jobsplus_recruitment_candidate_tree">
+			<field name="name">jp.candidate.tree</field>
+            <field name="model">jp.candidate</field>
+            <field name="arch" type="xml">
+				<tree string="Candidate">
+					<field name="name" />
+                    <field name="create_date" />
+					<field name="candidate" />
+					<field name="phone" />
+					<field name="email" />
+                    <field name="last_deal_id" />
+					<field name="current_possition" />
+					<field name="work_state" />
+					<field name="count_document" />
+					<field name="image_icon" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_recruitment_candidate_search">
+			<field name="name">jp.candidate.search</field>
+            <field name="model">jp.candidate</field>
+            <field name="arch" type="xml">
+				<search string="All candidate">
+					<field name="candidate" />
+					<field name="city" />
+					<field name="name" />
+					<field name="phone" />
+					<field name="email" />
+					<field name="current_possition" />
+					<field name="education" />
+					<field name="work_state" />
+                    <field name ="source_receive" />
+                    <field name="document_ids" />
+                    <field name="application_search" />
+                    <field name="position_other_search" />
+				</search>
+			</field>
+		</record>
+        
+	  <record id="action_candidate" model="ir.actions.act_window">
+            <field name="name">Candidates</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.candidate</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_recruitment_candidate_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_recruitment_candidate_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new candidate.
+              </p>
+            </field>
+        </record>        
+
+		<menuitem id="menu_jobsplus_recruitment_candidate"
+        action="action_candidate" parent="menu_jobsplus_recruitment_recruitment"
+        sequence="2003"/>
+
+	<!-- Scheduler for Marge candidates 2 - 2
+        <record forcecreate="True" id="ir_cron_marge_candidates_2_2_action" model="ir.cron">
+              <field name="name">Marge candidates 2 - 2</field>
+              <field eval="False" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.candidate'" name="model" />
+              <field eval="'marge_candidates'" name="function" />
+              <field eval="'(2,2)'" name="args" >()</field>
+        </record> -->
+    <!-- Scheduler for Marge candidates 3 - 4 
+        <record forcecreate="True" id="ir_cron_marge_candidates_3_4_action" model="ir.cron">
+              <field name="name">Marge candidates 3 - 4</field>
+              <field eval="False" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.candidate'" name="model" />
+              <field eval="'marge_candidates'" name="function" />
+              <field eval="'(3,4)'" name="args" >()</field>
+        </record> -->
+    <!-- Scheduler for Marge candidates 5 - 8 
+        <record forcecreate="True" id="ir_cron_marge_candidates_5_8_action" model="ir.cron">
+              <field name="name">Marge candidates 5 - 8</field>
+              <field eval="False" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.candidate'" name="model" />
+              <field eval="'marge_candidates'" name="function" />
+              <field eval="'(5,8)'" name="args" >()</field>
+        </record> -->
+    <!-- Scheduler for Marge candidates 9 - 10 000
+        <record forcecreate="True" id="ir_cron_marge_candidates_9_10000_action" model="ir.cron">
+              <field name="name">Marge candidates 9 - 10 000</field>
+              <field eval="False" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.candidate'" name="model" />
+              <field eval="'marge_candidates'" name="function" />
+              <field eval="'(9,10000)'" name="args" >()</field>
+        </record> -->
+	</data>
+</openerp>

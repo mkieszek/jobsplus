@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report auto="False" menu="True" id="report_candidate" model="jp.candidate" name="candidate" rml="jobsplus_recruitment/report/candidate_report.rml" string="Raport kandydata" />
+    </data>
+</openerp>

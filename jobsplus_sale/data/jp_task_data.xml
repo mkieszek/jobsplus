@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<!--<record model="ir.property" id="property_task_case">
+			<field name="name">property_task_case</field>
+			<field name="fields_id" search="[('model','=','project.task'),
+			  ('name','=','property_task_case')]"/>
+			<field name="value" eval="'res.partner,'+str(list0)"/>
+		</record>-->
+	</data>
+</openerp>

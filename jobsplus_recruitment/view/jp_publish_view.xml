@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		<record model="ir.ui.view" id="publish_view_form">
+			<field name="name">jp.publish.view.form</field>
+			<field name="model">jp.publish</field>
+			<field name="arch" type="xml">
+				<form string="Publish" version="7.0">
+					<header>
+						<!--<field name="stage_id"  widget="statusbar" clickable="True" />-->
+					</header>
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="ad_id" />
+								<field name="portal_id" />
+								<field name="link" />
+							</group>
+							<group>
+								<field name="date_added" />
+								<field name="expiration_date" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="jobsplus_recruitment_publish_tree">
+			<field name="name">jp.publish.tree</field>
+            <field name="model">jp.publish</field>
+            <field name="arch" type="xml">
+				<tree string="Publish" >
+					<field name="ad_id" />
+					<field name="portal_id" />
+					<field name="link" />
+					<field name="date_added" />
+					<field name="expiration_date" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_recruitment_publish_search">
+			<field name="name">jp.publish.search</field>
+            <field name="model">jp.publish</field>
+            <field name="arch" type="xml">
+				<search string="All publish">
+					<field name="ad_id" />
+					<field name="portal_id" />
+					<field name="link" />
+					<field name="date_added" />
+					<field name="expiration_date" />
+				</search>
+			</field>
+		</record>
+        
+		<record id="action_publish" model="ir.actions.act_window">
+            <field name="name">Publish</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.publish</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_recruitment_publish_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+	</data>
+</openerp>

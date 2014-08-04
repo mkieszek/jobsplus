@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate='0'>
+
+        <!-- Sequences for jp.deal -->
+        <record id="seq_type_jp_deal" model="ir.sequence.type">
+            <field name="name">Deal</field>
+            <field name="code">jp.deal</field>
+        </record>
+
+        <record id="seq_jp_deal" model="ir.sequence">
+            <field name="name">Deal</field>
+            <field name="code">jp.deal</field>
+            <field name="prefix">D</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record model="jp.deal.stage" id="stage_deal_new">
+			<field name="name">Nowy</field>
+			<field eval="10" name="sequence"/>
+			<field name="state">draft</field>
+			<field name="probability">0.0</field>
+		</record>
+            <record model="jp.deal.stage" id="stage_deal_leasing">
+			<field name="name">Leasing</field>
+			<field eval="10" name="sequence"/>
+			<field name="state">open</field>
+			<field name="probability">1.0</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_recruitment">
+			<field name="name">Rekrutacja</field>
+			<field eval="20" name="sequence"/>
+			<field name="state">open</field>
+			<field name="probability">0.2</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_tohandover">
+			<field name="name">Do przekazania</field>
+			<field eval="30" name="sequence"/>
+			<field name="state">open</field>
+			<field name="probability">0.4</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_handover">
+			<field name="name">Przekazane</field>
+			<field eval="40" name="sequence"/>
+			<field name="state">pending</field>
+			<field name="probability">0.6</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_meetings">
+			<field name="name">Spotkania</field>
+			<field eval="50" name="sequence"/>
+			<field name="state">open</field>
+			<field name="probability">0.7</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_toinvoice">
+			<field name="name">Do fakturowania</field>
+			<field eval="60" name="sequence"/>
+			<field name="state">open</field>
+			<field name="probability">1.0</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_invoiced">
+			<field name="name">Zafakturowany</field>
+			<field eval="70" name="sequence"/>
+			<field name="state">open</field>
+			<field name="probability">1.0</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_Paid">
+			<field name="name">Zapłacony</field>
+			<field eval="80" name="sequence"/>
+			<field name="state">done</field>
+			<field name="probability">1.0</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_won">
+			<field name="name">Wygrany</field>
+			<field eval="90" name="sequence"/>
+			<field name="state">done</field>
+			<field name="probability">1.0</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_lost">
+			<field name="name">Przegrany</field>
+			<field eval="100" name="sequence"/>
+			<field name="state">done</field>
+			<field name="probability">0.0</field>
+		</record>
+		<record model="jp.deal.stage" id="stage_deal_canceled">
+			<field name="name">Wstrzymany</field>
+			<field eval="110" name="sequence"/>
+			<field name="state">pending</field>
+			<field name="probability">0.0</field>
+		</record>
+    </data>
+</openerp>

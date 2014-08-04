@@ -1,0 +1,107 @@
+<openerp>
+    <data>
+          <record model="ir.ui.view" id="jp_invoice_form">
+			<field name="name">jp.invoice.form</field>
+			<field name="model">jp.invoice</field>
+			<field name="arch" type="xml">
+                    <form string="Invoice" version="7.0">
+                        <header>
+        			 </header>
+				 <sheet>
+					<label for="name" class="oe_edit_only"/>
+					<h1><field name="name"  /></h1>
+                            <group col="2">
+                                <group string="Supplier details">
+                                    <field name="supplier" domain="[('supplier','=',True)]" context="{'default_supplier':1}" on_change="on_change_supplier(supplier)"/>
+                                </group>
+                                <group string="Invoice details">
+                                    <field name="service" />
+                                    <field name="date_of_invoice" />
+                                    <field name="date_of_payment" />
+                                    <field name="document_type" />
+                                </group>
+                            </group>
+                            <group col="2">
+                                <group>
+                                </group>
+                                <group string="Financial details">
+                                    <field name="payment_type" />
+                                    <field name="amount_net" />
+                                    <field name="amount_vat" />
+                                    <field name="amount_gross" />
+                                    <field name="bank_number" />
+                                </group>
+                            </group>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="jp_invoice_tree">
+            	<field name="name">jp.invoice.tree</field>
+                 <field name="model">jp.invoice</field>
+                 <field name="arch" type="xml">
+				<tree string="Invoices" >
+                            <field name="name" />
+                            <field name="supplier" />
+                            <field name="date_of_invoice" />
+                            <field name="date_of_payment" />
+                            <field name="document_type" />
+                            <field name="amount_net" />
+                            <field name="amount_gross" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jp_invoice_search">
+        		<field name="name">jp.invoice.search</field>
+                 <field name="model">jp.invoice</field>
+                 <field name="arch" type="xml">
+				<search string="All invoices">
+                            <field name="name" />
+                            <field name="supplier" />
+				</search>
+			</field>
+		</record>
+        
+		<record id="action_jp_invoice" model="ir.actions.act_window">
+                <field name="name">Invoice</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">jp.invoice</field>
+                <field name="view_type">form</field>
+                <field name="view_id" ref="jp_invoice_tree"/>
+                <field name="view_mode">tree,form</field>
+                <field name="context">{}</field>
+                <field name="domain">[]</field>
+                <field name="search_view_id" ref="jp_invoice_search"/>
+                <field name="help" type="html">
+                      <p class="oe_view_nocontent_create">
+                        Click to create new invoice.
+                      </p>
+                </field>
+            </record>
+
+        <menuitem name="Administration" id="menu_jp_administration" sequence="22" groups="base.group_jp_recrutmentmanager,base.group_jp_salesmanager,base.group_jp_administration_user,base.group_jp_administration_manager"/>
+
+        <menuitem name="Administration" id="menu_jp_administration_administration" parent="menu_jp_administration" sequence="2005" />
+
+        <menuitem name="Invoice" id="menu_jp_invoice" action="action_jp_invoice" parent="menu_jp_administration_administration" sequence="2006" />
+
+<!-- Scheduler for Deadline payment-->
+        <record forcecreate="True" id="ir_cron_deadline_payment_action" model="ir.cron">
+              <field name="name">Deadline payment</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.invoice'" name="model" />
+              <field eval="'notification_deadline_payment'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+    </data>
+</openerp>

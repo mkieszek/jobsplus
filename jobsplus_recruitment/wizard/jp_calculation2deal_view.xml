@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='view_jp_calculation2deal'>
+            <field name="name">jp.calculation.form</field>
+            <field name="model">jp.calculation2deal</field>
+            <field name="arch" type="xml">
+    			<form string="Calculations" version="7.0">
+    				<header>
+    				</header>
+                       <sheet>
+                       <field name="client_id" />
+    					<h2><field name="deal_id" /></h2>
+    					<field name="calculation_ids">
+							<tree>
+								<field name="calculation_from" />
+								<field name="calculation_to" />
+								<field name="value_margin" />
+								<field name="value_leasing" widget="jp_binary"/>
+								<field name="file_data" filename="file_name" widget="jp_binary"/>
+								<field name="file_name" invisible="1" />
+								<!-- <button name="unlink_calc" string="Unlink" type="object" icon="gtk-delete"/> -->
+							</tree>
+						</field>
+	    			</sheet>
+	    			<footer>
+                         <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+    			</form>
+    		</field>
+        </record>
+		
+        <record id="action_jp_calculation2deal" model="ir.actions.act_window">
+            <field name="name">Calculations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.calculation2deal</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_jp_calculation2deal"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</openerp>

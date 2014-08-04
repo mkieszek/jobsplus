@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="jobsplus_sales_report_sales_search" model="ir.ui.view">
+			<field name="name">jp.report.sales.search</field>
+			<field name="model">jp.report.sales</field>
+			<field name="arch" type="xml">
+        			<search string="Report sales">
+                            <field name="name" />
+							<field name="user_id" />
+							<field name="created_deals" />
+							<field name="added_leads" />
+							<field name="closed_tasks" />
+							<field name="week_number" />
+							<field name="year" />
+                            <group expand="1" string="Group By...">
+                            	<filter string="Year" domain="[]" name="years" context="{'group_by':'year'}"/>
+                            	<filter string="Month" domain="[]" name="months" context="{'group_by':'month'}"/>
+                            	<filter string="Week" domain="[]" name='week_nbr' context="{'group_by':'week_number'}"/>
+                                <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                                <filter string="Quarter" domain="[]" context="{'group_by':'quarter'}"/>
+                                <filter string="User" domain="[]" name='user' context="{'group_by':'user_id'}"/>
+                                <filter string="Created deals" domain="[]" context="{'group_by':'created_deals'}"/>
+                                <filter string="Closed tasks" domain="[]" context="{'group_by':'closed_tasks'}"/>
+                            </group>
+            		</search>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_sales_report_sales_tree">
+			<field name="name">jp.report.sales.tree</field>
+			<field name="model">jp.report.sales</field>
+			<field name="arch" type="xml">
+				<tree string="Report" create="false">
+                    <field name="name" />
+					<field name="user_id" />
+                    <field name="year" />
+                    <field name="quarter" />
+                    <field name="month" />
+                    <field name="week_number" />
+                    <field name="added_leads" />
+                    <field name="created_offers" />
+                    <field name="created_contracts" />
+					<field name="created_deals" />
+					<field name="invoice_deals" />
+					<field name="closed_tasks" />
+					
+				</tree>
+			</field>
+		</record>
+
+        <record id="jobsplus_sales_report_sales_graph" model="ir.ui.view">
+            <field name="name">jp.report.sales.graph</field>
+            <field name="model">jp.report.sales</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Report sales" type="bar">
+                    <field name="year"/>
+                    <field name="week_number" operator="+"/>
+                    <field group="True" name="user_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_report_sales" model="ir.actions.act_window">
+            <field name="name">Report sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.report.sales</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_sales_report_sales_tree"/>
+            <field name="view_mode">tree, graph</field>
+            <field name="context">{"search_default_years":1,"search_default_months":1, "search_default_week_nbr":1, "search_default_user":1}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_sales_report_sales_search"/>
+            <field name="help" type="html">
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="jobsplus_sales_report_sales_graph">
+           <field name="name">jp.report.sales.graph</field>
+           <field name="model">jp.report.sales</field>
+           <field name="type">graph</field>
+           <field name="arch" type="xml">
+                 <graph string="Report sales" type="pie">
+                      <field name="date" group="True"/>
+                      <field name="created_deals"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_jp_sale_deal_view_tree">
+			<field name="sequence" eval="0"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="jobsplus_sales_report_sales_tree"/>
+			<field name="act_window_id" ref="action_report_sales"/>
+		</record>        
+
+        <menuitem id="menu_jobsplus_sale_reports"
+            parent="base.menu_base_partner"
+            name="Reports" groups="base.group_jp_salesmanager"/>
+    		<menuitem id="menu_jobsplus_sale_report_sales"
+            	action="action_report_sales" 
+            	parent="menu_jobsplus_sale_reports"
+            	name="Reports salesman"
+            	sequence="10009"/>
+            	
+     	<!-- Scheduler for Calculete report recruitment-->
+        <record forcecreate="True" id="ir_cron_calculate_report_sales_action" model="ir.cron">
+              <field name="name">Calculete report sales</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.report.sales'" name="model" />
+              <field eval="'calculate_report_sales'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+	</data>
+</openerp>

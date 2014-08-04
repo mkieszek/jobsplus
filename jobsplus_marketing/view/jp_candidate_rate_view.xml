@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>		
+	<record model='ir.ui.view' id='jp_candidate_rate_view_tree'>
+            <field name="name">jp.candidate.rate.tree</field>
+            <field name="model">jp.candidate.rate</field>
+            <field name="arch" type="xml">
+                <tree string="Rates" version="7.0" create="false" edit="false" import="false">
+                    <field name="candidate_id" />
+                    <field name="application_id" />
+                    <field name="deal_id" />
+                    <field name="state" />
+                    <field name="rate" />
+                </tree>
+		 </field>
+	</record>
+        
+        <record model='ir.ui.view' id='jp_candidate_rate_view_search'>
+            <field name="name">jp.candidate.rate.search</field>
+            <field name="model">jp.candidate.rate</field>
+            <field name="arch" type="xml">
+                <search string="All rates">
+                    <field name="name" />
+                    <field name="candidate_id" />
+                    <field name="application_id" />
+                    <field name="state" />
+                    <field name="rate" />
+                    <filter name="rated" string="Rated" domain="[('state','=','2')]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                        <filter string="Candidate" domain="[]" context="{'group_by':'candidate_id'}"/>
+                        <filter string="Application" domain="[]" context="{'group_by':'application_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_jp_candidate_rate" model="ir.actions.act_window">
+            <field name="name">Rate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.candidate.rate</field>
+            <field name="view_id" ref="jp_candidate_rate_view_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="context">{"search_default_rated": 1}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jp_candidate_rate_view_search"/>
+        </record>
+
+            <menuitem name="List candidates rates" id="menu_jp_list_candidate_rate" action="action_jp_candidate_rate" parent="menu_jp_rate" sequence="2006" groups="base.group_jp_administration_user"/>
+
+    <!-- Scheduler for Candidate rate-->
+        <record forcecreate="True" id="ir_cron_candidate_rate_action" model="ir.cron">
+              <field name="name">Candidate rate</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.wordpress'" name="model" />
+              <field eval="'run_upload_candidate_rate'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+	</data>
+</openerp>

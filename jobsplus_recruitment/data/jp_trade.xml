@@ -1,0 +1,120 @@
+<openerp>
+	<data noupdate='0'>
+		<record model='jp.trade' id='trade_1'>
+			<field name="name">Administracja biurowa</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_2'>
+			<field name="name">Badania i rozwój</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_3'>
+			<field name="name">Bankowość</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_4'>
+			<field name="name">Budownictwo</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_5'>
+			<field name="name">Call center</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_6'>
+			<field name="name">Edukacja / szkolenia</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_7'>
+			<field name="name">Farmacja / biotechnologia</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_8'>
+			<field name="name">Finanse i księgowość</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_9'>
+			<field name="name">Grafika / reklama</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_10'>
+			<field name="name">Hotelarstwo / gastronomia / turystyka</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_11'>
+			<field name="name">Human Resources / kadry / płace</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_12'>
+			<field name="name">Inne</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_13'>
+			<field name="name">Inżynieria</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_14'>
+			<field name="name">IT / informatyka</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_15'>
+			<field name="name">Kadra zarządzająca</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_16'>
+			<field name="name">Marketing / promocja / pr</field>
+		</record>
+			
+		<record model='jp.trade' id='trade_17'>
+			<field name="name">Media / sztuka / rozrywka</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_18'>
+			<field name="name">Obsługa klienta</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_19'>
+			<field name="name">Pomoc w domu / opieka</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_20'>
+			<field name="name">Praca fizyczna</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_21'>
+			<field name="name">Praktyka / staż</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_22'>
+			<field name="name">Produkcja</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_23'>
+			<field name="name">Sprzedaż B2B</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_24'>
+			<field name="name">Sprzedaż / handel detaliczny / sieci handlowe</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_25'>
+			<field name="name">Transport / spedycja / logistyka</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_26'>
+			<field name="name">Ubezpieczenia</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_27'>
+			<field name="name">Usługi porządkowe</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_28'>
+			<field name="name">Zakupy / dział zakupów</field>
+		</record>
+		
+		<record model='jp.trade' id='trade_29'>
+			<field name="name">Zarządzanie  jakością</field>
+		</record>
+		
+	</data>
+</openerp>

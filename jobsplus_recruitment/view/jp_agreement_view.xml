@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		<record model="ir.ui.view" id="agreement_view_form">
+			<field name="name">jp.agreement.view.form</field>
+			<field name="model">jp.agreement</field>
+			<field name="arch" type="xml">
+				<form string="Agreement" version="7.0">
+					<header>
+						<!--<field name="stage_id"  widget="statusbar" clickable="True" />-->
+					</header>
+					<sheet>
+                        <field name="name" />
+                        <h1><div>Agreement</div></h1>
+                        <label for="position" class="oe_edit_only"/>
+						<h1><field name="position"  /></h1>
+						<group col="2">
+							<group string="General info">
+								<field name="client_id" domain="[('customer','=', True), ('is_company','=', True)]"/>
+								<field name="deal_id"  domain="[('client_id','=',client_id)]"/>
+								<field name="application_id" domain="[('deal_id','=',deal_id)]" on_change="on_change_application(application_id)"/>
+								<field name="status_work" />
+								<field name="date_certyficate" />
+								<field name="send_certyficate" />
+								<field name="country_id" invisible='1' />
+							</group>
+							<group string="Contract details">
+								<field name="type_of_agreement" colspan="2"/>
+								<field name="date_of_contract" />
+								<field name="contract_from" />
+								<field name="contract_to" />
+								<field name="term_of_notice" colspan="2" />
+							</group>
+						</group>
+						<group col="2">
+							<group string="Employee details">
+								<field name="first_name" />
+                                             <field name="last_name" />
+								<field name="city" />
+								<field name="country" />
+								<field name="personal_id" />
+								<field name="passport_id" />
+								<field name="day_of_birth" />
+								<field name="month_of_birth" />
+								<field name="year_of_birth" />
+								<field name="sex" />
+								<field name="email" />
+								<field name="phone" />
+								<field name="other_contact" />
+							</group>
+							<group col="1">
+								<group string="Financial details">
+									<field name="amount" />
+									<field name="amount_for" />
+									<field name="gross_net" />
+									<field name="currency_id" />
+									<field name="payment_type" />
+									<field name="bank_number" />
+									<field name="type_account_bank" on_change="on_change_type(type_account_bank)"/>
+									<field name="code_swift" attrs="{'invisible':[('type_account_bank','=', '1')]}"/>
+								</group>
+								<group string="Medical date">
+									<field name="medical_preliminary" />
+									<field name="medical_heights" />
+									<field name="medical_psychotechnical" />
+									<field name="medical_health" />
+								</group>
+							</group>
+						</group>
+						<group col="2">
+							
+							<group>
+							</group>
+						</group>
+						
+						<notebook>
+							<page string="Time sheet">
+								<field name="time_sheet_ids" colspan="4" nolabel="1">
+									<tree editable="bottom" string="Time sheet">
+										<field name="year" />
+										<field name="months" />
+										<field name="hours"/>
+										<field name="hours_50" />
+										<field name="hours_100" />
+										<field name="night" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+	
+		<record model="ir.ui.view" id="jobsplus_recruitment_agreement_tree">
+        		<field name="name">jp.agreement.tree</field>
+                 <field name="model">jp.agreement</field>
+                 <field name="arch" type="xml">
+                	<tree string="Umowy">
+        				 <field name="client_id" />
+        				 <field name="first_name" />
+                             <field name="last_name" />
+        				 <field name="contract_from" />
+        				 <field name="contract_to" />
+        				 <field name="term_of_notice" />
+        				 <field name="type_of_agreement" />
+                            <field name="amount" />
+            		</tree>
+        		</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_recruitment_agreement_search">
+			<field name="name">jp.agreement.search</field>
+            <field name="model">jp.agreement</field>
+            <field name="arch" type="xml">
+				<search string="All agreements">
+                            <field name="client_id" />
+                            <field name="first_name" />
+                            <field name="last_name" />
+                            <field name="contract_from" />
+                            <field name="contract_to" />
+                            <field name="term_of_notice" />
+                            <field name="type_of_agreement" />
+                            <field name="amount" />
+                            <field name="status_work"/>
+                            <field name="country_id" />
+                            <filter name="work" string="Work" domain="[('status_work','=',1)]" icon="terp-camera_test"/>
+                            <filter name="does_not_work" string="Doesn't work" domain="[('status_work','=',2)]" icon="terp-camera_test"/>
+                            <separator/>
+                            <group expand="0" string="Group By...">
+                                <filter name="group_client_id" string="Client" domain="[]" context="{'group_by':'client_id'}"/>
+                                <!--<filter string="Type of agreement" domain="[]" context="{'group_by':'author_idtype_of_afreement'}" />-->
+                                <filter string="Contract of" domain="[]" context="{'group_by':'contract_from'}"/>
+                                <filter string="Contract to" domain="[]" context="{'group_by':'contract_to'}"/>
+                            </group>
+				</search>
+			</field>
+		</record>
+        
+		<record id="action_agreement" model="ir.actions.act_window">
+            <field name="name">Agreements</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.agreement</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_recruitment_agreement_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_work':1, 'search_default_group_client_id': 1}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_recruitment_agreement_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new agreement.
+              </p>
+            </field>
+        </record>
+		
+		<menuitem id="menu_jobsplus_recruitment_agreement"
+        action="action_agreement" parent="menu_jobsplus_recruitment_recruitment"
+        sequence="2006"/>
+
+    <!-- Scheduler for Deadline agreement-->
+        <record forcecreate="True" id="ir_cron_deadline_agreement_action" model="ir.cron">
+              <field name="name">Deadline agreement</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.agreement'" name="model" />
+              <field eval="'notification_deadline_agreement'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+
+    <!-- Scheduler for Deadline medical-->
+        <record forcecreate="True" id="ir_cron_deadline_medical_action" model="ir.cron">
+              <field name="name">Deadline medical</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.agreement'" name="model" />
+              <field eval="'notification_deadline_medical'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+
+	</data>
+</openerp>

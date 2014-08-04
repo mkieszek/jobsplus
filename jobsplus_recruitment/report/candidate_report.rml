@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Marcin Bereda" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="5,0" stop="5,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="7,0" stop="7,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="9,0" stop="9,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="11,0" stop="11,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="13,0" stop="13,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="15,0" stop="15,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="17,0" stop="17,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="19,0" stop="19,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="21,0" stop="21,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="23,0" stop="23,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="27,0" stop="27,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="29,0" stop="29,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="31,0" stop="31,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="33,0" stop="33,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="35,0" stop="35,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,2" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,3" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,4" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,5" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,6" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,7" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,8" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,9" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,10" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,11" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="0,12" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,13" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,14" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,15" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,16" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,17" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="3,18" stop="3,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="5,18" stop="5,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="7,18" stop="7,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,19" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,20" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,21" stop="1,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela5">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,2" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,3" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,4" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,5" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,6" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,7" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,8" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,9" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,10" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="0,11" stop="0,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,1" stop="1,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,2" stop="1,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,2" stop="1,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela6">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#FFFFFF" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#FFFFFF" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#FFFFFF" start="3,0" stop="3,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="3,-1" stop="3,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="4,0" stop="4,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="4,-1" stop="4,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="5,0" stop="5,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="5,-1" stop="5,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="6,0" stop="6,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="6,0" stop="6,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="6,-1" stop="6,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#FFFFFF" start="0,1" stop="0,1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,1" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#FFFFFF" start="1,1" stop="1,1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="2,1" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="2,1" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#FFFFFF" start="2,1" stop="2,1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="0,2" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="1,2" stop="1,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#FFFFFF" start="2,2" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#FFFFFF" start="2,2" stop="2,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#FFFFFF" start="2,-1" stop="2,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabela7">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,1" stop="1,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="2,1" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="2,1" stop="2,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="2,-1" stop="2,-1"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica" fontSize="16.0" leading="20" textColor="#9999cc"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table_20_Contents" fontName="Helvetica"/>
+    <paraStyle name="Heading_20_1" fontName="Helvetica-Bold" fontSize="115%" leading="NaN" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Heading_20_2" fontName="Helvetica-BoldOblique" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_5f_header" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_5f_default_5f_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_5f_default_5f_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_5f_default_5f_2" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="2.0" leading="3" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para style="Standard">[[ repeatIn(objects,'candidate') ]][[ candidate.name ]]</para>
+    <para style="Table_20_Contents">[[candidate.candidate]]</para>
+    <blockTable colWidths="241.0,241.0" style="Tabela1">
+      <tr>
+        <td>
+          <para style="P1">Dane osobowe </para>
+          <blockTable colWidths="118.0,118.0" style="Tabela5">
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Miasto</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.city]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Województwo</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.state_id.name]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Państwo</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.country.name]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Nr dowodu osobistego</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.personal_id]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Nr paszportu</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.passport_id]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Dzień urodzenia</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.day_of_birth]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Miesiąc urodzenia</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.month_of_birth]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Rok urodzenia</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.year_of_birth]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Płeć</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.sex]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Narodowość</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.nationality.name]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Wykształcenie</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.education]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Źródło pozyskania</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.source_receive]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P1">Aktualne zatrudnienie</para>
+          <blockTable colWidths="118.0,118.0" style="Tabela3">
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Województwo</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.work_state.name]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Stanowisko</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.current_possition]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">Dane kontaktowe</para>
+          <blockTable colWidths="118.0,118.0" style="Tabela4">
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Telefon</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.phone]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Email</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.email]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Inny kontakt</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.other_contact]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P1">Oczekiwania finansowe</para>
+          <blockTable colWidths="118.0,118.0" style="Tabela2">
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Kwota</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.amount]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Waluta</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.currency_id.name]]</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Za</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[candidate.financial_for]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="482.0" style="Tabela6">
+      <tr>
+        <td>
+          <para style="Standard">Aplikacje:</para>
+		  <section>
+          <para style="terp_5f_default_5f_2"></para>
+          <blockTable colWidths="259.0,59.0,159.0" style="Tabela7">
+            <tr>
+              <td>
+                <para style="Table_20_Contents">Rekrutacja</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">Status</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">Notatka</para>
+              </td>
+            </tr>
+            <tr>
+			<para style="Standard">[[ repeatIn(candidate.application_ids,'a') ]]</para>
+              <td>
+                <para style="Table_20_Contents">[[a.deal_id.title]]</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[a.status]]</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[a.note]]</para>
+              </td>
+            </tr>
+          </blockTable>
+		  </section>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Standard">Umowy:</para>
+		  <section>
+          <para style="terp_5f_default_5f_2"></para>
+          <blockTable colWidths="59.0,209.0,209.0" style="Tabela7">
+            <tr>
+              <td>
+                <para style="Table_20_Contents">ID</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">Data umowy</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">Data rozwiązania umowy</para>
+              </td>
+            </tr>
+            <tr>
+			<para style="Standard">[[ repeatIn(candidate.agreement_ids,'ag') ]]</para>
+              <td>
+                <para style="Table_20_Contents">[[ag.name]]</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[ag.date_of_contract]]</para>
+              </td>
+              <td>
+                <para style="Table_20_Contents">[[ag.date_termination]]</para>
+              </td>
+            </tr>
+          </blockTable>
+		  </section>
+          <para style="Table_20_Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Standard">Notatka:</para>
+          <para style="Table_20_Contents">[[candidate.notes]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>

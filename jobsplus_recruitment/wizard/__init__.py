@@ -1,0 +1,6 @@
+#
+import jp_recruiter2deal
+import jp_candidate2deal
+import jp_meeting2deal
+import jp_attachment2candidate
+import jp_calculation2deal

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_jp_config_settings" model="ir.ui.view">
+            <field name="name">jp settings</field>
+            <field name="model">jp.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Jobs Plus Settings" version="7.0" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <group col='2'>
+                    	<group>
+                        	<field name="jobsplus_www" />
+                        	<field name="jobsplus_crm" />
+                        </group>
+                        <group></group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_jp_config_settings" model="ir.actions.act_window">
+            <field name="name">Jobs Plus Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="base.menu_jp_config" name="Jobs Plus Settings" parent="base.menu_config"
+            sequence="11" action="action_jp_config_settings"/>
+    </data>
+</openerp>

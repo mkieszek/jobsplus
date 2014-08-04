@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<menuitem action="account.action_payment_term_form"
+            id="meny_jobsplus_sale_payment_term" parent="base.menu_base_config" sequence="25"/>
+	</data>
+</openerp>

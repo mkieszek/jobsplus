@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+         <record id="view_jp_graph_sales1" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph1</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="added_leads" operator="+"/>
+                    <field name="user_id" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales1">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph1</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales1"/>
+        </record>   
+        
+         <record id="view_jp_graph_sales2" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph1</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="created_deals" operator="+"/>
+                    <field name="user_id" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales2">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph1</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales2"/>
+        </record>
+        
+         <record id="view_jp_graph_sales3" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph1</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="created_contracts" operator="+"/>
+                    <field name="user_id" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales3">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph1</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales3"/>
+        </record>
+        
+         <record id="view_jp_graph_sales4" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph1</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="invoice_deals" operator="+"/>
+                    <field name="user_id" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales4">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph1</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales4"/>
+        </record>
+        
+        <record id="view_jp_graph_sales5" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph1</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="closed_tasks" operator="+"/>
+                    <field name="user_id" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales5">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph1</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales5"/>
+        </record>
+        
+        <record id="view_jp_graph_sales6" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph2</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="value_leasing" operator="+"/>
+                    <field name="client_id" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales6">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph2</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales6"/>
+        </record>
+        
+        <record id="view_jp_graph_sales7" model="ir.ui.view">
+            <field name="name">jp.graph.sales</field>
+            <field name="model">jp.graph3</field>
+            <field name="arch" type="xml">
+                <graph orientation="vertical" string="Leads Analysis" type="bar">
+                    <field name="month" />
+                    <field name="value" operator="+"/>
+                    <field name="type" group="True"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_graph_sales7">
+            <field name="name">Graph sales</field>
+            <field name="res_model">jp.graph3</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_jp_graph_sales7"/>
+        </record>
+        
+        <record model="ir.ui.view" id="board_graph_form">
+            <field name="name">CRM - Statistical Dashboard Form</field>
+            <field name="model">board.board</field>
+            <field name="arch" type="xml">
+                <form string="Statistics Dashboard" version="7.0">
+                    <board style="1">
+                        <column>
+                            <action string="Założone prospekty" name="%(act_graph_sales1)d"/>
+                            <action string="Założone umowy" name="%(act_graph_sales3)d"/>
+                            <action string="Wykonane zadania" name="%(act_graph_sales5)d"/>
+                            <action string="Założone procesy rekrutacyjne" name="%(act_graph_sales2)d"/>
+                            <!-- <action string="Rekrutacje do fakturowania" name="%(act_graph_sales4)d"/>
+                            <action string="Wartość sprzedaży leasing" name="%(act_graph_sales6)d"/> -->
+                            <action string="Wartość sprzedaży" name="%(act_graph_sales7)d"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_graph_sales">
+            <field name="name">Charts current</field>
+            <field name="res_model">jp.graph1</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="board_graph_form"/>
+        </record>
+
+        <menuitem
+            id="menu_jobsplus_graph_sales"
+            parent="menu_jobsplus_sale_reports"
+            action="action_graph_sales"
+            name="Charts current"
+            sequence="10025"/>
+
+    </data>
+</openerp>
+    

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record id="view_jp_offer2contract" model="ir.ui.view">
+            <field name="name">jp.offer2contract.form</field>
+            <field name="model">jp.offer2contract</field>
+            <field name="arch" type="xml">
+                <form string="Convert to Contract" version="7.0">
+					<group string="Offer">
+						<field name="offer_id" />
+						<field name="client_id" domain="[('customer','=', True), ('is_company','=', True)]"/>
+						<field name="prospect_id" />
+						<field name="product_id" />
+					</group>
+					<group string="Contract" col="2">
+						<group>
+							<field name="contract_date" />
+							<field name="contract_type" on_change="on_change_type(contract_type)" default="indefinite"/>
+							<field name="termination_date" attrs="{'required':[('contract_type','!=','indefinite')], 'invisible':[('contract_type','=', 'indefinite')]}" />
+							
+						</group>
+						<group>
+							<field name="dismiss_period" />
+							<field name="dismiss_period_type" attrs="{'required':[('dismiss_period','>', '0')]}"/>
+							<field name="payment_term" />
+							<field name="warranty" />
+							<field name="warranty_period" attrs="{'required':[('warranty','=', True)]}"/>
+							<field name="warranty_period_type" attrs="{'required':[('warranty_period','>','0'),'|',('warranty','=', True)]}" />
+						</group>
+					</group>
+                    <footer>
+                        <button name="action_apply" string="Create Opportunity" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_jp_offer2contract" model="ir.actions.act_window">
+            <field name="name">Convert to contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.offer2contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_jp_offer2contract"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</openerp>

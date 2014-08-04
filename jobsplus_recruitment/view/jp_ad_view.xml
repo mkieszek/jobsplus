@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="ad_view_form">
+			<field name="name">jp.ad.view.form</field>
+			<field name="model">jp.ad</field>
+			<field name="arch" type="xml">
+				<form string="Ad" version="7.0">
+					<header>
+						<field name="stage_id"  widget="statusbar" clickable="True" />
+					</header>
+					<sheet>
+						<!--<field name="name" class="oe_inline" readonly="1"/>
+						<label for="ad" class="oe_edit_only"/>-->
+                        <field name="name" />
+                        <h1><div>Ad</div></h1>
+						<label for="position" class="oe_edit_only"/>
+                        <h1><field name="position" /></h1>
+						<group col="2">
+							<group>
+								<field name="country_id" />
+								<field name="state_id" />
+								<field name="workplace" />
+								<field name="trade_ids" widget="many2many_tags" nolabel="1" placeholder="Trades..." colspan="2"/>
+							</group>
+							<group>
+								<field name="deal_id" />
+								<field name="activity" />
+                                             <field name="publish_on" />
+                                             <field name="highlighted" />
+							</group>
+						</group>
+						
+						<notebook>
+							<page string="Portal">
+								<field name="publish_ids">
+									<tree editable="bottom" string="Portals">
+										<field name="portal_id" />
+										<field name="date_added" />
+										<field name="expiration_date"/>
+										<field name="link" widget="url" readonly="1"/>
+                                                         <field name="status" />
+									</tree>
+								</field>
+							</page>
+							<page string="Ad content">
+								<field name="ad_content" />
+							</page>
+							<page string="Candidates">
+								<field name="candidate_ids" >
+                                                 <tree>
+                                                    <field name="name" />
+                                                    <field name="candidate" />
+                                                    <field name="email" />
+                                                    <field name="count_document" />
+                                                 </tree>
+                                              </field>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+	
+		<record model="ir.ui.view" id="jobsplus_recruitment_ad_tree">
+			<field name="name">jp.ad.tree</field>
+            <field name="model">jp.ad</field>
+            <field name="arch" type="xml">
+				<tree string="Ad">
+					<field name="name" />
+					<field name="deal_id" />
+					<field name="position" />
+					<field name="workplace" />
+					<field name="activity" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="jobsplus_recruitment_ad_search">
+			<field name="name">jp.ad.search</field>
+            <field name="model">jp.ad</field>
+            <field name="arch" type="xml">
+				<search string="All ad">
+					<field name="name" />
+					<field name="ad_content" />
+					<field name="position" />
+					<field name="workplace" />
+                            <filter name="active" string="Active" domain="[('activity','in',True)]" icon="terp-camera_test"/>
+				</search>
+			</field>
+		</record>
+        
+		<record id="action_ad" model="ir.actions.act_window">
+            <field name="name">Ads</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.ad</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="jobsplus_recruitment_ad_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jobsplus_recruitment_ad_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new ad.
+              </p>
+            </field>
+        </record>
+        
+		<menuitem id="menu_jobsplus_recruitment_ad"
+        action="action_ad" parent="menu_jobsplus_recruitment_recruitment"
+        sequence="2005"/>
+	
+<!-- Scheduler for Deactivation publish-->
+        <record forcecreate="True" id="ir_cron_deactivation_publish_action" model="ir.cron">
+              <field name="name">Deactivation publish</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.ad'" name="model" />
+              <field eval="'deactivation_publish'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+<!-- Scheduler for Deactivation ad-->
+        <record forcecreate="True" id="ir_cron_deactivation_ad_action" model="ir.cron">
+              <field name="name">Deactivation ad</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.ad'" name="model" />
+              <field eval="'deactivation_ad'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,243 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="recrutiment_deal_view_form">
+			<field name="name">jp.recuitment.deal.view.form</field>
+			<field name="model">jp.deal</field>
+			<field name="inherit_id" ref="jobsplus_sale.deal_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/header" position="after">
+						<button name="%(jobsplus_recruitment.action_jp_recruiter2deal)d" string="Assign Recruiter" type="action" class="oe_highlight" attrs="{'invisible':[('state','!=','draft') ,'|', ('state','!=','open')]}" />
+						<button name="open_line_ad_form" string="Add ad" type="object" class="oe_highlight" />
+						<button name="%(jobsplus_recruitment.action_jp_candidate2deal)d" string="Add candidates" type="action" class="oe_highlight" attrs="{'invisible':[('state','=','done')]}" />
+						<field name="state" invisible="True"/>
+				</xpath>
+				
+				<xpath expr="/form/sheet/group/group/field[@name='date_open']" position="after">
+					<field name="date_middle" readonly="1" />
+				</xpath>
+				
+				<xpath expr="/form/sheet/group/group/field[@name='user_id']" position="after">
+					<field name="recruiter_id" readonly="1" />
+					<field name="recruiter_ids" widget="many2many_tags" nolabel="1" placeholder="Recruiter assistant..." colspan="2" />
+				</xpath>
+				<xpath expr="/form/sheet/notebook/page[@string='Tasks']" position="after">
+					<page string="Applications">
+						<field name="application_ids" colspan="4" nolabel="1">
+							<tree editable="bottom">
+								<button name="open_line_candidate" string="Open form candidate" type="object" icon="gtk-edit" />
+								<field name="candidate_id" />
+                                <field name="create_date" />
+								<field name="status" />
+								<field name="note" />
+                                <button name="%(jobsplus_recruitment.action_jp_attachment2candidate)d" string="Attachments" type="action" icon="gtk-copy" />
+                                <button name="application_rejected" string="Rejected" type="object" icon="gtk-no" attrs="{'invisible':[('status','=','3')]}"/>
+                                <button name="application_approved" string="Approved" type="object" icon="gtk-yes" attrs="{'invisible':[('status','=','2')]}"/>
+							</tree>
+						</field>
+					</page>
+					<page string="Ads">
+						<field name="ad_ids" colspan="4" nolabel="1" >
+							<tree string="Ads">
+								<field name="name" />
+								<field name="position" />
+								<field name="portal_count" />
+							</tree>
+						</field>
+					</page>
+                    <page string="Calculations">
+                    	<button name="%(jobsplus_recruitment.action_jp_calculation2deal)d" string="Calculations" type="action" icon="gtk-copy"  class="oe_highlight"/>
+						<button name="open_line_calculation_form" string="Add calculation" type="object" />
+						<field name="calculation_ids" colspan="4" nolabel="1">
+							<tree editable="bottom">
+								<field name="calculation_from" />
+								<field name="calculation_to" />
+								<field name="value_margin" />
+								<field name="value_leasing" widget="jp_binary"/>
+								<!-- <field name="file_data" filename="file_name" /> -->
+								<field name="file_name" invisible="0" />
+							</tree>
+						</field>
+        				</page>
+                            <page string="Projects">
+						<field name="project_ids" colspan="4" nolabel="1">
+							<tree editable="bottom">
+								<field name="project_from" />
+								<field name="project_to" />
+								<field name="file_data" filename="file_name" />
+								<field name="file_name" invisible="1" />
+							</tree>
+						</field>
+        				</page>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model='ir.ui.view' id='jp_deal_tree'>
+            <field name="name">jp.deal.tree</field>
+            <field name="model">jp.deal</field>
+            <field name="arch" type="xml">
+                <tree string="Deals" version="7.0" colors="">
+					<field name="name" />
+                    <field name="title" />
+                    <field name="client_id" />
+                    <field name="handover_date" />
+                    <field name="planned_revenue" />
+                    <field name="user_id" />
+                    <field name="stage_id" />
+                </tree>
+            </field>
+        </record>
+        
+        <record model='ir.ui.view' id='jobsplus_recruitment_deal_kanban'>
+            <field name="name">jobsplus.sale.deal.kanban</field>
+            <field name="model">jp.deal</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="stage_id" >
+					<field name="name" />
+                    <field name="title" />
+                    <field name="client_id" />
+                    <field name="product_id" />
+                    <field name="stage_id" />
+                    <field name="message_summary"/>
+                    <field name="message_unread"/>
+                    <field name="color_2"/>
+                    <field name="recruiter_id" />
+                    <field name="application_count" />
+                    <field name="date_middle" />
+                    <field name="state" />
+                    <templates>
+						<t t-name="kanban-box">
+							<div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color_2.raw_value)} oe_kanban_card oe_kanban_global_click" >
+								<div class="oe_dropdown_toggle oe_dropdown_kanban">
+									<span class="oe_e">í</span>
+									<ul class="oe_dropdown_menu">
+                                        <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Edit...</a></li></t>
+                                        <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                        <li><a name="%(mail.action_email_compose_message_wizard)d" type="action">Send Email</a></li>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color_2"/></li>
+                                    </ul>
+								</div>
+								<div class="oe_kanban_content" >
+                                    <div style="border-bottom: 1px solid gray">
+                                        <b><field name="name"/></b>
+                                    </div>
+                                    <div style="margin-top: 7px;">
+										<b><field name="title" /></b>
+                                    </div>
+                                    <div style="margin-top: 7px;">
+                                        <field name="client_id"/>
+                                    </div>
+                                    <div style="margin-top: 7px;">
+										<field name="recruiter_id" />
+                                    </div>
+                                    <div attrs="{'invisible':[('state','=','draft')]}" style="font-size: 13px;">
+										<t t-if="record.date_middle.raw_value and record.date_middle.raw_value lt (new Date())" t-set="red">oe_kanban_text_red</t>
+										<span t-attf-class="#{red || ''}"><i>Data środkowa: <field name="date_middle" /></i></span>
+                                    </div>
+                                    <div attrs="{'invisible':[('state','=','draft')]}" style="font-size: 13px;">
+										<t t-if="record.handover_date.raw_value and record.handover_date.raw_value lt (new Date())" t-set="red">oe_kanban_text_red</t>
+										<span t-attf-class="#{red || ''}"><i>Data przekazania: <field name="handover_date" /></i></span>
+                                    </div>
+                                    <div style="margin-top: -17px;">
+                                        <b style="font-size: 15px; margin-left: 200px;"><field name="application_count" /></b>
+                                    </div>
+                                    <div class="oe_kanban_footer_left">
+                                        <t t-raw="record.message_summary.raw_value"/>
+                                    </div>
+                                </div>
+							</div>
+						</t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record model='ir.ui.view' id='jp_deal_search'>
+            <field name="name">jp.deal.search</field>
+            <field name="model">jp.deal</field>
+            <field name="arch" type="xml">
+                <search string="All deals">
+                    <field name="title" />
+					<field name="name" />
+                    <field name="client_id" />
+                    <field name="handover_date" />
+                    <field name="planned_revenue" />
+                    <field name="user_id" />
+                    <field name="stage_id" />
+                    <field name="recruiter_id" />
+                    <filter name="open" string="In Progress" domain="[('state','in',('draft','open', 'pending', 'lost'))]" icon="terp-camera_test"/>
+                    <filter name="close" string="Closed" domain="[('state','in',('done', 'cancel'))]" icon="terp-camera_test"/>
+                    <separator />
+					<filter name="mine" string="My deal's" domain="['|',('user_id','=',uid),('recruiter_id','=',uid)]"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Client" domain="[]" context="{'group_by':'client_id'}"/>
+                        <filter string="User" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter string="Recruiter" help="Partner" domain="[]" context="{'group_by':'recruiter_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_deals2" model="ir.actions.act_window">
+            <field name="name">Deals</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jp.deal</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_open": 1}</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="jp_deal_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new deal.
+              </p>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window.view" id="action_jp_recruitment_deal_view_kanban" >
+			<field name="sequence" eval="0"/>
+			<field name="view_mode">kanban</field>
+			<field name="view_id" ref="jobsplus_recruitment_deal_kanban"/>
+			<field name="act_window_id" ref="action_deals2"/>
+		</record>
+
+		<record model="ir.actions.act_window.view" id="action_jp_sale_deal_view_tree">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="jp_deal_tree"/>
+			<field name="act_window_id" ref="action_deals2"/>
+		</record>
+
+		<record model="ir.actions.act_window.view" id="action_jp_sale_deal_view_form">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="recrutiment_deal_view_form"/>
+			<field name="act_window_id" ref="action_deals2"/>
+		</record>
+		
+		<menuitem name="Recruitment" id="menu_jobsplus_recruitment" sequence="21" groups="base.group_jp_recruiter,base.group_jp_marketing,base.group_jp_administration_user" />
+        <menuitem id="menu_jobsplus_recruitment_recruitment"
+         parent="menu_jobsplus_recruitment" name="Recruitment"
+        sequence="2001"/>
+        <menuitem id="menu_jobsplus_recruitment_deal"
+        action="jobsplus_recruitment.action_deals2" parent="menu_jobsplus_recruitment_recruitment"
+        sequence="2001"/>
+	
+	<!-- Scheduler for Date middle/Date handover-->
+        <record forcecreate="True" id="ir_cron_date_middle_date_handover_action" model="ir.cron">
+              <field name="name">Notification date middle / date handover</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.deal'" name="model" />
+              <field eval="'notification_middle_handover_date'" name="function" />
+              <field eval="'()'" name="args" />
+        </record>
+        
+	</data>
+</openerp>
+
