@@ -6,11 +6,16 @@ Created on Mon Jul  8 11:07:22 2013
 """
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
-from addons.mail.mail_message import decode
 import pdb
 import datetime
+from email.header import decode_header
 
-
+def decode(text):
+    """Returns unicode() string conversion of the the given encoded smtp header text"""
+    if text:
+        text = decode_header(text.replace('\r', ''))
+        return ''.join([tools.ustr(x[0], x[1]) for x in text])
+    
 class jp_ad(osv.Model):
     _name = "jp.ad"
     _inherit = 'mail.thread'
@@ -101,7 +106,7 @@ class jp_ad(osv.Model):
             if mail_to != '':
                 url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
                 body = decode("Ogłoszenie na stanowisko %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
-                subject = decode("OpenERP: publikacja ogłoszenia.")
+                subject = mail_message.decode("OpenERP: publikacja ogłoszenia.")
                 uid_id = users_obj.browse(cr, uid, uid)
                 vals = {'email_from': uid_id.partner_id.name+"<"+uid_id.partner_id.email+">",
                         'email_to': mail_to,
