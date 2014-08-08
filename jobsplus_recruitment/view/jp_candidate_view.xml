@@ -116,6 +116,7 @@
             <field name="model">jp.candidate</field>
             <field name="arch" type="xml">
 				<tree string="Candidate">
+					<button name="open_candidate" type="object" string="Open candidate" icon="gtk-go-forward" />
 					<field name="name" />
                     <field name="create_date" />
 					<field name="candidate" />

@@ -433,3 +433,15 @@ class jp_candidate(osv.Model):
     def report(self, cr, uid, ids, vals, context=None):
         self.pool.get('jp.report.recruitment').calculate_report_recruitment(cr ,uid, context=context)
         return True
+    
+    def open_candidate(self, cr, uid, id, context=None):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Candidate', 
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'jp.candidate',
+            'res_id': id[0],
+            'target': 'new',
+            'context': context,
+        }
