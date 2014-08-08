@@ -35,9 +35,7 @@
                       <field name="recruiter_id" />
                       <field name="open_deals" />
                       <field name="open_handover_deals" />
-                      <field name="meeting_deals" />
                       <field name="won_deals" />
-                      <field name="transfer_candidates" />
                       <field name="lost_deals" />
                       <field name="cease_deals" />
                       <field name="closed_tasks" />
