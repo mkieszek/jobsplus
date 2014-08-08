@@ -52,7 +52,7 @@
             id="menu_jobsplus_report_charts"
             parent="menu_jobsplus_sale_reports"
             action="action_report_charts"
-            name="Charts history"
+            name="Charts current"
             sequence="10025"/>
 
     </data>
