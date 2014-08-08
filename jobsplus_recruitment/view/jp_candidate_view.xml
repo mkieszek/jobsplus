@@ -36,6 +36,10 @@
                                     <field name="source_receive" />
                                     <field name="portal_id" />
                                     <field name="ad_id" />
+		                            <div>
+										<label for="email_title" />
+			                           	<field name="email_title" />
+		                     		</div>
 								</group>
 							</group>
 							<group col="1">
@@ -49,16 +53,12 @@
 									<field name="email" />
 									<field name="other_contact" />
 								</group>
-							</group>
-						</group>
-						<group col="2">
-							<group>
-							</group>
-							<group string="Finantial expectations">
-								<field name="amount" />
-								<field name="currency_id" />
-								<field name="financial_for" />
-                                              <field name="sallary_id" />
+								<group string="Finantial expectations">
+									<field name="amount" />
+									<field name="currency_id" />
+									<field name="financial_for" />
+	                                <field name="sallary_id" />
+								</group>
 							</group>
 						</group>
 						
