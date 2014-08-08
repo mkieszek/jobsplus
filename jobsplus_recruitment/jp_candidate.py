@@ -501,7 +501,6 @@ class jp_candidate(osv.Model):
         return email
     
     def get_candidate_name(self, cr, uid, email_from, context=None):
-        #pdb.set_trace()
         if not email_from.index('Gumtree'):
             candidate_name = re.search(r'\w+ \w+', email_from)
             if candidate_name != None:
@@ -513,7 +512,6 @@ class jp_candidate(osv.Model):
         return candidate_name
         
     def get_ad(self, cr, uid, subject, context=None):
-        #pdb.set_trace()
         ad_obj = self.pool.get('jp.ad')
         subject_ad = re.search('AD\d{4,5}', subject)
         if subject_ad != None:
@@ -522,76 +520,11 @@ class jp_candidate(osv.Model):
                 ad_id = ad[0]
             else:
                 ad_id = False
+        elif re.search('\\x9e.*\\xe2', subject.encode('utf-8')) != None:
+            gumtree_title = re.search('\\x9e.*\\xe2', subject.encode('utf-8')).group()
+            gumtree_title = gumtree_title.replace('\x9e','')
+            gumtree_title = gumtree_title.replace('\xe2','')
+            ad_id = ad_obj.search(cr, uid, [('gumtree_title','=',gumtree_title)])[0]
         else:
             ad_id = False
         return ad_id
-    
-    """def message_new(self, cr, uid, msg_dict, custom_values=None, context=None):
-        Called by ``message_process`` when a new message is received
-           for a given thread model, if the message did not belong to
-           an existing thread.
-           The default behavior is to create a new record of the corresponding
-           model (based on some very basic info extracted from the message).
-           Additional behavior may be implemented by overriding this method.
-
-           :param dict msg_dict: a map containing the email details and
-                                 attachments. See ``message_process`` and
-                                ``mail.message.parse`` for details.
-           :param dict custom_values: optional dictionary of additional
-                                      field values to pass to create()
-                                      when creating the new thread record.
-                                      Be careful, these values may override
-                                      any other values coming from the message.
-           :param dict context: if a ``thread_model`` value is present
-                                in the context, its value will be used
-                                to determine the model of the record
-                                to create (instead of the current model).
-           :rtype: int
-           :return: the id of the newly created thread object
-        
-        if context is None:
-            context = {}
-        data = {}
-        if isinstance(custom_values, dict):
-            data = custom_values.copy()
-        model = context.get('thread_model') or self._name
-        model_pool = self.pool.get(model)
-        fields = model_pool.fields_get(cr, uid, context=context)
-        if 'name' in fields and not data.get('name'):
-            data['name'] = msg_dict.get('subject', '')
-        if model == 'jp.candidate':
-            email = msg_dict.get('email_from')
-            candidate_email = self.get_email(cr, uid, email, context=None)
-            if email != None:
-                data['email'] = candidate_email
-                data['candidate'] = candidate_email
-                data['source_receive'] = '1'
-                data['email_title'] = msg_dict.get('subject')
-                if msg_dict.get('subject') != None:
-                    ad_id = self.get_ad(cr, uid, msg_dict.get('subject'), context=None)
-                    if ad_id != False:
-                        data['ad_id'] = ad_id
-                del data['name']
-            attachments = msg_dict['attachments']
-            x = 0
-            for attach in attachments:
-                if attach[0].find("?") > 0:
-                    attach_name = re.search(r'[\w]+\.[\w]+',attach[0])
-                    if attach_name != None:
-                        attach = (attach_name.group(), attach[1])
-                        attachments[x] = attach
-                x += 1
-        if msg_dict.get('email_from') != None:
-            res_id = model_pool.create(cr, uid, data, context=context)
-            if model == 'jp.candidate' and ad_id != False:
-                deal_id = model_pool.browse(cr, uid, res_id).ad_id.deal_id.id
-                vals = {}
-                vals = {
-                        'deal_id': deal_id,
-                        'candidate_id': res_id
-                        }
-                
-                self.pool.get('jp.application').create(cr, uid, vals, context=None)
-        else:
-            res_id = False
-        return res_id"""

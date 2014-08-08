@@ -46,6 +46,7 @@ class jp_ad(osv.Model):
         'highlighted': fields.boolean('Highlighted', track_visibility='onchange'),
         'create_date' : fields.datetime('Create Date', readonly=True),
         'candidate_ids': fields.one2many('jp.candidate','ad_id','Candidates'),
+        'gumtree_title': fields.char('Gumtree title'),
     }
 
     _defaults ={
