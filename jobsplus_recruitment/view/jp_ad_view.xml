@@ -22,12 +22,13 @@
 								<field name="state_id" />
 								<field name="workplace" />
 								<field name="trade_ids" widget="many2many_tags" nolabel="1" placeholder="Trades..." colspan="2"/>
+								<field name="gumtree_title" />
 							</group>
 							<group>
 								<field name="deal_id" />
 								<field name="activity" />
-                                             <field name="publish_on" />
-                                             <field name="highlighted" />
+                               <field name="publish_on" />
+                               <field name="highlighted" />
 							</group>
 						</group>
 						

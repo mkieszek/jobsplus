@@ -167,7 +167,7 @@
             id="menu_jobsplus_graph_sales"
             parent="menu_jobsplus_sale_reports"
             action="action_graph_sales"
-            name="Charts current"
+            name="Charts history"
             sequence="10025"/>
 
     </data>
