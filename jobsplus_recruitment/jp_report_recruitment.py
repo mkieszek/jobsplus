@@ -131,9 +131,9 @@ class jp_report_recruitment(osv.Model):
             'date': date,
             'open_deals': self.count_deal_open(cr, uid, date, user_id, context=context),
             'open_handover_deals': self.count_deal_open_hendover(cr, uid, date, user_id, context=context),
-            'meeting_deals': self.count_meeting_deal(cr, uid, date, user_id, context=context),
+            #'meeting_deals': self.count_meeting_deal(cr, uid, date, user_id, context=context),
             'won_deals': self.count_deal_won(cr, uid, date, user_id, context=context),
-            'transfer_candidates': self.count_transfer_candidates(cr, uid, date, user_id, context=context),
+            #'transfer_candidates': self.count_transfer_candidates(cr, uid, date, user_id, context=context),
             'lost_deals': self.count_deal_lost(cr, uid, date, user_id, context=context),
             'cease_deals': self.count_deal_cease(cr, uid, date, user_id, context=context),
             'closed_tasks': self.count_task_closed(cr, uid, date, user_id, context=context),
@@ -154,9 +154,9 @@ class jp_report_recruitment(osv.Model):
                 'date': date,
                 'open_deals': record.open_deals+self.count_deal_open(cr, uid, date, user_id, context=context),
                 'open_handover_deals': self.count_deal_open_hendover(cr, uid, date, user_id, context=context),
-                'meeting_deals': record.meeting_deals+self.count_meeting_deal(cr, uid, date, user_id, context=context),
+                #'meeting_deals': record.meeting_deals+self.count_meeting_deal(cr, uid, date, user_id, context=context),
                 'won_deals': record.won_deals+self.count_deal_won(cr, uid, date, user_id, context=context),
-                'transfer_candidates': record.transfer_candidates+self.count_transfer_candidates(cr, uid, date, user_id, context=context),
+                #'transfer_candidates': record.transfer_candidates+self.count_transfer_candidates(cr, uid, date, user_id, context=context),
                 'lost_deals': record.lost_deals+self.count_deal_lost(cr, uid, date, user_id, context=context),
                 'cease_deals': record.cease_deals+self.count_deal_cease(cr, uid, date, user_id, context=context),
                 'closed_tasks': record.closed_tasks+self.count_task_closed(cr, uid, date, user_id, context=context),
@@ -178,7 +178,7 @@ class jp_report_recruitment(osv.Model):
         # jeśli poniedziałek stwórz nowy rekord
         for user_id in user_ids:
             #tych nie raportujemy
-            if (user_id.id in (11, 13, 14, 15, 16, 17, 24)):
+            if (user_id.id in (11, 14, 15, 16, 21, 24)):
                 if day == 0:
                     self.create_report(cr, uid, today, user_id.id, context = None)
                 # jeżeli nie to aktualizuj ostatni rekord
@@ -230,7 +230,7 @@ class jp_report_recruitment(osv.Model):
         while today>start_date:
             for user_id in user_ids:
                 #tych nie raportujemy
-                if(user_id.id in (11, 13, 14, 15, 16, 17, 24)):
+                if(user_id.id in (11, 14, 15, 16, 21, 24)):
                     if start_date.weekday() == 0:
                         self.create_report(cr, uid, start_date, user_id.id, context = None)
                         # jeżeli nie to aktualizuj ostatni rekord

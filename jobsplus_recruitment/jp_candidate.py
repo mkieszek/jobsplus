@@ -12,6 +12,7 @@ import datetime
 import time
 import psycopg2
 import urlparse
+import re
 from openerp.report import report_sxw
 from email.header import decode_header
 
@@ -233,6 +234,7 @@ class jp_candidate(osv.Model):
         'last_deal_id': fields.function(_last_deal_id, type="string", string="Last Deal"),
         'ad_id': fields.many2one('jp.ad', "Ad"),
         'image_icon': fields.function(_get_image_icon, type='char', string='Source receive'),
+        'email_title': fields.char('Email title', readonly=True),
     }
     
     
@@ -439,3 +441,96 @@ class jp_candidate(osv.Model):
     def report(self, cr, uid, ids, vals, context=None):
         self.pool.get('jp.report.recruitment').calculate_report_recruitment(cr ,uid, context=context)
         return True
+    
+    def open_candidate(self, cr, uid, id, context=None):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Candidate', 
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'jp.candidate',
+            'res_id': id[0],
+            'target': 'new',
+            'context': context,
+        }
+        
+    def message_new(self, cr, uid, msg_dict, custom_values=None, context=None):
+        if context is None:
+            context = {}
+        data = {}
+        if isinstance(custom_values, dict):
+            data = custom_values.copy()
+        model = context.get('thread_model') or self._name
+        model_pool = self.pool.get(model)
+        fields = model_pool.fields_get(cr, uid, context=context)
+        if 'name' in fields and not data.get('name'):
+            data['name'] = msg_dict.get('subject', '')
+        if model == 'jp.candidate':
+            email = msg_dict.get('email_from')
+            candidate_email = self.get_email(cr, uid, email, context=None)
+            if email != None:
+                data['email'] = candidate_email
+                data['candidate'] = candidate_email
+                data['source_receive'] = '1'
+                data['email_title'] = msg_dict.get('subject')
+                if msg_dict.get('subject') != None:
+                    ad_id = self.get_ad(cr, uid, msg_dict.get('subject'), context=None)
+                    if ad_id != False:
+                        data['ad_id'] = ad_id
+                del data['name']
+            attachments = msg_dict['attachments']
+            x = 0
+            for attach in attachments:
+                if attach[0].find("?") > 0:
+                    attach_name = re.search(r'[\w]+\.[\w]+',attach[0])
+                    if attach_name != None:
+                        attach = (attach_name.group(), attach[1])
+                        attachments[x] = attach
+                x += 1
+        if msg_dict.get('email_from') != None:
+            res_id = model_pool.create(cr, uid, data, context=context)
+            if model == 'jp.candidate' and ad_id != False:
+                deal_id = model_pool.browse(cr, uid, res_id).ad_id.deal_id.id
+                vals = {}
+                vals = {
+                        'deal_id': deal_id,
+                        'candidate_id': res_id
+                        }
+                
+                self.pool.get('jp.application').create(cr, uid, vals, context=None)
+        else:
+            res_id = False
+        return res_id
+    
+    def get_email(self, cr, uid, email_from, context=None):
+        email = re.search(r'[\w\.-]+@[\w\.-]+', email_from).group()
+        return email
+    
+    def get_candidate_name(self, cr, uid, email_from, context=None):
+        if not email_from.index('Gumtree'):
+            candidate_name = re.search(r'\w+ \w+', email_from)
+            if candidate_name != None:
+                candidate_name = candidate_name.group()
+            else:
+                candidate_name = False
+        else:
+            candidate_name = False
+        return candidate_name
+        
+    def get_ad(self, cr, uid, subject, context=None):
+        ad_obj = self.pool.get('jp.ad')
+        subject_ad = re.search('AD\d{4,5}', subject)
+        if subject_ad != None:
+            ad = ad_obj.search(cr, uid, [('name','=',subject_ad.group())])
+            if ad:
+                ad_id = ad[0]
+            else:
+                ad_id = False
+        elif re.search('\\x9e.*\\xe2', subject.encode('utf-8')) != None:
+            gumtree_title = re.search('\\x9e.*\\xe2', subject.encode('utf-8')).group()
+            gumtree_title = gumtree_title.replace('\x9e','')
+            gumtree_title = gumtree_title.replace('\xe2','')
+            ad_id = ad_obj.search(cr, uid, [('gumtree_title','=',gumtree_title)])[0]
+        else:
+            ad_id = False
+        return ad_id
