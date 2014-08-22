@@ -43,34 +43,34 @@ class jp_client_rate(osv.osv):
         url="http://"+jp_www+"/invisible/ocena-klienta?&token="+str(vals['uuid'])
         
         if deal_id.stage_id.id == 10: #Przegrany
-            body = _("<div style='width: 600px;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
+            body = _("<div style='width: 600px; font-family: Verdana;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
                     <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div>\
                     <div>Chcielibyśmy również <b>poprosić Państwa o ocenę naszej pracy –  ankieta czeka na Państwa pod linkiem:</b></div>\
                     <div><a href='%s'>Formularz oceny</a></div>\
-                    <div style='font-size: 12px;'>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                    <div style='font-size: 12px;'>%s</div>\
+                    <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
+                    <div>%s</div>\
                     <div style='margin-bottom: 15px;'><b>Jej wypełnienie potrwa około jedną minutę.</b></div>\
                     <div>Dziękujemy.</div>\
                     <div style='margin-left: 200px'>Z poważaniem</div>\
                     <div style='margin-left: 200px'>Zespół Jobs Plus</div></div>")%(url, url)
         elif deal_id.stage_id.id == 9: #Wygrany
-            body = _("<div style='width: 600px;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
+            body = _("<div style='width: 600px; font-family: Verdana;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
                     <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div>\
                     <div>Chcielibyśmy również <b>poprosić Państwa o ocenę naszej pracy –  ankieta czeka na Państwa pod linkiem:</b></div>\
                     <div><a href='%s'>Formularz oceny</a></div>\
-                    <div style='font-size: 12px;'>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                    <div style='font-size: 12px;'>%s</div>\
+                    <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
+                    <div>%s</div>\
                     <div style='margin-bottom: 15px;'><b>Jej wypełnienie potrwa około jedną minutę.</b></div>\
                     <div>Dziękujemy.</div>\
                     <div style='margin-left: 200px'>Z poważaniem</div>\
                     <div style='margin-left: 200px'>Zespół Jobs Plus</div></div>")%(url, url)
         else: 
-            body = _("<div style='width: 600px;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
+            body = _("<div style='width: 600px; font-family: Verdana;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
                     <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div>\
                     <div>Chcielibyśmy również <b>poprosić Państwa o ocenę naszej pracy –  ankieta czeka na Państwa pod linkiem:</b></div>\
                     <div><a href='%s'>Formularz oceny</a></div>\
-                    <div style='font-size: 12px;'>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                    <div style='font-size: 12px;'>%s</div>\
+                    <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
+                    <div>%s</div>\
                     <div style='margin-bottom: 15px;'><b>Jej wypełnienie potrwa około jedną minutę.</b></div>\
                     <div>Dziękujemy.</div>\
                     <div style='margin-left: 200px'>Z poważaniem</div>\
@@ -78,11 +78,11 @@ class jp_client_rate(osv.osv):
         
         if mail_to is not "":
             users_obj = self.pool.get('res.users')
-            subject = _("Oceń proces rekrutacji")
+            subject = _("Oceń naszą pracę")
             uid = users_obj.search(cr, uid, [('id','=',1)])[0]
             uid_id = users_obj.browse(cr, uid, uid)
             
-            email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
+            email_from = "Zespół Jobs Plus<handel@jobsplus.pl>"
             vals = {'email_from': email_from,
                     'email_to': mail_to,
                     'state': 'outgoing',

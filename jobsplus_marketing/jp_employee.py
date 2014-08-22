@@ -14,7 +14,7 @@ import datetime
 
 class jp_employee(osv.osv):
     _name = 'jp.employee'
-    _description = "Employee"
+    _description = _("Employee")
         
     _columns = {
         'name': fields.char('Name', required=True),
@@ -29,7 +29,7 @@ class jp_employee(osv.osv):
     }
     
     def create(self, cr, uid, vals, context=None):
-        user = self.search(cr, uid, [('user_id','=',vals['user_id'])])
+        user = self.search(cr, uid, [('name','=',vals['name'])])
         if user:
             raise osv.except_osv(_('Ostrzeżenie'), _('Wybrany użytkownik systemu jest już dodady jako pracownik.'))
         employee_id = super(jp_employee, self).create(cr, uid, vals, context=context)
@@ -53,7 +53,7 @@ class jp_employee(osv.osv):
         
         return {'value' : values}
         
-    def notification_birth_employee(self, cr, uid, ids, context=None):
+    def notification_birth_employee(self, cr, uid, context=None):
         groups_obj = self.pool.get('res.groups')
         group_id = groups_obj.search(cr, uid, [('name','=','Marketing Jobs Plus')])
         users = groups_obj.browse(cr, uid, group_id)[0].users
