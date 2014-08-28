@@ -106,7 +106,7 @@ class jp_ad(osv.Model):
                     mail_to += user.email+', '
             if mail_to != '':
                 url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
-                body = decode("Ogłoszenie na stanowisko %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
+                body = decode("Ogłoszenie na stanowisko %s zostało zmienione. <br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
                 subject = mail_message.decode("OpenERP: publikacja ogłoszenia.")
                 uid_id = users_obj.browse(cr, uid, uid)
                 vals = {'email_from': uid_id.partner_id.name+"<"+uid_id.partner_id.email+">",
