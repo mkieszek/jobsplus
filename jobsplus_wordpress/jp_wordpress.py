@@ -138,7 +138,7 @@ class jp_wordpress(osv.osv_memory):
         
         if ad_id > 0:
             ad_obj = self.pool.get('jp.ad')
-            ad_ids = ad_obj.search(cr, uid, [('name','=',title)], context=None)
+            ad_ids = ad_obj.search(cr, uid, [('id','=',ad_id)], context=None)
             if ad_ids:
                 ad = ad_obj.browse(cr, uid, ad_ids)
                 deal_id = ad and ad[0] and ad[0].deal_id.id or False
