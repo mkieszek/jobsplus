@@ -89,6 +89,7 @@ class jp_wordpress(osv.osv_memory):
         sallary_id = args['sallary_ids']
         state_id = args['state_ids']
         ad_id = int(args['ad_id'])
+        title = args['title']
         trades = []
         i=0
         #pdb.set_trace()
@@ -137,7 +138,7 @@ class jp_wordpress(osv.osv_memory):
         
         if ad_id > 0:
             ad_obj = self.pool.get('jp.ad')
-            ad_ids = ad_obj.search(cr, uid, [('id','=',ad_id)], context=None)
+            ad_ids = ad_obj.search(cr, uid, [('name','=',title)], context=None)
             if ad_ids:
                 ad = ad_obj.browse(cr, uid, ad_ids)
                 deal_id = ad and ad[0] and ad[0].deal_id.id or False
