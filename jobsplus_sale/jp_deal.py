@@ -66,7 +66,7 @@ class jp_deal(osv.Model):
     
     _defaults = {
         'active': 1,
-        'user_id': lambda s, cr, uid, c: s._get_default_user(cr, uid, c),
+        'user_id': lambda s, cr, uid, c: uid,
         'name': lambda obj, cr, uid, context: '/',
         'color' : 0,
     }
