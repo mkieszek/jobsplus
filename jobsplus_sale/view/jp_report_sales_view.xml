@@ -96,7 +96,7 @@
 
         <menuitem id="menu_jobsplus_sale_reports"
             parent="base.menu_base_partner"
-            name="Reports" groups="base.group_jp_salesmanager"/>
+            name="Reports"/>
     		<menuitem id="menu_jobsplus_sale_report_sales"
             	action="action_report_sales" 
             	parent="menu_jobsplus_sale_reports"

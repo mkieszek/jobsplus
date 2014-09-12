@@ -73,5 +73,11 @@
             <field eval="0" name="perm_create"/>
         </record>
 	</data>
+	
+	<data>
+		<menuitem id="menu_jobsplus_sale_reports"
+            parent="base.menu_base_partner"
+            name="Reports" groups="base.group_jp_salesmanager"/>
+	</data>
 </openerp>
 	

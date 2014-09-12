@@ -62,8 +62,8 @@
                     'view/jp_candidate_view.xml',
                     'view/jp_trade_view.xml',
                     'view/jp_report_recruitment_view.xml',
-                    'view/jp_deal_report_view.xml',
-                    'view/jp_task_report_rec_view.xml'],
+                    'view/jp_task_report_rec_view.xml',
+                    'view/jp_deal_report_view.xml'],
     'sequence': 1001,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

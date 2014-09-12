@@ -29,7 +29,7 @@ class jp_graph1(osv.Model):
         cr.execute("""
             CREATE OR REPLACE VIEW jp_graph1 AS (
                             
-                SELECT id, 1 as nbr, user_id, added_clients, closed_deals, week_number, month, added_leads, year, created_offers, invoice_deals, 
+                SELECT id, 1 as nbr, user_id, week_number, month, added_leads, year, created_offers, invoice_deals, 
                         created_contracts, created_deals, closed_tasks
                     FROM jp_report_sales
                     WHERE month >= (to_char(localtimestamp - interval '12 months', 'YYYY') || '-M' || to_char(localtimestamp - interval '12 months', 'MM')) and user_id in (6,7,8,23)
