@@ -41,7 +41,7 @@ class jp_candidate_rate(osv.osv):
             jp_www = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_www
             
             url="http://"+jp_www+"/wp-content/plugins/jobsplus-integration/api/get_candidate_rate.php?id="+str(rate_id)+"&token="+str(vals['uuid'])
-            #url_handler = urllib.urlopen(url)
+            url_handler = urllib.urlopen(url)
             mail_to = ''
             
             candidate_obj = self.pool.get('jp.candidate')
