@@ -30,7 +30,7 @@ class jp_client_rate(osv.osv):
         jp_www = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_www
 
         url="http://"+jp_www+"/wp-content/plugins/jobsplus-integration/api/get_client_rate.php?id="+str(rate_id)+"&token="+str(vals['uuid'])
-        url_handler = urllib.urlopen(url)
+        #url_handler = urllib.urlopen(url)
         mail_to = ''
         
         client_obj = self.pool.get('res.partner')
@@ -42,39 +42,63 @@ class jp_client_rate(osv.osv):
         
         url="http://"+jp_www+"/invisible/ocena-klienta?&token="+str(vals['uuid'])
         
-        if deal_id.stage_id.id == 10: #Przegrany
-            body = _("<div style='width: 600px; font-family: Verdana;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
+        sex = 'Szanowni Państwo'.decode('utf8')
+        sex2 = 'Państwa'.decode('utf8')
+        sex3 = 'Państwa'.decode('utf8')
+        sex4 = 'zostali Państwo zakwalifikowani'.decode('utf8')
+        sex5 = 'wyrażają Państwo'.decode('utf8')
+        
+        if client.title2 == '1':
+            sex = 'Szanowna Pani'.decode('utf8')
+            sex2 = 'Panią'.decode('utf8')
+            sex4 = 'została Pani zakwalifikowana'.decode('utf8')
+            sex5 = 'wyraża Pani'.decode('utf8')
+        elif client.title2 == '2':
+            sex = 'Szanowny Panie'.decode('utf8')
+            sex2 = 'Pana'.decode('utf8')
+            sex4 = 'został Pan zakwalifikowany'.decode('utf8')
+            sex5 = 'wyraża Pan'.decode('utf8')
+         
+        body = ''
+        
+        if deal_id.stage_id.sequence == 100: #Przegrany
+            body = _("<div style='width: 600px; font-family: Verdana; font-size: 13px;'><div>%s,<div></br>\
                     <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div>\
-                    <div>Chcielibyśmy również <b>poprosić Państwa o ocenę naszej pracy –  ankieta czeka na Państwa pod linkiem:</b></div>\
-                    <div><a href='%s'>Formularz oceny</a></div>\
-                    <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                    <div>%s</div>\
-                    <div style='margin-bottom: 15px;'><b>Jej wypełnienie potrwa około jedną minutę.</b></div>\
-                    <div>Dziękujemy.</div>\
-                    <div style='margin-left: 200px'>Z poważaniem</div>\
-                    <div style='margin-left: 200px'>Zespół Jobs Plus</div></div>")%(url, url)
-        elif deal_id.stage_id.id == 9: #Wygrany
-            body = _("<div style='width: 600px; font-family: Verdana;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
-                    <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div>\
-                    <div>Chcielibyśmy również <b>poprosić Państwa o ocenę naszej pracy –  ankieta czeka na Państwa pod linkiem:</b></div>\
-                    <div><a href='%s'>Formularz oceny</a></div>\
-                    <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                    <div>%s</div>\
-                    <div style='margin-bottom: 15px;'><b>Jej wypełnienie potrwa około jedną minutę.</b></div>\
-                    <div>Dziękujemy.</div>\
-                    <div style='margin-left: 200px'>Z poważaniem</div>\
-                    <div style='margin-left: 200px'>Zespół Jobs Plus</div></div>")%(url, url)
+                    <div>Żałujemy, że nie udało się z sukcesem zamknąć projektu i tym bardziej chcielibyśmy <b>poprosić %s o ocenę naszej pracy.</b></div></br>\
+                    <div><b>Ankieta czeka na %s pod linkiem:</b></div>\
+                    <div><a href='%s'>>> ankieta oceny Jobs Plus</a></div></br>\
+                    <div><b>Jej wypełnienie zajmie mniej niż minutę i pomoże ulepszyć naszą pracę.</b></div></br>\
+                    <div>Jeżeli powyższy odnośnik nie działa, prosimy o skopiowanie poniższego linka i wklejenie go w adres przeglądarki</div>\
+                    <div>%s</div></br>\
+                    <div>Serdecznie dziękujemy.</div>\
+                    <div>Z poważaniem,</div>\
+                    <div>Zespół Jobs Plus</div></br>\
+                    <div>Niniejsza wiadomość została wygenerowana automatycznie, prosimy na nią nie odpowiadać.</div></div>")%(sex, sex2, sex2, url, url)
+        elif deal_id.stage_id.sequence == 90: #Wygrany
+            body = _("<div style='width: 600px; font-family: Verdana; font-size: 13px;'><div>%s,<div></br>\
+                    <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div></br>\
+                    <div>Chcielibyśmy <b>poprosić %s o ocenę naszej pracy –  ankieta czeka na %s pod linkiem:</b></div>\
+                    <div><a href='%s'>>> ankieta oceny Jobs Plus</a></div></br>\
+                    <div><b>Jej wypełnienie zajmie mniej niż minutę i pomoże ulepszyć naszą pracę.</b></div></br>\
+                    <div>Jeżeli powyższy odnośnik nie działa, prosimy o skopiowanie poniższego linka i wklejenie go w adres przeglądarki</div>\
+                    <div>%s</div></br>\
+                    <div>Serdecznie dziękujemy.</div>\
+                    <div>Z poważaniem,</div>\
+                    <div>Zespół Jobs Plus</div></br>\
+                    <div>Niniejsza wiadomość została wygenerowana automatycznie, prosimy na nią nie odpowiadać.</div></div>")%(sex, sex2, sex2, url, url)
         else: 
-            body = _("<div style='width: 600px; font-family: Verdana;'><div style='margin-bottom: 15px;'>Szanowni Państwo,<div>\
-                    <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div>\
-                    <div>Chcielibyśmy również <b>poprosić Państwa o ocenę naszej pracy –  ankieta czeka na Państwa pod linkiem:</b></div>\
-                    <div><a href='%s'>Formularz oceny</a></div>\
-                    <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                    <div>%s</div>\
-                    <div style='margin-bottom: 15px;'><b>Jej wypełnienie potrwa około jedną minutę.</b></div>\
-                    <div>Dziękujemy.</div>\
-                    <div style='margin-left: 200px'>Z poważaniem</div>\
-                    <div style='margin-left: 200px'>Zespół Jobs Plus</div></div>")%(url, url)
+            body = _(("<div style='width: 600px; font-family: Verdana; font-size: 13px;'><div>%s,<div></br>\
+                    <div><b>Serdecznie dziękujemy za współpracę i skorzystanie z usług Jobs Plus.</b></div></br>\
+                    <div>Chcielibyśmy <b>poprosić %s o ocenę naszej dotychczasowej pracy, celem udoskonalenia jej jakości.</b></div></br>\
+                    <div>Ankieta czeka na %s pod linkiem:</div>\
+                    <div><a href='%s'>>>ankieta oceny Jobs Plus</a></div></br>\
+                    <div><b>Jej wypełnienie zajmie mniej niż minutę i pomoże ulepszyć naszą pracę.</b></div></br>\
+                    <div>Jeżeli powyższy odnośnik nie działa, prosimy o skopiowanie poniższego linka i wklejenie go w adres przeglądarki</div>\
+                    <div>%s</div></br>\
+                    <div>Serdecznie dziękujemy.</div>\
+                    <div>Z poważaniem,</div>\
+                    <div>Zespół Jobs Plus</div></br>\
+                    <div>Niniejsza wiadomość została wygenerowana automatycznie, prosimy na nią nie odpowiadać.</div></div>"))%(sex, sex2, sex2, url, url)
         
         if mail_to is not "":
             users_obj = self.pool.get('res.users')

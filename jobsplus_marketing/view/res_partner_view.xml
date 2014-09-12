@@ -92,6 +92,10 @@
 					</page>
 				</xpath>
 			
+				<xpath expr="//page[@string='Contacts']/field/form/sheet/group/field[@name='function']" position="before">
+					<field name="title2" />
+				</xpath>
+				
 				<xpath expr="//page[@string='Deals']" position="attributes">
 					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
 				</xpath>

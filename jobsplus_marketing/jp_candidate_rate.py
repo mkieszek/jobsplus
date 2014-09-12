@@ -51,56 +51,68 @@ class jp_candidate_rate(osv.osv):
             position = deal_id.title
             url="http://"+jp_www+"/invisible/ocena-kandydata?&token="+str(vals['uuid'])
             
-            sex = 'Szanowni Państwo'
-            sex2 = 'Państwo'
-            sex3 = 'Państwa'
+            sex = 'Szanowni Państwo'.decode('utf8')
+            sex2 = 'Państwo'.decode('utf8')
+            sex3 = 'Państwa'.decode('utf8')
+            sex4 = 'zostali Państwo zakwalifikowani'.decode('utf8')
+            sex5 = 'wyrażają Państwo'.decode('utf8')
             if application.candidate_id.sex == 'f':
-                sex = 'Szanowna Pani'
-                sex2 = 'Panią'
+                sex = 'Szanowna Pani'.decode('utf8')
+                sex2 = 'Panią'.decode('utf8')
+                sex3 = 'Pani'.decode('utf8')
+                sex4 = 'została Pani zakwalifikowana'.decode('utf8')
+                sex5 = 'wyraża Pani'.decode('utf8')
             elif application.candidate_id.sex == 'm':
-                sex = 'Szanowny Panie'
-                sex2 = 'Pana'
+                sex = 'Szanowny Panie'.decode('utf8')
+                sex2 = 'Pana'.decode('utf8')
+                sex3 = 'Pana'.decode('utf8')
+                sex4 = 'został Pan zakwalifikowany'.decode('utf8')
+                sex5 = 'wyraża Pan'.decode('utf8')
                 
             body = ''
-            
-            pdb.set_trace()
-            
+
+            #zaakceptowana
             if application.status == '2':
                 body = _("<div style='width: 600px; font-family: Verdana; font-size: 13px;'><div style='margin-bottom: 15px;'>%s,<div>\
-                        <div><b>Serdecznie dziękujemy za udział w rekrutacji na stanowisko %s,</b> przeprowadzonej przez zespół Jobs Plus.</div>\
+                        <div><b>Serdecznie dziękujemy za udział w rekrutacji na stanowisko %s,</b> przeprowadzonej przez zespół Jobs Plus.</div></br>\
                         <div><b>Gratulujemy pomyślnego rezultatu</b> i życzymy powodzenia w pracy na nowym stanowisku.</div>\
                         <div>Chcielibyśmy również poprosić %s o ocenę naszej pracy –  ankieta czeka pod linkiem:</div>\
-                        <div><a href='%s'>>>ankieta oceny Jobs Plus</a></div>\
-                        <div style='margin-bottom: 15px;'><b>Jej wypełnienie zajmie mniej niż minutę, pomoże ulepszyć naszą pracę i może pomóc innym Kandydatom.</b></div>\
-                        <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                        <div>%s</div>\
-                        <div>Dziękujemy.</div>\
-                        <div>Z poważaniem</div>\
-                        <div>Zespół Jobs Plus</div></div>")%(sex, position, sex2, url, url)
+                        <div><a href='%s'>>>ankieta oceny Jobs Plus</a></div></br>\
+                        <div style='margin-bottom: 15px;'><b>Jej wypełnienie zajmie mniej niż minutę</b>, a znacząco poprawi jakość naszej pracy i wpłynie na satysfakcję przyszłych Kandydatów.</div>\
+                        <div>Jeżeli powyższy odnośnik nie działa, prosimy o skopiowanie poniższego linka i wklejenie go w adres przeglądarki.</div>\
+                        <div>%s</div></br>\
+                        <div>Dziękujemy!</div>\
+                        <div>Pozdrawiamy,</div>\
+                        <div>Zespół Jobs Plus</div>\
+                        <div>Niniejsza wiadomość została wygenerowana automatycznie, prosimy na nią nie odpowiadać.</div></div>")%(sex, position, sex2, url, url)
+            #odrzucona po rozmowie
             elif application.status == '3' and deal_id.stage_id.sequence >= 50:
                 body = _("<div style='width: 600px; font-family: Verdana; font-size: 13px;'><div style='margin-bottom: 15px;'>%s,</div>\
-                        <div style='margin-bottom: 15px;'><b>Serdecznie dziękujemy za udział w rekrutacji na stanowisko %s,</b></div>\
-                        przeprowadzonej przez zespół Jobs Plus.</div>\
-                        <div>Cieszymy się, że mogliśmy %s poznać. Niestety, że <b>proces ten został zamknięty</b> i nie znaleźli się Państwo w gronie rekomendowanych Kandydatów.\
-                        Zapewniamy jednak, że <b>zachowamy w bazie %s kandydaturę</b> i będziemy wracać do niej w przypadku odpowiednich procesów.\
-                        <div>Chcielibyśmy również <b>poprosić %s o ocenę naszej pracy.</div>\
+                        <div><b>Serdecznie dziękujemy za udział w rekrutacji na stanowisko %s,</b> przeprowadzonej przez zespół Jobs Plus.</div></br>\
+                        <div>%s kandydatura została pozytywnie oceniona, jednak <b>proces ten został już zamknięty</b>\
+                        i nie %s do kolejnego etapu</div>\
+                        <div>Chcielibyśmy <b>poprosić %s o ocenę naszej pracy.</div>\
                         <div>Ankieta czeka na %s pod linkiem:</b>\
-                        <div><a href='%s'>>>ankieta oceny Jobs Plus</a></div>\
-                        <div style='margin-bottom: 15px;'><b>Jej wypełnienie zajmie mniej niż minutę, pomoże ulepszyć naszą pracę i może pomóc innym Kandydatom.</b></div>\
-                        <div>Jeżeli powyższy odnośnik nie działa, skopiuj poniższy link i wklej w adres przeglądarki</div>\
-                        <div>%s</div>\
-                        <div>Dziękujemy.</div>\
-                        <div>Z poważaniem</div>\
-                        <div>Zespół Jobs Plus</div></div>")%(sex, position, sex3, sex2, sex3, sex3, url, url)
+                        <div><a href='%s'>>>ankieta oceny Jobs Plus</a></div></br>\
+                        <div><b>Jej wypełnienie zajmie mniej niż minutę</b>, a znacząco poprawi jakość naszej pracy i wpłynie na satysfakcję przyszłych Kandydatów.</div>\
+                        <div>Jeżeli powyższy odnośnik nie działa, prosimy o skopiowanie poniższego linka i wklejenie go w adres przeglądarki.</div>\
+                        <div>%s</div></br>\
+                        <div>Jednocześnie proponujemy zachowanie <b>w bazie %s dokumentów.</b>\
+                        Będziemy wracać do niej w przypadku odpowiednich procesów. Jeśli nie %s zgody na zachowanie dokumentów,\
+                        wystarczy odpowiedzieć na tego maila, wpisując w tytule wiadomości NIE ZGADZAM SIĘ.</div></br>\
+                        <div>Serdecznie dziękujemy!.</div>\
+                        <div>Pozdrawiamy,</div>\
+                        <div>Zespół Jobs Plus</div></div>")%(sex, position, sex3, sex2, sex4, sex3, url, url, sex5, sex5)
+            #odrzucona przed rozmową
             elif application.status == '3' and deal_id.stage_id.sequence < 50:
                 body = _("<div style='width: 600px; font-family: Verdana; font-size: 13px;'><div style='margin-bottom: 15px;'>%s,</div>\
-                        <div style='margin-bottom: 15px;'><b>Serdecznie dziękujemy za udział w rekrutacji na stanowisko %s,</b></div>\
-                        przeprowadzonej przez zespół Jobs Plus.</div>\
-                        <div>Niestety, <b>proces ten został zamknięty</b> i nie znaleźli sie Państwo w gronie rekomendowanych Kandydatów. Zapewniamy jednak, że \
-                        <b>zachowamy w bazie Państwa kandydaturę</b> i będziemy wracać do niej w przypadku odpowiednich procesów.</div>\
-                        <div>Dziękujemy.</div>\
-                        <div>Z poważaniem</div>\
-                        <div>Zespół Jobs Plus</div></div>")%(sex, position)
+                        <div><b>Serdecznie dziękujemy za udział w rekrutacji na stanowisko %s,</b> przeprowadzonej przez zespół Jobs Plus.</div></br>\
+                        <div>W tej chwili, <b>proces ten został zamknięty</b> - proponujemy zachowanie <b>w bazie %s dokumentów.</b>\
+                        Będziemy wracać do niej w przypadku odpowiednich procesów. Jeśli nie %s zgody na zachowanie dokumentów,\
+                        wystarczy odpowiedzieć na tego maila, wpisując w tytule wiadomości NIE ZGADZAM SIĘ.</div></br>\
+                        <div>Serdecznie dziękujemy!</div>\
+                        <div>Pozdrawiamy,</div>\
+                        <div>Zespół Jobs Plus</div></div>")%(sex, position, sex2, sex5)
             
             if mail_to is not "":
                 users_obj = self.pool.get('res.users')
