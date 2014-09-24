@@ -314,8 +314,6 @@ class jp_candidate(osv.Model):
             email_ids = self.search(cr, uid, [('email','=',email)])
             email = self.browse(cr, uid, email_ids)
             for cand in email:
-                if cand.email == 'gtyczynski@poczta.onet.pl':
-                    pdb.set_trace()
                 email.remove(cand)
                 if len(cand.document_ids) > 0:
                     for cand2 in email:
@@ -352,7 +350,7 @@ class jp_candidate(osv.Model):
                                 self.unlink(cr, uid, [cand2.id], context=None)
                                 email.remove(cand2)
                             else:
-                                if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
+                                if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id:
                                     if cand2.experience != False or cand2.reference != False or cand2.notes != False:
                                         vals = []
                                         if cand.experience == False:
@@ -378,7 +376,7 @@ class jp_candidate(osv.Model):
                                     self.unlink(cr, uid, [cand2.id], context=None)
                                     email.remove(cand2)
                         else:
-                            if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
+                            if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id:
                                 if cand2.experience != False or cand2.reference != False or cand2.notes != False:
                                     vals = []
                                     if cand.experience == False:
