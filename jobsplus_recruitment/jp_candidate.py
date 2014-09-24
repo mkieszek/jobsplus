@@ -309,7 +309,7 @@ class jp_candidate(osv.Model):
         emails = []
         for row in rows:
             emails.append(row[1])
-        l = 0
+
         for email in emails:
             email_ids = self.search(cr, uid, [('email','=',email)])
             email = self.browse(cr, uid, email_ids)
@@ -319,7 +319,6 @@ class jp_candidate(osv.Model):
                     for cand2 in email:
                         if len(cand2.document_ids) == len(cand.document_ids):
                             ok = 0
-                            l += 1
                             for document in cand.document_ids:
                                 for doc in cand2.document_ids:
                                     if document.name == doc.name and document.file_size == doc.file_size and len(cand.document_ids) == len(cand2.document_ids):
@@ -351,11 +350,7 @@ class jp_candidate(osv.Model):
                                 self.unlink(cr, uid, [cand2.id], context=None)
                                 email.remove(cand2)
                             else:
-                                if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id == cand2.state_id and cand.phone and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
-                                    app_cand2_ids = application_obj.search(cr, uid, [('candidate_id','=', cand2.id)])
-                                    if app_cand2_ids:
-                                        for app_cand2 in app_cand2_ids:
-                                            application_obj.unlink(cr, uid, [app_cand2], context=None)
+                                if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
                                     if cand2.experience != False or cand2.reference != False or cand2.notes != False:
                                         vals = []
                                         if cand.experience == False:
@@ -376,14 +371,12 @@ class jp_candidate(osv.Model):
                                         document_vals = {}
                                         document_vals['res_id'] = cand.id
                                         attachment_obj.write(cr, uid, document.id, document_vals, context=None)
+                                    for application in cand2.application_ids:
+                                        application_obj.write(cr, uid, [application.id], {'candidate_id': cand.id})
                                     self.unlink(cr, uid, [cand2.id], context=None)
                                     email.remove(cand2)
                         else:
-                            if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id == cand2.state_id and cand.phone and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
-                                app_cand2_ids = application_obj.search(cr, uid, [('candidate_id','=', cand2.id)])
-                                if app_cand2_ids:
-                                    for app_cand2 in app_cand2_ids:
-                                        application_obj.unlink(cr, uid, [app_cand2], context=None)
+                            if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
                                 if cand2.experience != False or cand2.reference != False or cand2.notes != False:
                                     vals = []
                                     if cand.experience == False:
@@ -404,16 +397,17 @@ class jp_candidate(osv.Model):
                                     document_vals = {}
                                     document_vals['res_id'] = cand.id
                                     attachment_obj.write(cr, uid, document.id, document_vals, context=None)
+                                for application in cand2.application_ids:
+                                    application_obj.write(cr, uid, [application.id], {'candidate_id': cand.id})
                                 self.unlink(cr, uid, [cand2.id], context=None)
                                 email.remove(cand2)
                                     
-        #print 'Licznik: '+str(l)
         return True
     
     def application_unlink(self, cr, uid, context=None):
         conn = psycopg2.connect(database=cr.dbname)
         cur = conn.cursor()
-        query = ("SELECT count(candidate_id), candidate_id FROM jp_application GROUP BY candidate_id HAVING count(candidate_id) > 1")
+        query = ("SELECT count(candidate_id), candidate_id, deal_id FROM jp_application GROUP BY candidate_id, deal_id HAVING count(candidate_id) > 1")
         cur.execute(query)
         rows = cur.fetchall()
         conn.close()
@@ -422,19 +416,19 @@ class jp_candidate(osv.Model):
             candidates.append(row[1])
             
         application_obj = self.pool.get('jp.application')
+        apps = []
         
         for candidate in self.browse(cr, uid, candidates):
-            applications = []
-            if len(candidate.application_ids) > 1:
-                for app in candidate.application_ids:
-                    applications.append(app)
-                for application in applications:
-                    applications.remove(application)
-                    for application2 in applications:
-                        if application != application2:
-                            if application.deal_id.id == application2.deal_id.id and application.status == application2.status:
-                                application_obj.unlink(cr, uid, [application2.id])
-                                applications.remove(application2)
+            for app in candidate.application_ids:
+                apps.append(app)
+            for application in apps:
+                apps.remove(application)
+                for application2 in apps:
+                    if application.deal_id.id == application2.deal_id.id and application.status == application2.status:
+                        application_obj.unlink(cr, uid, [application2.id])
+        
+        empty_app_ids = application_obj.search(cr, uid, [('candidate_id','=',False)])
+        application_obj.unlink(cr, uid, empty_app_ids)
             
         return True
     

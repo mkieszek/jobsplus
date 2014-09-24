@@ -222,5 +222,19 @@
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(9,10000)'" name="args" >()</field>
         </record> -->
+        
+        <!-- Scheduler for Marge applications -->
+        <record forcecreate="True" id="ir_cron_marge_applications_action" model="ir.cron">
+              <field name="name">Marge applications</field>
+              <field eval="True" name="active" />
+              <field name="user_id" ref="base.user_root" />
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field eval="'jp.candidate'" name="model" />
+              <field eval="'application_unlink'" name="function" />
+              <field eval="'()'" name="args" >()</field>
+        </record>
+        
 	</data>
 </openerp>
