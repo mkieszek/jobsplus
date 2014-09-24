@@ -314,6 +314,8 @@ class jp_candidate(osv.Model):
             email_ids = self.search(cr, uid, [('email','=',email)])
             email = self.browse(cr, uid, email_ids)
             for cand in email:
+                if cand.email == 'gtyczynski@poczta.onet.pl':
+                    pdb.set_trace()
                 email.remove(cand)
                 if len(cand.document_ids) > 0:
                     for cand2 in email:

@@ -176,7 +176,7 @@
     </data>
     
 	<data noupdate='1'>
-	<!-- Scheduler for Marge candidates 2 - 2 -->
+	<!-- Scheduler for Marge candidates 2 - 2 
         <record forcecreate="True" id="ir_cron_marge_candidates_2_2_action" model="ir.cron">
               <field name="name">Marge candidates 2 - 2</field>
               <field eval="False" name="active" />
@@ -187,8 +187,8 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(2,2)'" name="args" >()</field>
-        </record>
-    <!-- Scheduler for Marge candidates 3 - 9  -->
+        </record> -->
+    <!-- Scheduler for Marge candidates 3 - 9 
         <record forcecreate="True" id="ir_cron_marge_candidates_3_9_action" model="ir.cron">
               <field name="name">Marge candidates 3 - 9</field>
               <field eval="False" name="active" />
@@ -199,8 +199,8 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(3,9)'" name="args" >()</field>
-        </record>
-    <!-- Scheduler for Marge candidates 10 - 19 --> 
+        </record> -->
+    <!-- Scheduler for Marge candidates 10 - 19  
         <record forcecreate="True" id="ir_cron_marge_candidates_10_19_action" model="ir.cron">
               <field name="name">Marge candidates 10 - 19</field>
               <field eval="False" name="active" />
@@ -211,8 +211,8 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(10,19)'" name="args" >()</field>
-        </record>
-    <!-- Scheduler for Marge candidates 20 - 29 -->
+        </record> -->
+    <!-- Scheduler for Marge candidates 20 - 29
         <record forcecreate="True" id="ir_cron_marge_candidates_20_29_action" model="ir.cron">
               <field name="name">Marge candidates 20 - 29</field>
               <field eval="False" name="active" />
@@ -223,8 +223,8 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(20,29)'" name="args" >()</field>
-        </record>
-        <!-- Scheduler for Marge candidates 30 - 39  -->
+        </record> -->
+        <!-- Scheduler for Marge candidates 30 - 39 
         <record forcecreate="True" id="ir_cron_marge_candidates_30_39_action" model="ir.cron">
               <field name="name">Marge candidates 30 - 39</field>
               <field eval="False" name="active" />
@@ -235,8 +235,8 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(30,39)'" name="args" >()</field>
-        </record>
-    <!-- Scheduler for Marge candidates 40 - 49 --> 
+        </record> -->
+    <!-- Scheduler for Marge candidates 40 - 49
         <record forcecreate="True" id="ir_cron_marge_candidates_40_49_action" model="ir.cron">
               <field name="name">Marge candidates 40 - 49</field>
               <field eval="False" name="active" />
@@ -247,8 +247,8 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(40,49)'" name="args" >()</field>
-        </record>
-    <!-- Scheduler for Marge candidates 50 - 59 -->
+        </record> --> 
+    <!-- Scheduler for Marge candidates 50 - 59
         <record forcecreate="True" id="ir_cron_marge_candidates_50_59_action" model="ir.cron">
               <field name="name">Marge candidates 50 - 59</field>
               <field eval="False" name="active" />
@@ -259,7 +259,7 @@
               <field eval="'jp.candidate'" name="model" />
               <field eval="'marge_candidates'" name="function" />
               <field eval="'(50,59)'" name="args" >()</field>
-        </record>
+        </record> -->
         
         <!-- Scheduler for Marge applications -->
         <record forcecreate="True" id="ir_cron_marge_applications_action" model="ir.cron">
