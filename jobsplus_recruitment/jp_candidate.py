@@ -324,13 +324,6 @@ class jp_candidate(osv.Model):
                                     if document.name == doc.name and document.file_size == doc.file_size and len(cand.document_ids) == len(cand2.document_ids):
                                         ok += 1
                             if ok == len(cand.document_ids):
-                                app_cand2_ids = application_obj.search(cr, uid, [('candidate_id','=', cand2.id)])
-                                if app_cand2_ids:
-                                    for app_cand2 in app_cand2_ids:
-                                        vals = {
-                                            'candidate_id': cand.id,
-                                        }
-                                        application_obj.write(cr, uid, app_cand2, vals, context=None)
                                 if cand2.experience != False or cand2.reference != False or cand2.notes != False:
                                     vals = {}
                                     if cand.experience == False:
@@ -347,6 +340,8 @@ class jp_candidate(osv.Model):
                                         vals['notes'] = cand.notes+cand2.notes
                                             
                                     self.write(cr, uid, cand.id, vals, context=None)
+                                for application in cand2.application_ids:
+                                    application_obj.write(cr, uid, [application.id], {'candidate_id': cand.id})
                                 self.unlink(cr, uid, [cand2.id], context=None)
                                 email.remove(cand2)
                             else:
