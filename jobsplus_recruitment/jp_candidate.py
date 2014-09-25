@@ -335,6 +335,7 @@ class jp_candidate(osv.Model):
                                         application_obj.write(cr, uid, app_cand2, vals, context=None)
                                 if cand2.experience != False or cand2.reference != False or cand2.notes != False:
                                     vals = []
+                                    print cand.email
                                     if cand.experience == False:
                                         vals['experience'] = cand2.experience
                                     else:
