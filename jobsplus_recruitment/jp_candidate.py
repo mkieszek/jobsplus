@@ -314,8 +314,6 @@ class jp_candidate(osv.Model):
             email_ids = self.search(cr, uid, [('email','=',email)])
             email = self.browse(cr, uid, email_ids)
             for cand in email:
-                if cand.email == 'polonh@tlen.pl':
-                    pdb.set_trace()
                 email.remove(cand)
                 if len(cand.document_ids) > 0:
                     for cand2 in email:
@@ -334,8 +332,7 @@ class jp_candidate(osv.Model):
                                         }
                                         application_obj.write(cr, uid, app_cand2, vals, context=None)
                                 if cand2.experience != False or cand2.reference != False or cand2.notes != False:
-                                    vals = []
-                                    print cand.email
+                                    vals = {}
                                     if cand.experience == False:
                                         vals['experience'] = cand2.experience
                                     else:
@@ -355,7 +352,7 @@ class jp_candidate(osv.Model):
                             else:
                                 if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id:
                                     if cand2.experience != False or cand2.reference != False or cand2.notes != False:
-                                        vals = []
+                                        vals = {}
                                         if cand.experience == False:
                                             vals['experience'] = cand2.experience
                                         else:
@@ -381,7 +378,7 @@ class jp_candidate(osv.Model):
                         else:
                             if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id.id == cand2.state_id.id:
                                 if cand2.experience != False or cand2.reference != False or cand2.notes != False:
-                                    vals = []
+                                    vals = {}
                                     if cand.experience == False:
                                         vals['experience'] = cand2.experience
                                     else:
