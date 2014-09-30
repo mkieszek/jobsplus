@@ -52,8 +52,8 @@ class jp_deal(osv.Model):
             'calculation_ids' : fields.one2many('jp.calculation', 'deal_id', 'Calculations'),
             'project_ids' : fields.one2many('jp.project', 'deal_id', 'Projects'),
             'document_ids': fields.function(_document_ids_get, type="one2many",relation="ir.attachment", string="Document"),
-            'client_rate_id': fields.one2many('jp.client.rate', 'deal_id', 'Client rate'),
-            'candidate_rate_id': fields.one2many('jp.candidate.rate', 'deal_id', 'Candidate rate'),
+            #'client_rate_id': fields.one2many('jp.client.rate', 'deal_id', 'Client rate'),
+            #'candidate_rate_id': fields.one2many('jp.candidate.rate', 'deal_id', 'Candidate rate'),
             'color_2': fields.integer('Color index'),
     }
     
@@ -84,8 +84,7 @@ class jp_deal(osv.Model):
                 ad_ids = ad_obj.search(cr, uid, [('deal_id','=',ids[0])])
                 vals_ad = {}
                 vals_ad['activity'] = False
-                for ad_id in ad_ids:
-                    ad_obj.write(cr, uid, ad_id, vals_ad)
+                ad_obj.write(cr, uid, ad_ids, vals_ad)
         
         return deal_id
     def open_line_ad_form(self, cr, uid, id, context=None):

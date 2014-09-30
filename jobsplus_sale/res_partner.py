@@ -30,7 +30,7 @@ class res_partner(osv.osv):
     _columns = {
         'deal_ids': fields.one2many('jp.deal','client_id', 'Deals'),    
         'offer_ids': fields.one2many('jp.offer','client_id','Offers'),
-        'contract_ids': fields.one2many('jp.contract','client_id','Contract'),
+        'jp_contract_ids': fields.one2many('jp.contract','client_id','Contract'),
         'group_ids': fields.many2many('res.partner',
                  'res_partner_partner_rel',
                  'group_id',
@@ -39,12 +39,3 @@ class res_partner(osv.osv):
          'is_group': fields.boolean('Is Group'),
          'group_id' : fields.function(_get_group_id, type="char", string="Group Id"),
     }
-    
-    def create(self, cr, uid, vals, context=None):
-        #pdb.set_trace()
-        if not self.search(cr, uid, [('name','=',vals['name'])]):
-            partner_id = super(res_partner, self).create(cr, uid, vals, context=context)
-        else:
-            raise osv.except_osv(_('Błąd'), _('Klient o tej nazwie już istnieje!'))
-        
-        return partner_id

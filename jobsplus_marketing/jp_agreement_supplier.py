@@ -15,7 +15,7 @@ import datetime
 class jp_agreement_supplier(osv.Model):
     _name = "jp.agreement.supplier"
     _inherit = 'mail.thread'
-    _description = 'Agreement with supplier'
+    _description = _("Agreement with supplier")
     _columns = {
         'name': fields.char('Agreement', required=True),
         'supplier': fields.many2one('res.partner', 'Supplier', required=True, ondelete='cascade'),

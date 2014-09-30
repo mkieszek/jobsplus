@@ -41,12 +41,18 @@
 					</page>
                            
 				</xpath>
-				 <xpath expr="//page[@name='page_history']" position="attributes">
-                            <attribute name="invisible">True</attribute>
-                        </xpath>
-                        <xpath expr="/form/sheet/notebook/page/group/group/field[@name='supplier']" position="after">
-                            <field name="is_group" />
-                        </xpath>
+				<!-- 
+			 	<xpath expr="//page[@name='page_history']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                 -->
+                <xpath expr="/form/sheet/notebook/page/group/group/field[@name='supplier']" position="after">
+                    <field name="is_group" />
+                </xpath>
+                
+                <xpath expr="/form/sheet/div[@name='buttons']" position="replace">
+                </xpath>
+                
 				<xpath expr="/form/sheet/notebook/page[@string='Contacts']" position="after">
 					<page string="Deals">
 						<field name="deal_ids" colspan="4" nolabel="1">
@@ -62,8 +68,8 @@
 							</tree>
 						</field>
 					</page>
-                            <page string="Contract">
-						<field name="contract_ids" colspan="4" nolabel="1">
+                    <page string="Contract">
+						<field name="jp_contract_ids" colspan="4" nolabel="1">
 							<tree string="Contract">
 								<field name="name"/>
 								<field name="product_id"/>
@@ -100,19 +106,6 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="jp_view_partner_form">
-			<field name="name">jp.view.partner.form</field>
-			<field name="model">res.partner</field>
-			<field name="inherit_id" ref="crm.res_partner_view_buttons" />
-			<field name="priority" eval="100" />
-			<field name="arch" type="xml">
-				<xpath expr="//button[@string='Calls']" position="replace">
-					
-				</xpath>
-                       
-			</field>
-		</record>
-		
 		<record model="ir.ui.view" id="jp_account_view_partner_property_form">
 			<field name="name">jp.account.view.partner.property.form</field>
 			<field name="model">res.partner</field>
@@ -139,20 +132,19 @@
 			</field>
 		</record>
 		
-		<record model="ir.actions.act_window" id="view_res_partner_action">
-			<field name="name">Customers</field>
-			<field name="res_model">res.partner</field>
-			<field name="context">{"search_default_customer": 1, "search_default_type_company": 1}</field>
+		<record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{"search_default_customer":1, "search_default_type_company":1}</field>
 			<field name="search_view_id" ref="jp_view_res_partner_filter"/>
-			<field name="domain">[]</field>
-			<field name="view_type">form</field>
-			<field name="view_id" eval="False"/>
-			<field name="view_mode">kanban,tree,form</field>
-		</record>
-		
-		<!--<menuitem id="menu_jobsplus_sale_res_partner"
-        action="view_res_partner_action" parent="base.menu_sales"
-        sequence="1"/>-->
+        </record>
+        
+		<delete id="crm.menu_crm_case_phone" model="ir.ui.menu"/>
+		<delete id="crm.menu_crm_case_phone_inbound" model="ir.ui.menu"/>
+		<delete id="crm.menu_crm_case_phone_outbound" model="ir.ui.menu"/>
 		
 	</data>
 </openerp>

@@ -53,8 +53,6 @@
             <field name="context">{"search_default_mounth_number":1, "search_default_user":1}</field>
             <field name="domain">[]</field>
             <field name="search_view_id" ref="jobsplus_sales_report_sales2_search"/>
-            <field name="help" type="html">
-            </field>
         </record>
         
         <record model="ir.ui.view" id="jobsplus_report_sales_graph">

@@ -78,7 +78,7 @@
 					</page>
 					<page string="Invoices" attrs="{'invisible': [('supplier','=',False)]}">
 						<field name="invoice_ids">
-							<tree>
+							<!-- <tree>
 								<field name="name" />
 								<field name="date_of_invoice" />
 								<field name="date_of_payment" />
@@ -87,11 +87,15 @@
 								<field name="amount_net" />
 								<field name="amount_vat" />
 								<field name="amount_gross" />
-							</tree>
+							</tree> -->
 						</field>
 					</page>
 				</xpath>
 			
+				<xpath expr="//page[@string='Contacts']/field/form/sheet/group/field[@name='function']" position="before">
+					<field name="title2" />
+				</xpath>
+				
 				<xpath expr="//page[@string='Deals']" position="attributes">
 					<attribute name="attrs">{'invisible': [('supplier','=',True)]}</attribute>
 				</xpath>

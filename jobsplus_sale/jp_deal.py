@@ -66,7 +66,7 @@ class jp_deal(osv.Model):
     
     _defaults = {
         'active': 1,
-        'user_id': lambda s, cr, uid, c: s._get_default_user(cr, uid, c),
+        'user_id': lambda s, cr, uid, c: uid,
         'name': lambda obj, cr, uid, context: '/',
         'color' : 0,
     }
@@ -186,72 +186,75 @@ class jp_deal(osv.Model):
         return self.name_get(cr, uid, ids, context)
 
     def write(self, cr, uid, ids, vals, context=None):
-        today = datetime.date.today()
-        
-        selects = ['Do fakturowania','Zafakturowany','Zapłacony','Wygrany','Przegrany']
-        
-        stage_obj = self.pool.get('jp.deal.stage')
-        for select in selects:
-            stage = stage_obj.search(cr, uid, [('name','=',select)])
-            stage_id = stage_obj.browse(cr, uid, stage)[0].id
-    
-            if vals.has_key('stage_id')==True:
-                if int(vals['stage_id']) == stage_id:
-                    vals['date_closed'] = today
+        if ids:
+            today = datetime.date.today()
             
-        deal_id = super(jp_deal, self).write(cr, uid, ids, vals, context=context)
-        
-        deal = self.browse(cr, uid, ids)[0]
-        if 'stage_id' in vals or 'recruiter_id' in vals:
-            value = {
-                'deal_id': ids[0],
-                'stage_id': deal.stage_id.id,
-                'date_cr': today,
-            }
-            if deal.recruiter_id:
-                value['recruiter_id'] = deal.recruiter_id.id
-            stage_id = self.pool.get('jp.deal.stage.history').create(cr, uid, value, context=None)
-        
-        #komunikat do zmiany statusu
-        if 'stage_id' in vals:
-            subject = _("Zmieniono status Deal'a")
-            body = _("Zmieniono status Deal'a: %s<br/>Aktualny status to: %s")%(deal.name, deal.stage_id.name)
-            self.message_post(cr, uid, deal.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
-                        parent_id=False, attachments=None, context=context, content_subtype='html')
+            selects = ['Do fakturowania','Zafakturowany','Zapłacony','Wygrany','Przegrany']
             
-        stage_invoice = stage_obj.search(cr, uid, [('name','=','Do fakturowania')])
-        if 'stage_id' in vals and vals['stage_id']==stage_invoice[0]:
-            users_obj = self.pool.get('res.users')
-            group_obj = self.pool.get('res.groups')
-            group_id = group_obj.search(cr,uid,[('name','=','Dyrektor Administracji Jobs Plus')])
-            users = group_obj.browse(cr, uid, group_id)[0].users
-            mail_to = ""
-            for user in users:
-                if user.partner_id.email is not False and user.active is True:
-                    mail_to += user.partner_id.email + ", "
-            if mail_to is not "":
-                jp_config_obj = self.pool.get('jp.config.settings')
-                jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-                jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
-                url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, ids[0])
+            stage_obj = self.pool.get('jp.deal.stage')
+            for select in selects:
+                stage = stage_obj.search(cr, uid, [('name','=',select)])
+                stage_id = stage_obj.browse(cr, uid, stage)[0].id
+        
+                if vals.has_key('stage_id')==True:
+                    if int(vals['stage_id']) == stage_id:
+                        vals['date_closed'] = today
                 
-                subject = _("Deal: %s ma status do fakturowania")%(deal.title)
-                body = _("Zmienion status deala na do fakturowania.<br/>Deal: %s<br/>Klient: %s<br/>Przewidywany dochód: %s<br/>Sprzedawca: %s<br/><a href='%s'>Link do Deal'a</a>")\
-                        %(deal.title,deal.client_id.name,deal.planned_revenue,deal.user_id.name,url)
-                uid = users_obj.search(cr, uid, [('id','=',1)])[0]
-                uid_id = users_obj.browse(cr, uid, uid)
+            deal_id = super(jp_deal, self).write(cr, uid, ids, vals, context=context)
+
+            deal = self.browse(cr, uid, ids)[0]
+            if 'stage_id' in vals or 'recruiter_id' in vals:
+                value = {
+                    'deal_id': ids[0],
+                    'stage_id': deal.stage_id.id,
+                    'date_cr': today,
+                }
+                if deal.recruiter_id:
+                    value['recruiter_id'] = deal.recruiter_id.id
+                stage_id = self.pool.get('jp.deal.stage.history').create(cr, uid, value, context=None)
+            
+            #komunikat do zmiany statusu
+            if 'stage_id' in vals:
+                subject = _("Zmieniono status Deal'a")
+                body = _("Zmieniono status Deal'a: %s<br/>Aktualny status to: %s")%(deal.name, deal.stage_id.name)
+                self.message_post(cr, uid, deal.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
+                            parent_id=False, attachments=None, context=context, content_subtype='html')
                 
-                email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
+            stage_invoice = stage_obj.search(cr, uid, [('name','=','Do fakturowania')])
+            if 'stage_id' in vals and vals['stage_id']==stage_invoice[0]:
+                users_obj = self.pool.get('res.users')
+                group_obj = self.pool.get('res.groups')
+                group_id = group_obj.search(cr,uid,[('name','=','Dyrektor Administracji Jobs Plus')])
+                users = group_obj.browse(cr, uid, group_id)[0].users
+                mail_to = ""
+                for user in users:
+                    if user.partner_id.email is not False and user.active is True:
+                        mail_to += user.partner_id.email + ", "
+                if mail_to is not "":
+                    jp_config_obj = self.pool.get('jp.config.settings')
+                    jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
+                    jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+                    url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, ids[0])
                     
-                vals = {'email_from': email_from,
-                        'email_to': mail_to,
-                        'state': 'outgoing',
-                        'subject': subject,
-                        'body_html': body,
-                        'auto_delete': True}
+                    subject = _("Deal: %s ma status do fakturowania")%(deal.title)
+                    body = _("Zmienion status deala na do fakturowania.<br/>Deal: %s<br/>Klient: %s<br/>Przewidywany dochód: %s<br/>Sprzedawca: %s<br/><a href='%s'>Link do Deal'a</a>")\
+                            %(deal.title,deal.client_id.name,deal.planned_revenue,deal.user_id.name,url)
+                    uid = users_obj.search(cr, uid, [('id','=',1)])[0]
+                    uid_id = users_obj.browse(cr, uid, uid)
+                    
+                    email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
                         
-                self.pool.get('mail.mail').create(cr, uid, vals, context=context)
-        return deal_id
+                    vals = {'email_from': email_from,
+                            'email_to': mail_to,
+                            'state': 'outgoing',
+                            'subject': subject,
+                            'body_html': body,
+                            'auto_delete': True}
+                            
+                    self.pool.get('mail.mail').create(cr, uid, vals, context=context)
+            return deal_id
+        else:
+            return False
     
     def create_report(self, cr, uid, ids, context=None):
         self.pool.get('jp.report.sales2').calculate_report_sales(cr, uid, context=None)

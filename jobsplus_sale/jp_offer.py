@@ -68,22 +68,23 @@ class jp_offer(osv.Model):
     def case_cancel(self, cr, uid, ids, context=None):
         """ Overrides case_cancel from base_stage to set probability """
         
-        res = super(jp_offer, self).case_cancel(cr, uid, ids, context=context)
+        #res = super(jp_offer, self).case_cancel(cr, uid, ids, context=context)
         
         stage_done_ids = self.pool.get('jp.offer.stage').search(cr, uid, [('state','=','cancel')], context=context)
         #stage_done = offer_state.get_stage_done(cr, uid, context=context)
         
         self.write(cr, uid, ids, {'stage_id': stage_done_ids[0]}, context=context)  
         
-        return res
+        return True#res
+    
     def case_close(self, cr, uid, ids, context=None):
-        res = super(jp_offer, self).case_close(cr, uid, ids, context=context)
+        #res = super(jp_offer, self).case_close(cr, uid, ids, context=context)
         
         stage_done_ids = self.pool.get('jp.offer.stage').search(cr, uid, [('state','=','done')], context=context)
         #stage_done = offer_state.get_stage_done(cr, uid, context=context)
         
         self.write(cr, uid, ids, {'stage_id': stage_done_ids[0]}, context=context)        
-        return res        
+        return True#res        
         
     def convert2deal(self, cr, uid, ids, context=None):
         #pdb.set_trace()

@@ -6,7 +6,6 @@
 			<field name="arch" type="xml">
                  <form string="Employee" version="7.0">
 					<header>
-					<button name="notification_birth_employee" type="object" string="urodziny" />
 					</header>
 				 <sheet>
                             <field name="image" widget='image' class="oe_avatar oe_left" />

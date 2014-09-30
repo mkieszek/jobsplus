@@ -169,9 +169,9 @@ class jp_candidate(osv.Model):
         for candidate in self.browse(cr, uid, ids):
             if candidate.application_ids:
                 last_deal = candidate.application_ids[0].deal_id
-                res[candidate.id] = [last_deal.name+' - '+last_deal.title]
+                res[candidate.id] = last_deal.name+' - '+last_deal.title
             else:
-                res[candidate.id] = ['']
+                res[candidate.id] = ''
                 
         return res
     
@@ -231,7 +231,7 @@ class jp_candidate(osv.Model):
         'portal_id': fields.many2one('jp.portal','Portal'),
         'source_receive': fields.selection([('1', 'Mail'),('2', 'Outlook'),('3', 'Manual'),('4', "www")],'Source receive'),
         'sallary_id': fields.many2one('jp.sallary','Sallary'),
-        'last_deal_id': fields.function(_last_deal_id, type="string", string="Last Deal"),
+        'last_deal_id': fields.function(_last_deal_id, type="char", string="Last Deal"),
         'ad_id': fields.many2one('jp.ad', "Ad"),
         'image_icon': fields.function(_get_image_icon, type='char', string='Source receive'),
         'email_title': fields.char('Email title', readonly=True),

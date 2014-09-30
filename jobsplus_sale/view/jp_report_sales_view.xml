@@ -71,8 +71,6 @@
             <field name="context">{"search_default_years":1,"search_default_months":1, "search_default_week_nbr":1, "search_default_user":1}</field>
             <field name="domain">[]</field>
             <field name="search_view_id" ref="jobsplus_sales_report_sales_search"/>
-            <field name="help" type="html">
-            </field>
         </record>
 
         <record model="ir.ui.view" id="jobsplus_sales_report_sales_graph">
@@ -96,7 +94,7 @@
 
         <menuitem id="menu_jobsplus_sale_reports"
             parent="base.menu_base_partner"
-            name="Reports" groups="base.group_jp_salesmanager"/>
+            name="Reports"/>
     		<menuitem id="menu_jobsplus_sale_report_sales"
             	action="action_report_sales" 
             	parent="menu_jobsplus_sale_reports"

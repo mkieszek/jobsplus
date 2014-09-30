@@ -53,8 +53,6 @@
             <field name="context">{"search_default_years":1, "search_default_months":1, "search_default_week_nbr":1, "search_default_recruiter":1}</field>
             <field name="domain">[]</field>
             <field name="search_view_id" ref="jobsplus_recruitment_report_recruitment_search"/>
-            <field name="help" type="html">
-            </field>
         </record>
 
         <record model="ir.ui.view" id="jobsplus_recruitment_report_recruitment_graph">

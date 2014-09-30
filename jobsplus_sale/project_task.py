@@ -12,11 +12,20 @@ import time
 import datetime
 
 TASK_TYPES = [('call', 'Call'), ('email','Email'), ('meeting', 'Meeting'), ('document', 'Document'), ('administration', 'Administration'), ('recruitment','Recruitment')]
+_TASK_STATE = [('draft', 'New'),('open', 'In Progress'),('pending', 'Pending'), ('done', 'Done'), ('cancelled', 'Cancelled')]
 
 class project_task(osv.osv):
     _inherit = 'project.task'
     _order = 'deadline_datetime'
     _description = "Zadanie"
+    
+    _track = {
+        'state': {
+            'project.mt_task_new': lambda self, cr, uid, obj, ctx=None: obj['state'] in ['new', 'draft'],
+            'project.mt_task_started': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'open',
+            'project.mt_task_closed': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'done',
+        }
+    }
     
     def _get_customer(self, cr, uid, ids, field_name, arg, context=None):
         #pdb.set_trace()        
@@ -141,6 +150,8 @@ class project_task(osv.osv):
         'deadline_datetime' : fields.datetime('Deadline'),
         'client_name': fields.function(_get_client_name, type="char", string="Customer"),
         'color':fields.function(_get_today, string='Color', type="char"),
+        'state': fields.related('stage_id', 'state', type="selection", store=True,
+                selection=_TASK_STATE, string="Status", readonly=True, select=True),
     }
     
     _defaults = {
@@ -149,8 +160,8 @@ class project_task(osv.osv):
     }
     
     def cancel_task(self,cr,uid,ids,context=None):
-        #pdb.set_trace()
-        self.do_cancel(cr,uid,ids,context=context)
+        stage_id = self.pool.get('project.task.type').search(cr, uid, [('sequence','=',30)]) 
+        self.write(cr, uid, ids, {'stage_id': stage_id[0]}, context=context)
         tasks = self.browse(cr, uid, ids, context=context)
         
         #sprawdzenie powiazanego obiektu
@@ -180,8 +191,8 @@ class project_task(osv.osv):
                 case_obj.message_post(cr, uid, [case_id], body=body, context=context)
 
     def close_task(self,cr,uid,ids,context=None):
-        #pdb.set_trace()
-        self.action_close(cr,uid,ids,context=context)
+        stage_id = self.pool.get('project.task.type').search(cr, uid, [('sequence','=',20)]) 
+        self.write(cr, uid, ids, {'stage_id': stage_id[0]}, context=context)
         tasks = self.browse(cr, uid, ids, context=context)
         
         #sprawdzenie powiazanego obiektu
@@ -211,8 +222,8 @@ class project_task(osv.osv):
                 case_obj.message_post(cr, uid, [case_id], body=body, context=context)
         
     def open_task(self,cr,uid,ids,context=None):
-        #pdb.set_trace()
-        self.case_open(cr,uid,ids,context=context)
+        stage_id = self.pool.get('project.task.type').search(cr, uid, [('sequence','=',11)]) 
+        self.write(cr, uid, ids, {'stage_id': stage_id[0]}, context=context)
         tasks = self.browse(cr, uid, ids, context=context)
         
         #sprawdzenie powiazanego obiektu
@@ -318,3 +329,13 @@ class project_task(osv.osv):
             self.pool.get('project.task').message_post(cr, uid, task.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
                             parent_id=False, attachments=None, context=context, content_subtype='html')
         return task_id
+    
+class project_task_type(osv.osv):
+    _inherit = 'project.task.type'
+    _columns = {
+            'state': fields.selection(_TASK_STATE, 'Related Status', required=True),
+    }
+    
+    _defaults = {
+                 'state': 'open',
+                 }

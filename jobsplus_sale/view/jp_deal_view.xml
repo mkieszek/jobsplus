@@ -56,6 +56,7 @@
 										<field string="Deadline" name="deadline_datetime"/>
 										<field name="state"/>
 										<field name="priority" />
+										
 										<button name="cancel_task" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel" help="For cancelling the task"/>
 										<button name="open_task" states="draft,pending" string="In progress" type="object" icon="STOCK_MEDIA_PLAY" help="For changing to in progress" />
 										<button name="close_task" states="draft,pending,open" string="Done" type="object" icon="gtk-apply" help="For changing to done state"/>

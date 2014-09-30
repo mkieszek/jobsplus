@@ -23,11 +23,11 @@ class jp_application(osv.Model):
     _columns = {
         'name': fields.char('ID', size=64,
                             readonly=True),
-        'deal_id': fields.many2one('jp.deal','Deal', required=True),
-        'stage_id': fields.many2one('jp.application.stage', 'Stage'),
-        'candidate_id': fields.many2one('jp.candidate', 'Candidate'),
+        'deal_id': fields.many2one('jp.deal','Deal', required=True, ondelete="cascade"),
+        #'stage_id': fields.many2one('jp.application.stage', 'Stage'),
+        'candidate_id': fields.many2one('jp.candidate', 'Candidate', ondelete="cascade"),
         'note': fields.text('Notes'),
-        'candidate': fields.related('candidate_id', 'candidate', string="Candidate"),
+        'candidate': fields.related('candidate_id', 'candidate', type='char', string="Candidate", readonly=True),
         'status' : fields.selection(AVAILABLE_STATES, 'Status'),
         'create_date': fields.date('Create'),
     }

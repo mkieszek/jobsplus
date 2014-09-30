@@ -65,34 +65,9 @@ class jp_ad(osv.Model):
 
         ad_id = super(jp_ad, self).create(cr, uid, vals, context=context)
         ad = self.browse(cr, uid, ad_id)
-        """
-        if 'publish_on' in vals and vals['publish_on'] == True:
-            #Dodaje użytkowników z grupy Marketing Jobs Plus jeżeli jest publikacja w True
-            users_obj = self.pool.get('res.users')
-            group_id = self.pool.get('res.groups').search(cr,uid,[('name','=','Marketing Jobs Plus')])
-            user_ids = users_obj.search(cr,uid,[('groups_id','in',group_id),('id','!=',1),('active','=',True)])
-            users = users_obj.browse(cr, uid, user_ids)
-            
-            partner_ids = []
-            for user in users:
-                partner_ids.append(user.partner_id.id)
-                
-            self.message_subscribe(cr, uid, [ad_id], partner_ids, context=context)
-        """
         if ad.publish_on == True and ad.activity == True:
             groups_obj = self.pool.get('res.groups')
             users_obj = self.pool.get('res.users')
-            """
-            #Dodaje wiadomość do obiektu jeżeli powyższy warunek spełniony
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
-            url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
-            body = decode("Ogłoszenie na stanowisko: %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
-            subject = decode("Zmiana szczegółów ogłoszenia")
-            self.message_post(cr, uid, ad_id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
-                        parent_id=False, attachments=None, context=context, content_subtype='html')
-            """
             #Wysyła wiasomość do Marketingu Jobs Plus
             jp_config_obj = self.pool.get('jp.config.settings')
             jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
@@ -122,59 +97,34 @@ class jp_ad(osv.Model):
     
     def write(self, cr, uid, ids, vals, context=None):
         ad_id = super(jp_ad, self).write(cr, uid, ids, vals, context=context)
-        ad = self.browse(cr, uid, ids[0])
-        """
-        if 'publish_on' in vals and vals['publish_on'] == True:
-            #Dodaje użytkowników z grupy Marketing Jobs Plus jeżeli jest publikacja w True
-            users_obj = self.pool.get('res.users')
-            group_id = self.pool.get('res.groups').search(cr,uid,[('name','=','Marketing Jobs Plus')])
-            user_ids = users_obj.search(cr,uid,[('groups_id','in',group_id),('id','!=',1),('active','=',True)])
-            users = users_obj.browse(cr, uid, user_ids)
-            
-            partner_ids = []
-            for user in users:
-                partner_ids.append(user.partner_id.id)
-                
-            self.message_subscribe(cr, uid, ids, partner_ids, context=context)
-        """
-        if (ad.activity == True and (('highlighted' in vals and ad.publish_on == True) or ('publish_on' in vals))) or ('activity' in vals and vals['activity'] == False and ad.publish_on == True):
-            groups_obj = self.pool.get('res.groups')
-            users_obj = self.pool.get('res.users')
-            """
-            #Dodaje wiadomość do obiektu jeżeli powyższy warunek spełniony
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
-            url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
-            body = decode("Ogłoszenie na stanowisko: %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
-            subject = decode("Zmiana szczegółów ogłoszenia")
-            self.message_post(cr, uid, ids[0], body=body, subject=subject, type='email', subtype='mail.mt_comment', 
-                        parent_id=False, attachments=None, context=context, content_subtype='html')
-            """
-            #Wysyła wiasomość do Marketingu Jobs Plus
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
-    
-            group_id = groups_obj.search(cr, uid, [('name','=','Marketing Jobs Plus')])
-            users = groups_obj.browse(cr, uid, group_id[0]).users
-            mail_to = ''
-            for user in users:
-                if user.email != False:
-                    mail_to += user.email+', '
-            if mail_to != '':
-                url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
-                body = decode("Ogłoszenie na stanowisko %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
-                subject = decode("OpenERP: publikacja ogłoszenia.")
-                uid_id = users_obj.browse(cr, uid, uid)
-                vals = {'email_from': uid_id.partner_id.name+"<"+uid_id.partner_id.email+">",
-                        'email_to': mail_to,
-                        'state': 'outgoing',
-                        'subject': subject,
-                        'body_html': body,
-                        'auto_delete': True}
-                        
-                self.pool.get('mail.mail').create(cr, uid, vals, context=context)
+        for ad in self.browse(cr, uid, ids):
+            if (ad.activity == True and (('highlighted' in vals and ad.publish_on == True) or ('publish_on' in vals))) or ('activity' in vals and vals['activity'] == False and ad.publish_on == True):
+                groups_obj = self.pool.get('res.groups')
+                users_obj = self.pool.get('res.users')
+                #Wysyła wiasomość do Marketingu Jobs Plus
+                jp_config_obj = self.pool.get('jp.config.settings')
+                jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
+                jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        
+                group_id = groups_obj.search(cr, uid, [('name','=','Marketing Jobs Plus')])
+                users = groups_obj.browse(cr, uid, group_id[0]).users
+                mail_to = ''
+                for user in users:
+                    if user.email != False:
+                        mail_to += user.email+', '
+                if mail_to != '':
+                    url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
+                    body = decode("Ogłoszenie na stanowisko %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
+                    subject = decode("OpenERP: publikacja ogłoszenia.")
+                    uid_id = users_obj.browse(cr, uid, uid)
+                    vals = {'email_from': uid_id.partner_id.name+"<"+uid_id.partner_id.email+">",
+                            'email_to': mail_to,
+                            'state': 'outgoing',
+                            'subject': subject,
+                            'body_html': body,
+                            'auto_delete': True}
+                            
+                    self.pool.get('mail.mail').create(cr, uid, vals, context=context)
                 
         return ad_id
         

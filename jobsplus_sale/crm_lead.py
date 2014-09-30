@@ -21,10 +21,20 @@
 
 from openerp.osv import fields, osv
 
+AVAILABLE_STATES = [
+    ('draft', 'New'),
+    ('cancel', 'Cancelled'),
+    ('open', 'In Progress'),
+    ('pending', 'Pending'),
+    ('done', 'Closed')
+]
+
 
 class crm_lead(osv.osv):
     _inherit = 'crm.lead'
     _description = "Prospekt"
+    _order = "create_date desc"
+              
     _columns = {
         'task_ids': fields.one2many('project.task', 'lead_id', 'Tasks'),
         'product_id': fields.many2one('product.product', 'Product'
@@ -33,9 +43,10 @@ class crm_lead(osv.osv):
         'website': fields.char('Web site', size=255),
         'main_phone': fields.char('Main phone', size=25),
         'offer_ids': fields.one2many('jp.offer','prospect_id','Offers'),
+        
+        'state': fields.related('stage_id', 'state', type="selection", store=False,
+                selection=AVAILABLE_STATES, string="Status", readonly=True, select=True),
     }
-    
-    _order = "create_date desc"
     
     def on_change_partner_name(self, cr, uid, ids, partner_name, context=None):
         values = {}
@@ -45,8 +56,30 @@ class crm_lead(osv.osv):
                     'name': partner_name,
                     }
         return {'value' : values}
+    
+    def case_cancel(self, cr, uid, ids, context=None):
+        """ Overrides case_cancel from base_stage to set probability """
+        stages_leads = {}
+        for lead in self.browse(cr, uid, ids, context=context):
+            stage_id = self.stage_find(cr, uid, [lead], lead.section_id.id or False, [('probability', '=', 0.0), ('fold', '=', True)], context=context)
+            if stage_id:
+                if stages_leads.get(stage_id):
+                    stages_leads[stage_id].append(lead.id)
+                else:
+                    stages_leads[stage_id] = [lead.id]
+            else:
+                raise osv.except_osv(_('Warning!'),
+                    _('Warning'))
+        for stage_id, lead_ids in stages_leads.items():
+            self.write(cr, uid, lead_ids, {'stage_id': stage_id}, context=context)
+        return True
 
 
+class crm_case_stage(osv.osv):
+    _inherit = "crm.case.stage"
 
+    _columns = {
+        'state': fields.selection(AVAILABLE_STATES, 'Related Status', required=True),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

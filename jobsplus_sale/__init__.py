@@ -1,7 +1,7 @@
 #
 import wizard
 import crm_lead
-import crm_meeting
+#import crm_meeting
 import project_task
 import res_partner
 import jp_offer_stage

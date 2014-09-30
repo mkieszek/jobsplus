@@ -33,6 +33,14 @@
     'test':[],
     'installable': True,
     'images': [],
+    'data': ['data/jp_offer_sequence.xml',
+             'data/jp_contract_sequence.xml',
+             'data/jp_deal_stage_data.xml',
+             'security/jp_security.xml',
+             'security/ir.model.access.csv',
+             'data/jp_task_data.xml',
+             'data/crm_lead_data.xml'],
+                    
     'update_xml' : ['wizard/jp_offer2contract_view.xml',
                     'view/account_payment_term_view.xml',
                     'view/jp_offer_view.xml',
@@ -41,7 +49,7 @@
                     'view/jp_tasks_view.xml',
                     'view/res_partnet_view.xml',
                     'view/jp_deal_view.xml',
-                    'view/crm_meeting_view.xml',
+                    #'view/crm_meeting_view.xml',
                     'view/res_config_view.xml',
                     'view/jp_report_sales_view.xml',
                     'view/jp_report_sales2_view.xml',
@@ -50,13 +58,6 @@
                     'view/jp_report_charts_view.xml',
                     'view/jp_graph_sales_view.xml',
                     ],
-    'data': ['data/jp_offer_sequence.xml',
-             'data/jp_contract_sequence.xml',
-             'data/jp_deal_stage_data.xml',
-             'security/jp_security.xml',
-             'security/ir.model.access.csv',
-             'data/jp_task_data.xml'],
-                    #'view/crm_phonecall_view.xml'
     'sequence': 10000,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

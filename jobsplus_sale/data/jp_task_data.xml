@@ -1,11 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
-		<!--<record model="ir.property" id="property_task_case">
-			<field name="name">property_task_case</field>
-			<field name="fields_id" search="[('model','=','project.task'),
-			  ('name','=','property_task_case')]"/>
-			<field name="value" eval="'res.partner,'+str(list0)"/>
-		</record>-->
+    <data noupdate='1'>
+    	<!-- Usunięcie z project.task.type statusów bez state -->
+		<delete id="project.project_tt_analysis" model="project.task.type"/>
+		<delete id="project.project_tt_specification" model="project.task.type"/>
+		<delete id="project.project_tt_design" model="project.task.type"/>
+		<delete id="project.project_tt_development" model="project.task.type"/>
+		<delete id="project.project_tt_testing" model="project.task.type"/>
+		<delete id="project.project_tt_merge" model="project.task.type"/>
+		<delete id="project.project_tt_deployment" model="project.task.type"/>
+		<delete id="project.project_tt_cancel" model="project.task.type"/>
+		
+		<!-- Dodanie do project.taks.type statusów ze state -->
+		<record id="jp_project_tt_analysis" model="project.task.type">
+            <field name="sequence">1</field>
+            <field name="name">Analysis</field>
+            <field name="case_default" eval="True"/>
+            <field name="state">draft</field>
+        </record>
+        <record id="jp_project_tt_specification" model="project.task.type">
+            <field name="sequence">10</field>
+            <field name="name">Specification</field>
+            <field name="case_default" eval="True"/>
+            <field name="state">pending</field>
+        </record>
+        <record id="jp_project_tt_design" model="project.task.type">
+            <field name="sequence">11</field>
+            <field name="name">Design</field>
+            <field name="case_default" eval="True"/>
+            <field name="state">open</field>
+        </record>
+        <record id="jp_project_tt_development" model="project.task.type">
+            <field name="sequence">12</field>
+            <field name="name">Development</field>
+            <field name="case_default" eval="True"/>
+            <field name="state">open</field>
+        </record>
+        <record id="jp_project_tt_testing" model="project.task.type">
+            <field name="sequence">13</field>
+            <field name="name">Testing</field>
+            <field name="case_default" eval="True"/>
+            <field name="state">open</field>
+        </record>
+        <record id="jp_project_tt_merge" model="project.task.type">
+            <field name="sequence">14</field>
+            <field name="name">Merge</field>
+            <field name="case_default" eval="False"/>
+            <field name="fold" eval="True"/>
+            <field name="state">open</field>
+        </record>
+        <record id="jp_project_tt_deployment" model="project.task.type">
+            <field name="sequence">20</field>
+            <field name="name">Done</field>
+            <field name="case_default" eval="True"/>
+            <field name="fold" eval="True"/>
+            <field name="state">done</field>
+        </record>
+        <record id="jp_project_tt_cancel" model="project.task.type">
+            <field name="sequence">30</field>
+            <field name="name">Cancelled</field>
+            <field name="case_default" eval="True"/>
+            <field name="fold" eval="True"/>
+            <field name="state">cancelled</field>
+        </record>
+        
 	</data>
 </openerp>

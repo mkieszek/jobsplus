@@ -116,7 +116,6 @@ class jp_contract(osv.Model):
         return {'value' : values}
 
     def send_mail(self, cr, uid, contract_id, context=None):
-        #pdb.set_trace()
         users_obj = self.pool.get('res.users')
         user_ids = users_obj.search(cr,uid,[])
         users = users_obj.browse(cr, uid, user_ids)
@@ -128,9 +127,8 @@ class jp_contract(osv.Model):
         if mail_to is not "":
             contract = self.browse(cr, uid, contract_id)
             create_uid = users_obj.browse(cr, uid, uid).name
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+            config_obj = self.pool.get('jp.config.settings')
+            jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.contract")%(jp_crm, cr.dbname, contract_id)
             subject = _("Congratulations, we have a new customer contract.")
             body = _("New contract with customer: %s <br/>Signed by: %s<br/><a href='%s'>Say congrats cuz it's worth.</a>")\

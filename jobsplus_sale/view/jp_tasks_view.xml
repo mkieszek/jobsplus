@@ -7,14 +7,18 @@
 			<field name="inherit_id" ref="project.view_task_form2"/>
 			<field name="arch" type="xml">
 				<header>
+					<field name='state' invisible='1' />
 				</header>
+				<xpath expr="/form/header/field[@name='stage_id']" position="attributes">
+					<attribute name="domain">[('sequence','in',[1])]</attribute>
+                </xpath>
 				<xpath expr="/form/sheet/group/group/field[@name='project_id']" position="before">
 					<field name="client_id" />
 					<field name="lead_id" />
 					<field name="offer_id" />
 					<field name="contract_id" />
 					<field name="deal_id" />
-                            <field name="task_type" />
+                    <field name="task_type" />
 				</xpath>
                 <xpath expr="/form/sheet/notebook/page/group/field[@name='partner_id']" position="attributes">
 					<attribute name="invisible">True</attribute>
@@ -40,8 +44,8 @@
 					<!--<separator />
 					<filter name="mytasks" string="My Tasks" domain="[('user_id','=',uid),('create_uid','=',uid)]"/>-->
 					<separator />
-                            <filter name="mytasks" string="I created" domain="[('create_uid','=',uid)]"/>
-                            <filter name="mytasks" string="Assigned to me" domain="[('user_id','=',uid)]"/>
+                        <filter name="mytasks" string="I created" domain="[('create_uid','=',uid)]"/>
+                        <filter name="mytasks" string="Assigned to me" domain="[('user_id','=',uid)]"/>
 					<separator />
 					<filter name="open" string="In Progress" domain="[('state','in',('draft','open'))]" help="In Progress and draft tasks" />
 					<filter string="Pending" domain="[('state','=','pending')]" context="{'show_delegated':False}" help="Pending Tasks" />
@@ -75,6 +79,7 @@
 					<field name="state" invisible='1' />
 					<field name="priority" />
                     <field name="color" invisible='1' />
+                    
 					<button name="cancel_task" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel" help="For cancelling the task"/>
 					<button name="open_task" states="draft,pending" string="In progress" type="object" icon="STOCK_MEDIA_PLAY" help="For changing to in progress" />
 					<button name="close_task" states="draft,pending,open" string="Done" type="object" icon="gtk-apply" help="For changing to done state"/>
