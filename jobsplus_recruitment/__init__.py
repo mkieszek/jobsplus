@@ -4,7 +4,7 @@ import jp_application_stage
 import jp_application
 import jp_candidate
 import jp_agreement_stage
-import jp_employee
+#import jp_employee
 import jp_portal
 import jp_trade
 import jp_time_sheet

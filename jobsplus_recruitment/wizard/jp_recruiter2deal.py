@@ -15,7 +15,7 @@ class jp_recruiter2deal(osv.Model):
     
     _columns = {
             'deal_id': fields.many2one('jp.deal','Deal', readonly=True),       
-            'recruiter_id': fields.many2one('res.users', 'Recruiter', required=True),
+            'recruiter_id': fields.many2one('res.users', 'Recruiter', required=True, domain=[('groups_id.name','in',['Rekruter Jobs Plus']),['id','!=',1]]),
             'date_middle': fields.date('Middle date', track_visibility='onchange'),
             'handover_date': fields.date('Handover date', track_visibility='onchange'),
     }
@@ -24,7 +24,6 @@ class jp_recruiter2deal(osv.Model):
         """
         This function gets default values
         """
-        #pdb.set_trace()
         res = super(jp_recruiter2deal, self).default_get(cr, uid, deal_id, context=context)
         deal_id = context and context.get('active_id', False) or False
         res.update({'deal_id': deal_id or False})

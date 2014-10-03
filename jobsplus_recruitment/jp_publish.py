@@ -34,7 +34,11 @@ class jp_publish(osv.Model):
                 
         ad = self.pool.get('jp.ad').browse(cr, uid, ad_id, context=context)  
         portal = self.pool.get('jp.portal').browse(cr, uid, portal_id, context=context)
-        vals['link'] = ("http://jobsplus.pl/dla-pracownikow/wyslij-swoje-cv/?ad_id=%s&portal=%s" % (ad_id,portal.code))
+        
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
+        
+        vals['link'] = ("http://%s/dla-pracownikow/wyslij-swoje-cv/?ad_id=%s&portal=%s" % (jp_crm, ad_id,portal.code))
         publish_id = super(jp_publish, self).create(cr, uid, vals, context=context)
     
         #Activation ad

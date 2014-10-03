@@ -42,9 +42,8 @@ class jp_calculation(osv.Model):
                            }
             report_obj.write(cr, uid, report_ids, report_vals, context=None)
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, calculation.deal_id.id)
         
         subject = _("Utworzono nowe rozliczenie")

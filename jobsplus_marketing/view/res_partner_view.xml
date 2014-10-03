@@ -77,8 +77,8 @@
 						</field>
 					</page>
 					<page string="Invoices" attrs="{'invisible': [('supplier','=',False)]}">
-						<field name="invoice_ids">
-							<!-- <tree>
+						<field name="jp_invoice_ids">
+							<tree>
 								<field name="name" />
 								<field name="date_of_invoice" />
 								<field name="date_of_payment" />
@@ -87,7 +87,7 @@
 								<field name="amount_net" />
 								<field name="amount_vat" />
 								<field name="amount_gross" />
-							</tree> -->
+							</tree>
 						</field>
 					</page>
 				</xpath>

@@ -274,7 +274,7 @@ class project_task(osv.osv):
             task_term = self.search(cr, uid, [('state','in',['draft','open']),('deadline_datetime','<=',date_b),('deadline_datetime','>=',date_a),('user_id','=',user.id)], context=context)
             
             if task_deadline or task_term:
-                subject = _("OpenERP: informacje o zadaniach.")
+                subject = _("Odoo - informacje o zadaniach.")
                 body = _("Informacje o zadaniach przypisanych do Ciebie.<br/>Ilość zadań przeterminowanych: %s.<br/>Ilość zadań na dziś: %s.")\
                         %(str(len(task_deadline)),str(len(task_term)))
                 uid_id = users_obj.browse(cr, uid, uid)
@@ -293,9 +293,8 @@ class project_task(osv.osv):
         users_obj = self.pool.get('res.users')
 
         if 'user_id' in vals and vals['user_id'] != uid:
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+            config_obj = self.pool.get('jp.config.settings')
+            jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=project.task")%(jp_crm, cr.dbname, task_id)
             task = self.browse(cr, uid, task_id)
             deadline = task.deadline_datetime
@@ -305,7 +304,7 @@ class project_task(osv.osv):
             if not description:
                 description = ''
             priority = [_('Very important'),_('Important'),_('Medium'),_('Low'),_('Very Low')]
-            subject = _("You have a new task: %s")%(task.name)
+            subject = _("Odoo - You have a new task: %s")%(task.name)
             uid_id = users_obj.browse(cr, uid, uid)
             body = _("User: %s<br/>Created for you a task: %s<br/>Type: %s<br/>Priority: %s<br/>Deadline: %s<br/>Description: %s<br/><a href='%s'>Link to task</a>")\
                     %(uid_id.name, task.name, task.task_type, priority[int(task.priority)], deadline, description, url)
@@ -319,11 +318,10 @@ class project_task(osv.osv):
         
         if 'user_id' in vals or 'deadline_datetime' in vals:
             task = self.browse(cr, uid, ids)[0]
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+            config_obj = self.pool.get('jp.config.settings')
+            jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=project.task")%(jp_crm, cr.dbname, ids[0])
-            subject = _("Task changed : %s")%(task.name)
+            subject = _("Odoo - Task changed : %s")%(task.name)
             body = _("CRM task has been changed.<br/>Description: %s<br/>Assigned to: %s<br/>Stop date: %s<br/><a href='%s'>Link to task</a>")%(task.name,task.user_id.name, task.deadline_datetime,url)
             
             self.pool.get('project.task').message_post(cr, uid, task.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 

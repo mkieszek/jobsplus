@@ -51,7 +51,7 @@ class jp_invoice(osv.Model):
             self.message_subscribe(cr, uid, [invoice_id], [user.partner_id.id], context=context)
 
         invoice = self.browse(cr, uid, invoice_id)
-        subject = _("Dodano nową fakturę")
+        subject = _("Odoo - Dodano nową fakturę")
         body = _("Dodano nową fakturę kosztową<br/>Dostawca: %s <br/>Data płatności: %s <br/>Kwota Netto: %s")\
                 %(invoice.supplier.name, invoice.date_of_payment, invoice.amount_net)
 
@@ -80,7 +80,7 @@ class jp_invoice(osv.Model):
             if mail_to != '':
                 for invoice in self.browse(cr, uid, invoice_ids):
                     url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.invoice")%(jp_crm, cr.dbname, invoice.id)
-                    subject = _("Termin zapłaty faktury: %s")%(invoice.name)
+                    subject = _("Odoo - Termin zapłaty faktury: %s")%(invoice.name)
                     body = _("Uwaga, mija termin zapłaty faktury: %s<br/>Dostawca: %s <br/>Data płatności: %s <br/>Kwota Netto: %s<br/><a href='%s'>Link do faktury</a>")\
                             %(invoice.name, invoice.supplier.name, invoice.date_of_payment, invoice.amount_net, url)
                     uid_id = users_obj.browse(cr, uid, uid)

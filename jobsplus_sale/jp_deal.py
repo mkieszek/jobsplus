@@ -116,11 +116,10 @@ class jp_deal(osv.Model):
             
         deal = self.pool.get('jp.deal').browse(cr, uid, [deal_id])[0]
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, deal.id)
-        subject = _("New Deal created: %s")%(deal.title)
+        subject = _("Odoo - New Deal created: %s")%(deal.title)
         body = _('New Deal created: %s <br/>Customer: %s<br/>Sales rep: %s<br/><a href="%s">Link to Deal</a>')%(deal.title,deal.client_id.name,deal.user_id.name,url)
         
         self.pool.get('jp.deal').message_post(cr, uid, deal_id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
@@ -215,7 +214,7 @@ class jp_deal(osv.Model):
             
             #komunikat do zmiany statusu
             if 'stage_id' in vals:
-                subject = _("Zmieniono status Deal'a")
+                subject = _("Odoo - Zmieniono status Deal'a")
                 body = _("Zmieniono status Deal'a: %s<br/>Aktualny status to: %s")%(deal.name, deal.stage_id.name)
                 self.message_post(cr, uid, deal.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
                             parent_id=False, attachments=None, context=context, content_subtype='html')
@@ -231,12 +230,11 @@ class jp_deal(osv.Model):
                     if user.partner_id.email is not False and user.active is True:
                         mail_to += user.partner_id.email + ", "
                 if mail_to is not "":
-                    jp_config_obj = self.pool.get('jp.config.settings')
-                    jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-                    jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+                    config_obj = self.pool.get('jp.config.settings')
+                    jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
                     url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, ids[0])
                     
-                    subject = _("Deal: %s ma status do fakturowania")%(deal.title)
+                    subject = _("Odoo - Deal: %s ma status do fakturowania")%(deal.title)
                     body = _("Zmienion status deala na do fakturowania.<br/>Deal: %s<br/>Klient: %s<br/>Przewidywany dochód: %s<br/>Sprzedawca: %s<br/><a href='%s'>Link do Deal'a</a>")\
                             %(deal.title,deal.client_id.name,deal.planned_revenue,deal.user_id.name,url)
                     uid = users_obj.search(cr, uid, [('id','=',1)])[0]

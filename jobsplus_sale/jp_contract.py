@@ -130,7 +130,7 @@ class jp_contract(osv.Model):
             config_obj = self.pool.get('jp.config.settings')
             jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.contract")%(jp_crm, cr.dbname, contract_id)
-            subject = _("Congratulations, we have a new customer contract.")
+            subject = _("Odoo - Congratulations, we have a new customer contract.")
             body = _("New contract with customer: %s <br/>Signed by: %s<br/><a href='%s'>Say congrats cuz it's worth.</a>")\
                     %(contract.client_id.name,create_uid,url)
             uid = users_obj.search(cr, uid, [('id','=',1)])[0]

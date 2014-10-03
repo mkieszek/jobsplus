@@ -131,13 +131,12 @@ class jp_agreement(osv.Model):
         
         agreement_ids = self.search(cr, uid, [('status_work','=','1'),('contract_to','=',tomorrow_str)], context=context)
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         
         for agreement in self.browse(cr, uid, agreement_ids, context=context):
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.agreement")%(jp_crm, cr.dbname, agreement.id)
-            subject = _("Zakończenie umowy z pracownikiem")
+            subject = _("Odoo - Zakończenie umowy z pracownikiem")
             body = _("Uwaga, niedługo nastąpi zakończenie umowy z pracownikiem: %s %s. <br/>Data zakończenia umowy: %s<br/><a href='%s'>Link do umowy</a>")%(agreement.first_name,agreement.last_name,agreement.contract_to,url) 
             
             self.message_post(cr, uid, agreement.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
@@ -157,16 +156,15 @@ class jp_agreement(osv.Model):
         agreement_obj= self.pool.get('jp.agreement')
         agreement_ids = agreement_obj.search(cr, uid, [('status_work','=','1')], context=context)
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         
         for agreement in self.browse(cr, uid, agreement_ids, context=context):
             medical_preliminary = agreement.medical_preliminary
             medical_heights = agreement.medical_heights
             medical_psychotechnical = agreement.medical_psychotechnical
             medical_health = agreement.medical_health
-            subject = _("Przypomnienie o badaniach lekarskich")
+            subject = _("Odoo - Przypomnienie o badaniach lekarskich")
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.agreement")%(jp_crm, cr.dbname, agreement.id)
             if medical_preliminary:
                 medical_preliminary = datetime.datetime.strptime(medical_preliminary,"%Y-%m-%d").date()

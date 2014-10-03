@@ -12,6 +12,11 @@
 				<xpath expr="/form/header/field[@name='stage_id']" position="attributes">
 					<attribute name="domain">[('sequence','in',[1])]</attribute>
                 </xpath>
+                <xpath expr="/form/header/field[@name='stage_id']" position="before">
+					<button name="close_task" string="Done" type="object" states="draft,open,pending"/>
+					<button name="cancel_task" string="Cancel task" type="object"  states="draft,open,pending"/>
+					<button name="open_task" string="Reactivate" type="object"  states="cancelled,done"/>
+                </xpath>
 				<xpath expr="/form/sheet/group/group/field[@name='project_id']" position="before">
 					<field name="client_id" />
 					<field name="lead_id" />

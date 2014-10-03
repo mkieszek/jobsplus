@@ -79,6 +79,6 @@ class res_partner(osv.osv):
         'client_rate_ids': fields.function(_client_rate_ids, type="one2many", relation='jp.client.rate', string='Rates'),
         'bank_number': fields.char('Bank account number'),
         'agreement_sup_ids': fields.one2many('jp.agreement.supplier','supplier', 'Supplier'),
-        'invoice_ids': fields.one2many('jp.invoice', 'supplier', 'Supplier'),
+        'jp_invoice_ids': fields.one2many('jp.invoice', 'supplier', 'Supplier'),
         'title2': fields.selection((('1', 'Madam'),('2', 'Mister')), 'Title'),
     }

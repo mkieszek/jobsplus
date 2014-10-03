@@ -66,15 +66,14 @@ class jp_deal(osv.Model):
         return result
 
     def write(self, cr, uid, ids, vals, context=None):
-        #pdb.set_trace()
         deal_id = super(jp_deal, self).write(cr, uid, ids, vals, context=context)
-        deal = self.browse(cr, uid, ids, context=context)
         
-        if deal[0].recruiter_ids:
-            for recruiter in deal[0].recruiter_ids:
-                recruiter = self.pool.get('res.users').browse(cr, uid, [recruiter.id])[0]
-            
-                self.message_subscribe(cr, uid, ids, [recruiter.partner_id.id], context=context)
+        for deal in self.browse(cr, uid, ids):
+            if deal.recruiter_ids:
+                for recruiter in deal.recruiter_ids:
+                    recruiter = self.pool.get('res.users').browse(cr, uid, [recruiter.id])[0]
+                
+                    self.message_subscribe(cr, uid, ids, [recruiter.partner_id.id], context=context)
                 
         if 'stage_id' in vals:
             stage_obj = self.pool.get('jp.deal.stage')
@@ -106,15 +105,14 @@ class jp_deal(osv.Model):
     def notification_middle_handover_date(self, cr, uid, context=None):
         tomorrow = datetime.date.today()+timedelta(days=1)
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         
         deal_ids = self.search(cr, uid, [('date_middle','=',tomorrow)])
         subject = _("Data środkowa Deal'a")
         for deal in self.browse(cr, uid, deal_ids):
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, deal.id)
-            body = _("Zbliża się termin daty środkowej rekrutacji: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.name, url)
+            body = _("Odoo - Zbliża się termin daty środkowej rekrutacji: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.name, url)
             self.message_post(cr, uid, deal.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
                         parent_id=False, attachments=None, context=context, content_subtype='html')
         
@@ -122,7 +120,7 @@ class jp_deal(osv.Model):
         subject = _("Data przekazania Deal'a")
         for deal in self.browse(cr, uid, deal_ids):
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, deal.id)
-            body = _("Zbliża się termin daty przekazania rekrutacji: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.name, url)
+            body = _("Odoo - Zbliża się termin daty przekazania rekrutacji: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.name, url)
             self.message_post(cr, uid, deal.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
                         parent_id=False, attachments=None, context=context, content_subtype='html')
           

@@ -69,9 +69,8 @@ class jp_ad(osv.Model):
             groups_obj = self.pool.get('res.groups')
             users_obj = self.pool.get('res.users')
             #Wysyła wiasomość do Marketingu Jobs Plus
-            jp_config_obj = self.pool.get('jp.config.settings')
-            jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-            jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+            config_obj = self.pool.get('jp.config.settings')
+            jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
     
             group_id = groups_obj.search(cr, uid, [('name','=','Marketing Jobs Plus')])
             users = groups_obj.browse(cr, uid, group_id[0]).users
@@ -82,7 +81,7 @@ class jp_ad(osv.Model):
             if mail_to != '':
                 url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
                 body = decode("Ogłoszenie na stanowisko %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
-                subject = mail_message.decode("OpenERP: publikacja ogłoszenia.")
+                subject = mail_message.decode("Odoo - publikacja ogłoszenia.")
                 uid_id = users_obj.browse(cr, uid, uid)
                 vals = {'email_from': uid_id.partner_id.name+"<"+uid_id.partner_id.email+">",
                         'email_to': mail_to,
@@ -102,9 +101,8 @@ class jp_ad(osv.Model):
                 groups_obj = self.pool.get('res.groups')
                 users_obj = self.pool.get('res.users')
                 #Wysyła wiasomość do Marketingu Jobs Plus
-                jp_config_obj = self.pool.get('jp.config.settings')
-                jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-                jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+                config_obj = self.pool.get('jp.config.settings')
+                jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         
                 group_id = groups_obj.search(cr, uid, [('name','=','Marketing Jobs Plus')])
                 users = groups_obj.browse(cr, uid, group_id[0]).users
@@ -115,7 +113,7 @@ class jp_ad(osv.Model):
                 if mail_to != '':
                     url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.ad")%(jp_crm, cr.dbname, ad.id)
                     body = decode("Ogłoszenie na stanowisko %s zostało zmienione.<br/><a href='%s'>Link do ogłoszenia</a>")%(ad.position, url)
-                    subject = decode("OpenERP: publikacja ogłoszenia.")
+                    subject = decode("Odoo - publikacja ogłoszenia.")
                     uid_id = users_obj.browse(cr, uid, uid)
                     vals = {'email_from': uid_id.partner_id.name+"<"+uid_id.partner_id.email+">",
                             'email_to': mail_to,

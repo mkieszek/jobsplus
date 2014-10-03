@@ -105,24 +105,6 @@ class jp_application(osv.Model):
             'context': context,
         }
         
-    """def open_candidate(self, cr, uid, id, context=None):
-        #pdb.set_trace()
-        application_obj = self.pool.get('jp.application').browse(cr, uid, id, context=context)
-        
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Candidate', 
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': self.pool.get('jp.candidate')._name,
-            'res_id': application_obj[0].candidate_id.id,
-            'target': 'new',
-            'context': context,
-        }
-        context = {
-            'res_model': 'jp.candidate',
-        }"""
-        
     def new_applications(self, cr, uid, context=None):
         users_obj = self.pool.get('res.users')
         deal_obj = self.pool.get('jp.deal')
@@ -131,9 +113,8 @@ class jp_application(osv.Model):
         deal_list = {}
         application_ids = self.search(cr, uid, [('create_date','>',yesterday),('create_date','<',today)])
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         
         for application in self.browse(cr, uid, application_ids):
             deal = application.deal_id.id
@@ -152,7 +133,7 @@ class jp_application(osv.Model):
             if user.partner_id.email is not False and user.active is True:
                 mail_to += user.partner_id.email + " "
             if mail_to is not "":
-                subject = _("Nowe aplikacje do rekrutacji: %s")%(deal.title)
+                subject = _("Odoo - Nowe aplikacje do rekrutacji: %s")%(deal.title)
                 body = _("Zostały dodane nowe aplikacje do deal'a: %s.<br/>Ilość nowych aplikacji to: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.title, app_count, url)
                 uid = users_obj.search(cr, uid, [('id','=',1)])[0]
                 uid_id = users_obj.browse(cr, uid, uid)

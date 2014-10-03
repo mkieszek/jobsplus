@@ -46,7 +46,7 @@ class jp_agreement_supplier(osv.Model):
         
         for agreement in agreements:
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.agreement.supplier")%(jp_crm, cr.dbname, agreement.id)
-            subject = _("Zakończenie umowy z dostawcą")
+            subject = _("Odoo - Zakończenie umowy z dostawcą")
             body = _("Zakończenie umowy z dostawcą: %s<br/>Data zakończenia: %s<br/><a href='%s'>Link do umowy</a>")%(agreement.supplier.name,agreement.contract_to,url)
     
             self.message_post(cr, uid, agreement.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 

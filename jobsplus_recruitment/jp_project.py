@@ -24,12 +24,11 @@ class jp_project(osv.Model):
         project_id = super(jp_project, self).create(cr, uid, vals, context=context)
         project = self.browse(cr, uid, project_id)
         
-        jp_config_obj = self.pool.get('jp.config.settings')
-        jp_config_id = jp_config_obj.search(cr, uid, [])[-1]
-        jp_crm = jp_config_obj.browse(cr, uid, jp_config_id).jobsplus_crm
+        config_obj = self.pool.get('jp.config.settings')
+        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
         url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, project.deal_id.id)
         
-        subject = _("Utworzono nowy projekt")
+        subject = _("Odoo - Utworzono nowy projekt")
         body = _("Utworzono nowy projekt dla deal'a: %s<br/><a href='%s'>Link do deal'a</a>")%(project.deal_id.title, url)
         
         self.pool.get('jp.deal').message_post(cr, uid, project.deal_id.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 

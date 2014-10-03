@@ -7,7 +7,7 @@
 			<field name="inherit_id" ref="jobsplus_sale.deal_view_form" />
 			<field name="arch" type="xml">
 				<xpath expr="/form/header" position="after">
-						<button name="%(jobsplus_recruitment.action_jp_recruiter2deal)d" string="Assign Recruiter" type="action" class="oe_highlight" attrs="{'invisible':[('state','!=','draft') ,'|', ('state','!=','open')]}" />
+						<button name="%(jobsplus_recruitment.action_jp_recruiter2deal)d" string="Assign Recruiter" type="action" class="oe_highlight" attrs="{'invisible':[('state','!=','draft') ,'|', ('state','!=','open')]}" groups="base.group_jp_salesmanager,base.group_jp_recrutmentmanager" />
 						<button name="open_line_ad_form" string="Add ad" type="object" class="oe_highlight" />
 						<button name="%(jobsplus_recruitment.action_jp_candidate2deal)d" string="Add candidates" type="action" class="oe_highlight" attrs="{'invisible':[('state','=','done')]}" />
 						<field name="state" invisible="True"/>

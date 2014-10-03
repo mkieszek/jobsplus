@@ -77,7 +77,7 @@ class jp_employee(osv.osv):
                 if user.partner_id.email is not '' and user.partner_id.name != 'Administrator' and user.active is True:
                     mail_to += user.partner_id.email + ", "
             if mail_to is not "":
-                subject = _("Urodziny")
+                subject = _("Odoo - Urodziny")
                 body = _("Urodziny jutro obchodzi: %s")%(birthday)
                 uid = users_obj.search(cr, uid, [('id','=',uid)])[0]
                 uid_id = users_obj.browse(cr, uid, uid)
@@ -106,7 +106,7 @@ class jp_employee(osv.osv):
             if employee.manager_id.email != False:
                 mail_to = employee.manager_id.email
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.employee")%(jp_crm, cr.dbname, employee.id)
-            subject = _("Koniec umowy z pracownikiem")
+            subject = _("Odoo - Koniec umowy z pracownikiem")
             body = _("Kończy się umowa z Twoim pracownikiem: %s <br/> Data końca umowy: %s<br/><a href='%s'>Link do pracownika</a>")\
                     %(employee.name,employee.contract_to,url)
             uid_id = users_obj.browse(cr, uid, uid)
