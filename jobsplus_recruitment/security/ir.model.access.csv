@@ -13,8 +13,6 @@ access_jp_ad_stage_recrutmentmanager,jp.ad.stage.recrutmentmanager,model_jp_ad_s
 access_jp_ad_stage_marketing,jp.ad.stage.marketing,model_jp_ad_stage,base.group_jp_marketing,1,0,0,0
 access_jp_agreement_recruiter,jp.agreement.recrutier,model_jp_agreement,base.group_jp_recruiter,1,1,1,1
 access_jp_agreement_recrutmentmanager,jp.agreement.recrutmentmanager,model_jp_agreement,base.group_jp_recrutmentmanager,1,1,1,1
-access_jp_agreement_stage_recruiter,jp.agreement.stage.recrutier,model_jp_agreement_stage,base.group_jp_recruiter,1,0,0,0
-access_jp_agreement_stage_recrutmentmanager,jp.agreement.stage.recrutmentmanager,model_jp_agreement_stage,base.group_jp_recrutmentmanager,1,1,1,1
 access_jp_application_recruiter,jp.application.recrutier,model_jp_application,base.group_jp_recruiter,1,1,1,1
 access_jp_application_recrutmentmanager,jp.application.recrutmentmanager,model_jp_application,base.group_jp_recrutmentmanager,1,1,1,1
 access_jp_application_salesman,jp.application.salesman,model_jp_application,base.group_jp_salesman,1,1,0,0
