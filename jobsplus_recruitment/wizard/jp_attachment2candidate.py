@@ -10,7 +10,7 @@ from openerp.tools.translate import _
 import pdb
 import datetime
 
-class jp_attachment2candidate(osv.Model):
+class jp_attachment2candidate(osv.osv_memory):
     _name = 'jp.attachment2candidate'
     
     def _document_ids_get(self, cr, uid, ids, field_name, arg, context=None):

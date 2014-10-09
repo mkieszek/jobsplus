@@ -219,7 +219,7 @@ class jp_candidate(osv.Model):
         'application_search': fields.function(_application_ids_search, type="one2many", relation="jp.application", string="Recruitment", fnct_search=_application_ids_search),    
         'application_ids': fields.one2many('jp.application', 'candidate_id', 'Applications'),
         'document_ids': fields.function(_document_ids_get, type="one2many",relation="ir.attachment", string="Document", fnct_search=_document_ids_search),
-        'candidate2deal': fields.many2one('jp.candidate2deal','Candidate'),
+        #'candidate2deal': fields.many2one('jp.candidate2deal','Candidate'),
         'position_other_search': fields.function(_position_other_search, type="one2many", relation="jp.candidate", string='Position+', fnct_search=_position_other_search),
         'reference': fields.text("Reference"),
         'amount': fields.integer('Amount'),

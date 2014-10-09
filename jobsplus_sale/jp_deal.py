@@ -33,7 +33,7 @@ class jp_deal(osv.Model):
         'handover_date' : fields.date('Handover date', track_visibility='onchange'),        
         'decision_time' : fields.integer('Decision time (days)', track_visibility='onchange'),
         'invoice_date' :  fields.date('Invoice date', track_visibility='onchange'),
-        'payment_term': fields.many2one('account.payment.term', 
+        'payment_term': fields.char( 
                                         'Payment Terms', track_visibility='onchange'),
         'warranty_period' : fields.integer('Warranty',
                                     required=True, 

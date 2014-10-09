@@ -8,7 +8,7 @@ Created on Thu Aug 29 12:06:14 2013
 from openerp.osv import osv,fields
 import pdb
 
-class jp_candidate2deal(osv.Model):
+class jp_candidate2deal(osv.osv_memory):
     _name = "jp.candidate2deal"
     
     _columns = {

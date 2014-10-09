@@ -24,7 +24,7 @@ class jp_offer2contract(osv.osv_memory):
         'dismiss_period' : fields.integer('Dismissal period (days)', required=True),
         'contract_type' : fields.selection([('fixed', 'Fixed-term'), ('indefinite', 'Indefinite term')], 
                                    'Term type', required=True,),
-        'payment_term': fields.many2one('account.payment.term', 'Payment Terms'),
+        'payment_term': fields.char('Payment Terms'),
         'warranty_period' : fields.integer('Warranty'),
         'offer_id' : fields.many2one('jp.offer', 'Offer', readonly=True),
         'prospect_id' : fields.many2one('crm.lead', 'Prospect', readonly=True),

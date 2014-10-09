@@ -8,7 +8,7 @@ from openerp.tools.translate import _
 import pdb
 import datetime
 
-class jp_calculation2deal(osv.Model):
+class jp_calculation2deal(osv.osv_memory):
     _name = 'jp.calculation2deal'
     
     def _calculation_ids_get(self, cr, uid, ids, field_name, arg, context=None):

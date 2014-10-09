@@ -72,7 +72,7 @@
                 </field>
             </record>
 
-        <menuitem name="Agreement" id="menu_jp_agreement_supplier" action="action_jp_agreement_supplier" parent="menu_jp_administration_administration" sequence="2007" />
+        <menuitem name="Agreements" id="menu_jp_agreement_supplier" action="action_jp_agreement_supplier" parent="menu_jp_administration_administration" sequence="2007" />
 
 <!-- Scheduler for Deadline agreement with supplier-->
         <record forcecreate="True" id="ir_cron_deadline_agreement_supplier_action" model="ir.cron">

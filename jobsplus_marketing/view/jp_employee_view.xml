@@ -82,7 +82,6 @@
               <field name="numbercall">-1</field>
               <field eval="'jp.employee'" name="model" />
               <field eval="'notification_birth_employee'" name="function" />
-              <field eval="'()'" name="args" />
         </record>
 <!-- Scheduler for Deadline agreement with employee-->
         <record forcecreate="True" id="ir_cron_agreement_employee_action" model="ir.cron">
@@ -94,7 +93,6 @@
               <field name="numbercall">-1</field>
               <field eval="'jp.employee'" name="model" />
               <field eval="'deadline_agreement_employee'" name="function" />
-              <field eval="'()'" name="args" />
         </record>
     </data>
 </openerp>

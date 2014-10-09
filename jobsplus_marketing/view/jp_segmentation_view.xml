@@ -49,6 +49,6 @@
                 <field name="domain">[]</field>
             </record>
 
-        <menuitem name="Segmentation" id="menu_jp_segmentation" action="action_jp_segmentation" groups="base.group_jp_salesmanager,base.group_jp_administration_user" parent="base.menu_base_config" sequence="25" />
+        <menuitem name="Segmentations" id="menu_jp_segmentation" action="action_jp_segmentation" groups="base.group_jp_salesmanager,base.group_jp_administration_user" parent="base.menu_base_config" sequence="25" />
     </data>
 </openerp>

@@ -12,7 +12,7 @@ import pdb
 import pytz
 import time
 
-class jp_meeting2deal(osv.Model):
+class jp_meeting2deal(osv.osv_memory):
     _name = "jp.meeting2deal"
     #_inherit = ["calendar.event", "mail.thread", "ir.needaction_mixin", "crm.meeting"]
     

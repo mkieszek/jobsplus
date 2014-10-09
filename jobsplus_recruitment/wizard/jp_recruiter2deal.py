@@ -10,7 +10,7 @@ from openerp.tools.translate import _
 import pdb
 import datetime
 
-class jp_recruiter2deal(osv.Model):
+class jp_recruiter2deal(osv.osv_memory):
     _name = 'jp.recruiter2deal'
     
     _columns = {

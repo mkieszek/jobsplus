@@ -46,7 +46,7 @@
                 </field>
             </record>
 
-        <menuitem name="Subscription" id="menu_jp_subscription" action="action_jp_subscription" parent="menu_jp_administration_administration" sequence="2008" groups="base.group_jp_administration_user" />
+        <menuitem name="Subscriptions" id="menu_jp_subscription" action="action_jp_subscription" parent="menu_jp_administration_administration" sequence="2008" groups="base.group_jp_administration_user" />
 
     <!-- Scheduler for Subscription-->
         <record forcecreate="True" id="ir_cron_subscriptions_action" model="ir.cron">

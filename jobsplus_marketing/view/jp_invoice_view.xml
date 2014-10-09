@@ -89,7 +89,7 @@
 
         <menuitem name="Administration" id="menu_jp_administration_administration" parent="menu_jp_administration" sequence="2005" />
 
-        <menuitem name="Invoice" id="menu_jp_invoice" action="action_jp_invoice" parent="menu_jp_administration_administration" sequence="2006" />
+        <menuitem name="Invoices" id="menu_jp_invoice" action="action_jp_invoice" parent="menu_jp_administration_administration" sequence="2006" />
 
 <!-- Scheduler for Deadline payment-->
         <record forcecreate="True" id="ir_cron_deadline_payment_action" model="ir.cron">

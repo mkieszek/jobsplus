@@ -79,7 +79,7 @@
             </field>
         </record>
 
-        <menuitem action="action_jp_candidate_tag_form" id="menu_candidate_category_form" name="Candidate Tags" sequence="10000" parent="jobsplus_recruitment.menu_jobsplus_recruitment_recruitment" groups="base.group_jp_recruiter,base.group_jp_administration_user"/>
+        <menuitem action="action_jp_candidate_tag_form" id="menu_candidate_category_form" name="Candidates Tags" sequence="10000" parent="jobsplus_recruitment.menu_jobsplus_recruitment_recruitment" groups="base.group_jp_recruiter,base.group_jp_administration_user"/>
 
     </data>
 </openerp>
