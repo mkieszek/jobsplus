@@ -10,7 +10,6 @@ from openerp.tools.translate import _
 
 class jp_trade(osv.Model):
     _name = "jp.trade"
-    _inherit = 'mail.thread'
     _description = 'Branze'
     
     _columns = {

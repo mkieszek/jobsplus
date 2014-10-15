@@ -3,3 +3,7 @@ td[data-field="image_icon"] {
 	font-size: 34px;
 	font-weight: 300 !important;
 }
+
+td.announcement_bar{
+	display: none;
+}

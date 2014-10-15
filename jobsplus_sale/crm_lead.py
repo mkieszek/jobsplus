@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+import pdb
 
 AVAILABLE_STATES = [
     ('draft', 'New'),
@@ -58,20 +59,15 @@ class crm_lead(osv.osv):
         return {'value' : values}
     
     def case_cancel(self, cr, uid, ids, context=None):
-        """ Overrides case_cancel from base_stage to set probability """
-        stages_leads = {}
         for lead in self.browse(cr, uid, ids, context=context):
-            stage_id = self.stage_find(cr, uid, [lead], lead.section_id.id or False, [('probability', '=', 0.0), ('fold', '=', True)], context=context)
-            if stage_id:
-                if stages_leads.get(stage_id):
-                    stages_leads[stage_id].append(lead.id)
-                else:
-                    stages_leads[stage_id] = [lead.id]
-            else:
-                raise osv.except_osv(_('Warning!'),
-                    _('Warning'))
-        for stage_id, lead_ids in stages_leads.items():
-            self.write(cr, uid, lead_ids, {'stage_id': stage_id}, context=context)
+            stage_id = self.pool.get('crm.case.stage').search(cr, uid, [('sequence','=',30)])
+            self.write(cr, uid, lead.id, {'stage_id': stage_id[0]}, context=context)
+        return True
+    
+    def case_mark_won2(self, cr, uid, ids, context=None):
+        for lead in self.browse(cr, uid, ids, context=context):
+            stage_id = self.pool.get('crm.case.stage').search(cr, uid, [('sequence','=',130)])
+            self.write(cr, uid, lead.id, {'stage_id': stage_id[0]}, context=context)
         return True
 
 

@@ -42,7 +42,7 @@ class jp_publish(osv.Model):
         publish_id = super(jp_publish, self).create(cr, uid, vals, context=context)
     
         #Activation ad
-        if vals['status'] == '1':
+        if 'status' in vals and vals['status'] == '1':
             vals_ad = {
                 'activity': True,
             }

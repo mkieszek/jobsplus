@@ -168,7 +168,7 @@ class jp_agreement(osv.Model):
             url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.agreement")%(jp_crm, cr.dbname, agreement.id)
             if medical_preliminary:
                 medical_preliminary = datetime.datetime.strptime(medical_preliminary,"%Y-%m-%d").date()
-                body = _("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań wstępnych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>")%(agreement.first_name,agreement.last_name,agreement.medical_preliminary,url) 
+                body = _(("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań wstępnych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>").decode('utf-8'))%(agreement.first_name,agreement.last_name,agreement.medical_preliminary,url) 
                     
                 if medical_preliminary == today:
                     agreement_obj.message_post(cr, uid, agreement.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
@@ -180,7 +180,7 @@ class jp_agreement(osv.Model):
                     
             if medical_heights:
                 medical_heights = datetime.datetime.strptime(medical_heights,"%Y-%m-%d").date()
-                body = _("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań wysokościowych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>")%(agreement.first_name,agreement.last_name,agreement.medical_heights,url) 
+                body = _(("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań wysokościowych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>").decode('utf-8'))%(agreement.first_name,agreement.last_name,agreement.medical_heights,url) 
                     
                 if medical_heights == today:
                     agreement_obj.message_post(cr, uid, agreement.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
@@ -192,7 +192,7 @@ class jp_agreement(osv.Model):
             
             if medical_psychotechnical:
                 medical_psychotechnical = datetime.datetime.strptime(medical_psychotechnical,"%Y-%m-%d").date()
-                body = _("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań psychotechnicznych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>")%(agreement.first_name,agreement.last_name,agreement.medical_psychotechnical,url) 
+                body = _(("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań psychotechnicznych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>").decode('utf-8'))%(agreement.first_name,agreement.last_name,agreement.medical_psychotechnical,url) 
                 
                 if medical_psychotechnical == today:
                     agreement_obj.message_post(cr, uid, agreement.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 
@@ -204,7 +204,7 @@ class jp_agreement(osv.Model):
             
             if medical_health:
                 medical_health = datetime.datetime.strptime(medical_health,"%Y-%m-%d").date()
-                body = _("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań sanitarno-epidemiologicznych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>")%(agreement.first_name,agreement.last_name,agreement.medical_health,url) 
+                body = _(("Przypomnienie o badaniach lekarskich dla pracownika: %s %s<br/>Data badań sanitarno-epidemiologicznych: %s<br/><a href='%s'>Link do Pracownika w CRM</a>").decode('utf-8'))%(agreement.first_name,agreement.last_name,agreement.medical_health,url) 
                     
                 if medical_health == today:
                     agreement_obj.message_post(cr, uid, agreement.id, body=body, subject=subject, type='email', subtype='mail.mt_comment', 

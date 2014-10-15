@@ -3,19 +3,19 @@
     <data>        
       	<record id="view_jp_report_deal_graph32" model="ir.ui.view">  
   	        <field name="name">jp.deal.report.graph3</field>  
-  	        <field name="model">jp.deal.report3</field>  
+  	        <field name="model">jp.deal.report32</field>  
   	        <field name="arch" type="xml">  
   	            <graph orientation="vertical" string="Leads Analysis" type="bar">  
   	                <field name="stage_id"/>  
   	                <field name="planned_revenue" operator="+"/>  
-  	                <field group="True" name="stage_id"/>  
+  	                <field name="user_id" group="True"/>  
   	            </graph>  
   	        </field>  
   	    </record>  
   	    
       <record model="ir.actions.act_window" id="act_deal_report32">  
           <field name="name">Raport deals</field>  
-          <field name="res_model">jp.deal.report3</field>  
+          <field name="res_model">jp.deal.report32</field>  
           <field name="view_type">form</field>  
           <field name="view_mode">graph,tree,form</field>  
           <field name="view_id" ref="view_jp_report_deal_graph32"/>  
@@ -32,7 +32,7 @@
                             <action string="Oferty użytkowników po etapach" name="%(act_offer_report)d"/>
                         </column>
                         <column>
-                        	<action string="Planned Revenue by Stage and User" name="%(act_deal_report32)d"/>
+                        	<action string="Planowany dochód po etapie i sprzedawcy" name="%(act_deal_report32)d"/>
                         </column>
                     </board>
                 </form>

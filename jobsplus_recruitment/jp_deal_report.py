@@ -88,6 +88,7 @@ class jp_deal_report3(osv.Model):
         'id': fields.many2one('jp.deal', 'Deal'),
         'stage_id': fields.many2one('jp.deal.stage','Deals Stage', readonly=True),
         'planned_revenue': fields.integer('Planned revenue'),
+        'recruiter_id': fields.many2one('res.users', 'Recruiter'),
         'nbr': fields.integer('NBR'),
         }
     
@@ -97,7 +98,7 @@ class jp_deal_report3(osv.Model):
         cr.execute("""
             CREATE OR REPLACE VIEW jp_deal_report3 AS (
 
-            SELECT id, planned_revenue, 1 as nbr, stage_id, state
+            SELECT id, planned_revenue, 1 as nbr, stage_id, state, recruiter_id
             FROM jp_deal
             WHERE state = 'open' and stage_id != 8
 

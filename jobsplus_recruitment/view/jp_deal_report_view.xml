@@ -46,7 +46,7 @@
   	            <graph orientation="vertical" string="Leads Analysis" type="bar">  
   	                <field name="stage_id"/>  
   	                <field name="planned_revenue" operator="+"/>  
-  	                <field group="True" name="stage_id"/>  
+  	                <field group="True" name="recruiter_id"/>  
   	            </graph>  
   	        </field>  
   	    </record>  
@@ -70,8 +70,8 @@
                               <action string="Status zadań rekrutacji" name="%(act_task_report_rec)d"/>  
                           </column>  
                           <column>  
-                              <action string="Deal by Stage and User" name="%(act_deal_report2)d"/>  
-                              <action string="Planned Revenue by Stage and User" name="%(act_deal_report3)d"/>
+                              <action string="Deal'e po etapie i rekruterze" name="%(act_deal_report2)d"/>  
+                              <action string="Planowany dochód po etapie i rekruterze" name="%(act_deal_report3)d"/>
                           </column>
                     </board>
                 </form>

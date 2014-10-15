@@ -31,6 +31,6 @@ class jp_task_report_rec(osv.Model):
                   WHEN extract(epoch from (deadline_datetime - (localtimestamp - interval '2 hours'))) > 0 THEN 'Przed terminem'
                   END as deadline
                 from project_task
-                where (state!='done' and state!='cancelled') and user_id in (11,13,14,15,16,17,24)
+                where user_id in (11,13,14,15,16,17,24) and (state != 'done' or state != 'cancelled')
 
             )""")

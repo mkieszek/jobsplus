@@ -60,7 +60,7 @@ class jp_deal(osv.Model):
                 selection=jp_deal_stage.AVAILABLE_STATES, string="Status", readonly=True,),
         'active': fields.boolean('Active', required=False, track_visibility='onchange'),
         'color': fields.integer('Color index'),
-        'create_date' : fields.date('Create Date', readonly=True),
+        'create_date' : fields.datetime('Create Date', readonly=True),
 
     }
     

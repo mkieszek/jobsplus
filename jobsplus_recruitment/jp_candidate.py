@@ -227,7 +227,7 @@ class jp_candidate(osv.Model):
         'financial_for': fields.selection(AVAILABLE_FOR, 'For'),
         'count_document': fields.function(_document_count, type="integer", string='Count document'),
         'agreement_ids': fields.function(_agreement_ids, type="one2many", relation="jp.agreement", string='Application'),
-        'create_date': fields.date('Create'),
+        'create_date': fields.datetime('Create'),
         'portal_id': fields.many2one('jp.portal','Portal'),
         'source_receive': fields.selection([('1', 'Mail'),('2', 'Outlook'),('3', 'Manual'),('4', "www")],'Source receive'),
         'sallary_id': fields.many2one('jp.sallary','Sallary'),
@@ -310,13 +310,16 @@ class jp_candidate(osv.Model):
         for row in rows:
             emails.append(row[1])
         l = 0
+
         for email in emails:
-            email_ids = self.search(cr, uid, [('email','=',email)])
-            email = self.browse(cr, uid, email_ids)
-            for cand in email:
-                email.remove(cand)
+            candidate_ids = self.search(cr, uid, [('email','=',email)])
+            candidate = self.browse(cr, uid, candidate_ids)
+            for cand in candidate_ids:
+                candidate_ids.remove(cand)
+                cand = self.browse(cr, uid, cand)
                 if len(cand.document_ids) > 0:
-                    for cand2 in email:
+                    for cand2 in candidate_ids:
+                        cand2 = self.browse(cr, uid, cand2)
                         if len(cand2.document_ids) == len(cand.document_ids):
                             ok = 0
                             l += 1
@@ -349,7 +352,7 @@ class jp_candidate(osv.Model):
                                             
                                     self.write(cr, uid, cand.id, vals, context=None)
                                 self.unlink(cr, uid, [cand2.id], context=None)
-                                email.remove(cand2)
+                                candidate_ids.remove(cand2.id)
                             else:
                                 if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id == cand2.state_id and cand.phone and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
                                     app_cand2_ids = application_obj.search(cr, uid, [('candidate_id','=', cand2.id)])
@@ -377,7 +380,7 @@ class jp_candidate(osv.Model):
                                         document_vals['res_id'] = cand.id
                                         attachment_obj.write(cr, uid, document.id, document_vals, context=None)
                                     self.unlink(cr, uid, [cand2.id], context=None)
-                                    email.remove(cand2)
+                                    candidate_ids.remove(cand2.id)
                         else:
                             if cand.candidate == cand2.candidate and cand.last_deal_id == cand2.last_deal_id and cand.phone == cand2.phone and cand.state_id == cand2.state_id and cand.phone and len(cand.application_ids) == 1 and len(cand2.application_ids) == 1:
                                 app_cand2_ids = application_obj.search(cr, uid, [('candidate_id','=', cand2.id)])
@@ -405,7 +408,7 @@ class jp_candidate(osv.Model):
                                     document_vals['res_id'] = cand.id
                                     attachment_obj.write(cr, uid, document.id, document_vals, context=None)
                                 self.unlink(cr, uid, [cand2.id], context=None)
-                                email.remove(cand2)
+                                candidate_ids.remove(cand2.id)
                                     
         #print 'Licznik: '+str(l)
         return True

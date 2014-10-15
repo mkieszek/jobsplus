@@ -55,15 +55,16 @@ class jp_revenue_report(osv.Model):
             )""")
         
         
-class jp_deal_report3(osv.Model):
-    _name = "jp.deal.report3"
+class jp_deal_report32(osv.Model):
+    _name = "jp.deal.report32"
     _auto = False
-    _description = "Deal report3"
+    _description = "Deal report32"
 
     _columns = {
         'id': fields.many2one('jp.deal', 'Deal'),
         'stage_id': fields.many2one('jp.deal.stage','Deals Stage', readonly=True),
         'planned_revenue': fields.integer('Planned revenue'),
+        'user_id': fields.many2one('res.users', 'Salesman'),
         'nbr': fields.integer('NBR'),
         }
     
@@ -71,9 +72,9 @@ class jp_deal_report3(osv.Model):
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'jp_deal_report3')
         cr.execute("""
-            CREATE OR REPLACE VIEW jp_deal_report3 AS (
+            CREATE OR REPLACE VIEW jp_deal_report32 AS (
 
-            SELECT id, planned_revenue, 1 as nbr, stage_id, state
+            SELECT id, planned_revenue, 1 as nbr, stage_id, state, user_id
             FROM jp_deal
             WHERE state = 'open' and stage_id != 8
 

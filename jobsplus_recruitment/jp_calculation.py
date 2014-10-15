@@ -22,7 +22,7 @@ class jp_calculation(osv.Model):
         'file_name': fields.char('File name', size=64),
         'value_margin' : fields.float('Value margin agencies'),
         'value_leasing' : fields.float('Value leasing invoice'),
-        'create_date' : fields.date('Create date'),
+        'create_date' : fields.datetime('Create date'),
 	}
  
     def create(self, cr, uid, vals, context=None):

@@ -29,7 +29,7 @@ class jp_application(osv.Model):
         'note': fields.text('Notes'),
         'candidate': fields.related('candidate_id', 'candidate', type='char', string="Candidate", readonly=True),
         'status' : fields.selection(AVAILABLE_STATES, 'Status'),
-        'create_date': fields.date('Create'),
+        'create_date': fields.datetime('Create'),
     }
     
     _defaults = {
@@ -108,47 +108,48 @@ class jp_application(osv.Model):
     def new_applications(self, cr, uid, context=None):
         users_obj = self.pool.get('res.users')
         deal_obj = self.pool.get('jp.deal')
-        yesterday = datetime.date.today()-timedelta(days=1)
-        today = datetime.date.today()
+        yesterday = (datetime.datetime.today()-timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
+        today = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
         deal_list = {}
         application_ids = self.search(cr, uid, [('create_date','>',yesterday),('create_date','<',today)])
         
-        config_obj = self.pool.get('jp.config.settings')
-        jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
-        
-        for application in self.browse(cr, uid, application_ids):
-            deal = application.deal_id.id
-            if deal != False:
-                if deal in deal_list:
-                    deal_list[deal] += 1
-                else:
-                    deal_list[deal] = 1
-        
-        for deal_id, app_count in deal_list.items():
-            deal = deal_obj.browse(cr, uid, deal_id)
-            user = users_obj.browse(cr, uid, deal.recruiter_id.id)
+        if application_ids:
+            config_obj = self.pool.get('jp.config.settings')
+            jp_crm = config_obj.current_jp_settings(cr, uid, 'jobsplus_crm')
             
-            url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, deal.id)
-            mail_to = ""
-            if user.partner_id.email is not False and user.active is True:
-                mail_to += user.partner_id.email + " "
-            if mail_to is not "":
-                subject = _("Odoo - Nowe aplikacje do rekrutacji: %s")%(deal.title)
-                body = _("Zostały dodane nowe aplikacje do deal'a: %s.<br/>Ilość nowych aplikacji to: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.title, app_count, url)
-                uid = users_obj.search(cr, uid, [('id','=',1)])[0]
-                uid_id = users_obj.browse(cr, uid, uid)
-                
-                email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
-                    
-                vals = {'email_from': email_from,
-                        'email_to': mail_to,
-                        'state': 'outgoing',
-                        'subject': subject,
-                        'body_html': body,
-                        'auto_delete': True}
+            for application in self.browse(cr, uid, application_ids):
+                deal = application.deal_id.id
+                if deal != False:
+                    if deal in deal_list:
+                        deal_list[deal] += 1
+                    else:
+                        deal_list[deal] = 1
                         
-                self.pool.get('mail.mail').create(cr, uid, vals, context=context)
-        
+            for deal_id, app_count in deal_list.items():
+                deal = deal_obj.browse(cr, uid, deal_id)
+                user = users_obj.browse(cr, uid, deal.recruiter_id.id)
+                
+                url = ("http://%s/?db=%s#id=%s&view_type=form&model=jp.deal")%(jp_crm, cr.dbname, deal.id)
+                mail_to = ""
+                if user.partner_id.email is not False and user.active is True:
+                    mail_to += user.partner_id.email + " "
+                if mail_to is not "":
+                    subject = _("Odoo - Nowe aplikacje do rekrutacji: %s")%(deal.title)
+                    body = _("Zostały dodane nowe aplikacje do deal'a: %s.<br/>Ilość nowych aplikacji to: %s<br/><a href='%s'>Link do Deal'a</a>")%(deal.title, app_count, url)
+                    uid = users_obj.search(cr, uid, [('id','=',1)])[0]
+                    uid_id = users_obj.browse(cr, uid, uid)
+                    
+                    email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
+                        
+                    vals = {'email_from': email_from,
+                            'email_to': mail_to,
+                            'state': 'outgoing',
+                            'subject': subject,
+                            'body_html': body,
+                            'auto_delete': True}
+                            
+                    self.pool.get('mail.mail').create(cr, uid, vals, context=context)
+            
         return True
     
     def application_rejected(self, cr, uid, ids, context=None):
