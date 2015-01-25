@@ -120,7 +120,7 @@ class crm_meeting(osv.Model):
                                 trans_sub = translation_obj.browse(cr, uid, transl_sub)[0]
                                 subject = trans_sub.value
                               
-                        uid = users_obj.search(cr, uid, [('id','=',1)])[0]
+                        uid = users_obj.search(cr, uid, [('id','=', uid)])[0]
                         uid_id = users_obj.browse(cr, uid, uid)
                         email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
                         meeting_date = (fields.datetime.context_timestamp(cr, uid, datetime.strptime(meeting_id.date, '%Y-%m-%d %H:%M:%S'), context=context)).strftime('%Y-%m-%d %H:%M')
@@ -147,12 +147,12 @@ class crm_meeting(osv.Model):
         meeting_id = ids
         if ids:
             meeting_date = ''
-            if isinstance(ids[0], basestring):
+            if isinstance(ids, basestring):
                 ids = [int(re.search('\d+',ids[0]).group())]
                 meeting_date = datetime.strptime(re.search('2\d+',meeting_id[0]).group(), '%Y%m%d%H%M%S')
                 meeting_date = fields.datetime.context_timestamp(cr, uid, meeting_date, context=context)
                 meeting_date = meeting_date.strftime('%Y-%m-%d %H:%M:%S')
-            meeting = self.browse(cr, uid, ids)[0]
+            meeting = self.browse(cr, uid, ids)
             attendee_obj = self.pool.get('calendar.attendee')
             attendee = attendee_obj.search(cr, uid, [('meeting_ids','=',meeting.id)])
             if meeting_date is '':

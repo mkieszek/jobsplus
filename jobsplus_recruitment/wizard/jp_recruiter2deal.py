@@ -83,7 +83,16 @@ class jp_recruiter2deal(osv.Model):
                     trans_sub = translation_obj.browse(cr, uid, transl_sub)[0]
                     subject = trans_sub.value
                     
-            email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
+            partner_name = ''
+            partner_email = ''
+
+            if uid_id.partner_id.name:
+                partner_name = uid_id.partner_id.name
+
+            if uid_id.partner_id.email:
+                partner_email = uid_id.partner_id.email
+
+            email_from = partner_name + "<" + partner_email + ">"
                 
             vals = {'email_from': email_from,
                     'email_to': mail_to,

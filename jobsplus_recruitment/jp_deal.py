@@ -84,8 +84,7 @@ class jp_deal(osv.Model):
                 ad_ids = ad_obj.search(cr, uid, [('deal_id','=',ids[0])])
                 vals_ad = {}
                 vals_ad['activity'] = False
-                for ad_id in ad_ids:
-                    ad_obj.write(cr, uid, ad_id, vals_ad)
+                ad_obj.write(cr, uid, ad_ids, vals_ad)
         
         return deal_id
     def open_line_ad_form(self, cr, uid, id, context=None):

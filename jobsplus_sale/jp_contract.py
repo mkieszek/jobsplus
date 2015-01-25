@@ -138,7 +138,17 @@ class jp_contract(osv.Model):
             uid = users_obj.search(cr, uid, [('id','=',1)])[0]
             uid_id = users_obj.browse(cr, uid, uid)
             
-            email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
+            partner_name = ''
+            if uid_id and uid_id.partner_id and uid_id.partner_id.name:
+                partner_name = uid_id.partner_id.name
+            
+            partner_email = ''
+            if uid_id and uid_id.partner_id and uid_id.partner_id.email:
+                partner_email = uid_id.partner_id.email
+            
+            email_from = partner_name + "<" + partner_email + ">"
+            
+            #email_from = uid_id.partner_id.name+"<"+uid_id.partner_id.email+">"
                 
             vals = {'email_from': email_from,
                     'email_to': mail_to,
